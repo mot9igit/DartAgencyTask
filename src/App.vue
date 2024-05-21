@@ -1,8 +1,8 @@
 <template>
 	<div class="grid">
 		<div class="block">
-			<ArrowButton />
-			<ArrowButton />
+			<ArrowButton direction="left" />
+			<ArrowButton direction="right" />
 		</div>
 		<CloseButton />
 		<CustomButton style="width: 290px">Вывод средств</CustomButton>
