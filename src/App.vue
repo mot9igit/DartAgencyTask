@@ -19,7 +19,7 @@
 			<CustomRadio id="radio1" name="radio" />
 			<CustomRadio id="radio2" name="radio" />
 		</div>
-		<CustomTextBlock />
+		<CustomTextBlock>Да</CustomTextBlock>
 		<div class="block">
 			<PersonCard />
 			<PersonCard />
