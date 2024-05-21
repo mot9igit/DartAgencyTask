@@ -33,5 +33,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .grid {
   background-color: #1e1e1e;
+  padding: 30px;
+  min-height: 100dvh;
+  width: 100vw;
 }
 </style>
