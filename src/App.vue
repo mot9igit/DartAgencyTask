@@ -1,11 +1,12 @@
 <template>
-	<div class="grid grid--2">
+	<div class="grid">
     <div>
       <ArrowButton />
       <ArrowButton />
     </div>
     <CloseButton />
     <CustomButton style="width: 290px;">Вывод средств</CustomButton>
+    <CustomButton style="width: 290px;" theme="black">Вывод средств</CustomButton>
     <CustomCheckbox />
     <CustomIcon />
     <CustomInput />
@@ -29,4 +30,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.grid {
+  background-color: #1e1e1e;
+}
+</style>
