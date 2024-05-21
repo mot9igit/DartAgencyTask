@@ -50,6 +50,7 @@ export default defineComponent({
 		background-color: var(--color-red);
 		color: var(--color-white);
 
+		&:focus,
 		&:hover {
 			background-color: var(--color-dark-light-red);
 		}
@@ -63,6 +64,7 @@ export default defineComponent({
 		background-color: var(--color-black);
 		color: var(--color-white);
 
+		&:focus,
 		&:hover {
 			background-color: var(--color-white);
 			color: var(--color-black);

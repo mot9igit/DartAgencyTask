@@ -33,6 +33,7 @@ export default defineComponent({
         }
     }
 
+    &:focus,
     &:active {
         .button__cross {
             fill: var(--color-dark-light-red);
