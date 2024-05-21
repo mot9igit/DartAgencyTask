@@ -9,7 +9,12 @@
 		<CustomButton style="width: 290px" theme="black">Вывод средств</CustomButton>
 		<CustomCheckbox id="checkbox" />
 		<CustomIcon icon="vk" link="https://vk.com" />
-		<CustomInput />
+		<form class="block">
+      <CustomInput placeholder="ИНН" required=true />
+      <CustomInput placeholder="Ваше имя" />
+      <CustomInput placeholder="Название магазина" disable=true />
+      <CustomButton theme="red" type="submit" style="width: 150px;">Отправить</CustomButton>
+    </form>
 		<div class="block">
 			<CustomRadio id="radio1" name="radio" />
 			<CustomRadio id="radio2" name="radio" />
@@ -42,8 +47,9 @@ export default defineComponent({
 }
 .block {
 	display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-wrap: wrap;
 	gap: 10px;
 }
 </style>

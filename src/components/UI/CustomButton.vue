@@ -1,5 +1,5 @@
 <template>
-	<button :class="colorTheme">
+	<button :class="colorTheme" :type="type">
 		<div class="button__circle"></div>
 		<div class="button__content">
 			<slot></slot>
@@ -18,6 +18,10 @@ export default defineComponent({
 			type: String,
 			default: "red",
 		},
+		type: {
+			type: String,
+			default: "button",
+		}
 	},
 	computed: {
 		colorTheme() {
