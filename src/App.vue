@@ -8,14 +8,14 @@
 		<CustomButton style="width: 290px">Вывод средств</CustomButton>
 		<CustomButton style="width: 290px" theme="black">Вывод средств</CustomButton>
 		<CustomCheckbox id="checkbox" />
-		<CustomIcon />
+		<CustomIcon icon="vk" link="https://vk.com" />
 		<CustomInput />
 		<div class="block">
 			<CustomRadio id="radio1" name="radio" />
 			<CustomRadio id="radio2" name="radio" />
 		</div>
 		<CustomTextBlock />
-		<div>
+		<div class="block">
 			<PersonCard />
 			<PersonCard />
 			<PersonCard />
