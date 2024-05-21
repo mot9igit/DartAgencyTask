@@ -7,7 +7,7 @@
 		<CloseButton />
 		<CustomButton style="width: 290px">Вывод средств</CustomButton>
 		<CustomButton style="width: 290px" theme="black">Вывод средств</CustomButton>
-		<CustomCheckbox />
+		<CustomCheckbox id="checkbox" />
 		<CustomIcon />
 		<CustomInput />
 		<div class="block">
