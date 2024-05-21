@@ -25,8 +25,6 @@ export default defineComponent({
     width: 14px;
     aspect-ratio: 1;
 
-    transition: all var(--transition-duration) linear;
-
     &:hover {
         .button__cross {
             fill: var(--color-red);
@@ -38,6 +36,10 @@ export default defineComponent({
         .button__cross {
             fill: var(--color-dark-light-red);
         }
+    }
+
+    &__cross {
+        transition-duration: var(--transition-duration);
     }
 }
 </style>
