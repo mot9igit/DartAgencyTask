@@ -1,0 +1,61 @@
+@mixin red-gradient-background {
+	background: linear-gradient(
+		90deg,
+		#ff6058 0%,
+		#ff6058 33.3%,
+		#ff6058 61.21%,
+		rgba(255, 96, 88, 0.72) 95.45%
+	);
+}
+
+@mixin gray-gradient-background {
+	background: linear-gradient(
+		90deg,
+		rgba(154, 154, 154, 0.72) 0%,
+		rgba(27, 27, 27, 0.5) 33.3%,
+		rgba(27, 27, 27, 0.5) 61.21%,
+		rgba(154, 154, 154, 0.72) 95.45%
+	);
+}
+
+@mixin adaptive-background {
+	@include desktop-l {
+		background: url("../assets/img/background/bg_1920.png") center no-repeat;
+	}
+
+	@include desktop {
+		background: url("../assets/img/background/bg_1280.png") center no-repeat;
+	}
+
+	@include desktop-s {
+		background: url("../assets/img/background/bg_1024.png") center no-repeat;
+	}
+
+	@include tablet {
+		background: url("../assets/img/background/bg_768.png") center no-repeat;
+	}
+
+	@include mobile {
+		background: url("../assets/img/background/bg_320.png") center no-repeat;
+	}
+}
+
+@mixin visually-hidden {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
+	border: 0 !important;
+	padding: 0 !important;
+	white-space: nowrap !important;
+	clip-path: inset(100%) !important;
+	clip: rect(0 0 0 0) !important;
+	overflow: hidden !important;
+}
+
+@mixin absolute-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
