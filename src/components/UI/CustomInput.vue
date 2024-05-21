@@ -77,6 +77,10 @@ export default defineComponent({
 	&:disabled {
 		background-color: var(--color-light-black);
 		border-color: var(--color-transparent-10-white);
+
+		&::placeholder {
+			color: var(--color-light-very-dark-gray);
+		}
 	}
 
 	&:user-invalid {
