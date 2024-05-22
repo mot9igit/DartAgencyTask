@@ -17,6 +17,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../styles/mixins";
+@import "../styles/media";
 
 .home {
     @include adaptive-background;
@@ -31,6 +32,15 @@ export default defineComponent({
     height: 100dvh;
     width: 100vw;
 
-    padding-inline: 195px;
+    // padding-inline: 195px;
+    padding-inline: clamp(40px, 10vw, 195px);
+
+    @include desktop-l {
+        gap: clamp(20px, #{calc(40 * 100 / 1920)}px, 40px);
+    }
+
+    @include desktop-s {
+        gap: 20px;
+    }
 }
 </style>
