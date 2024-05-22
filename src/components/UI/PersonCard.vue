@@ -56,7 +56,7 @@ export default defineComponent({
 	aspect-ratio: 0.843;
 
 	position: relative;
-	overflow: hidden;
+	// overflow: hidden;
 
 	cursor: pointer;
 
@@ -65,16 +65,73 @@ export default defineComponent({
 	clip-path: polygon(
 		0 0,
 		100% 0,
+		100% 3%,
+		calc(100% + 8px) calc(3% + 8px),
+		calc(100% + 8px) 53%,
+		100%, calc(53% + 8px),
 		100% calc(var(--card-height) - var(--title-height)),
 		88.81% 100%,
 		0 100%
 	);
+
+	&::before {
+		content: "";
+
+		display: none;
+
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		translate: -100% 0;
+
+		height: 80%;
+		width: 8px;
+		clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 97%);
+
+		background-color: var(--color-light-red);
+		box-shadow: 0 0 11px 0 var(--color-light-red);
+	}
+
+	&::after {
+		content: "";
+
+		display: none;
+
+		position: absolute;
+		right: 0;
+		top: 3.85%;
+		translate: 100% 0;
+
+		height: 50%;
+		width: 8px;
+		clip-path: polygon(0 0, 100% 3%, 100% 97%, 0 100%);
+
+		background-color: var(--color-light-red);
+		box-shadow: 0 0 11px 0 var(--color-light-red);
+	}
 
 	&:hover,
 	&:active,
 	&:focus {
 		scale: 1.165;
 		filter: none;
+
+		z-index: 10;
+
+		&::before,
+		&::after {
+			display: block;
+		}
+
+		.card__img {
+			border: var(--border);
+			border-color: var(--color-light-red);
+		}
+
+		.card__title {
+			@include red-alt-gradient-background;
+			box-shadow: 0 0 11px 0 var(--color-light-red);
+		}
 	}
 
 	&__img {
@@ -100,6 +157,23 @@ export default defineComponent({
 
 		width: 100%;
 		height: 54px;
+
+		&::after {
+			content: '';
+
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			translate: 50% 0;
+			overflow: hidden;
+
+			background-color: var(--color-alt-black);
+
+			height: 100%;
+			aspect-ratio: 1;
+
+			transform: skew(-45deg);
+		}
 	}
 
 	@include desktop-l {

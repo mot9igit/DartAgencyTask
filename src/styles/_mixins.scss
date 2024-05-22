@@ -10,6 +10,16 @@
 	);
 }
 
+@mixin red-alt-gradient-background {
+	background: linear-gradient(
+		90deg,
+		#ff6058 0%,
+		#ff6058 34.88%,
+		#ff6058 64.14%,
+		rgba(255, 96, 88, 0.72) 100%
+	);
+}
+
 @mixin gray-gradient-background {
 	background: linear-gradient(
 		90deg,
