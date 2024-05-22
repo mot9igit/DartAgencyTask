@@ -1,3 +1,5 @@
+@import "./media";
+
 @mixin red-gradient-background {
 	background: linear-gradient(
 		90deg,
@@ -19,24 +21,28 @@
 }
 
 @mixin adaptive-background {
+	@include desktop-l-above {
+		background: url("../assets/img/background/bg_1920.png") no-repeat center center / cover;
+	}
+
 	@include desktop-l {
-		background: url("../assets/img/background/bg_1920.png") center no-repeat;
+		background: url("../assets/img/background/bg_1920.png") no-repeat center center / cover;
 	}
 
 	@include desktop {
-		background: url("../assets/img/background/bg_1280.png") center no-repeat;
+		background: url("../assets/img/background/bg_1280.png") no-repeat center center / cover;
 	}
 
 	@include desktop-s {
-		background: url("../assets/img/background/bg_1024.png") center no-repeat;
+		background: url("../assets/img/background/bg_1024.png") no-repeat center center / cover;
 	}
 
 	@include tablet {
-		background: url("../assets/img/background/bg_768.png") center no-repeat;
+		background: url("../assets/img/background/bg_768.png") no-repeat center center / cover;
 	}
 
 	@include mobile {
-		background: url("../assets/img/background/bg_320.png") center no-repeat;
+		background: url("../assets/img/background/bg_320.png") no-repeat center center / cover;
 	}
 }
 
