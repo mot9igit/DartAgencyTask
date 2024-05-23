@@ -90,22 +90,6 @@ export default defineComponent({
 			display: block;
 		}
 	}
-
-	@include desktop-l {
-		--card-height: clamp(375px, 48dvh, 573px);
-	}
-
-	@include desktop {
-	}
-
-	@include desktop-s {
-	}
-
-	@include tablet {
-	}
-
-	@include mobile {
-	}
 }
 
 .card {
