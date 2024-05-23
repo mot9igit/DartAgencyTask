@@ -20,10 +20,10 @@
 			<CustomRadio id="radio2" name="radio" />
 		</div>
 		<CustomTextBlock>Да</CustomTextBlock>
-		<div class="block">
-			<PersonCard card=1 />
+		<div class="block" style="justify-content: center;">
+			<!-- <PersonCard card=1 /> -->
 			<PersonCard card=2 />
-			<PersonCard card=3 />
+			<!-- <PersonCard card=3 /> -->
 		</div>
 	</div>
 </template>
@@ -44,6 +44,7 @@ export default defineComponent({
 .grid {
 	background-color: #1e1e1e;
 	padding: 30px;
+	padding-bottom: 100px;
 	min-height: 100dvh;
 	width: 100vw;
 }

@@ -6,7 +6,7 @@ import UI from "./components/UI";
 const app = createApp(App);
 
 UI.forEach(component => {
-    app.component(component.name, component);
+    app.component(component.name!, component);
 });
 
 app.mount("#app");

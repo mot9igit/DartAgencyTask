@@ -6,8 +6,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import Home from "./components/Home.vue";
-import Test from "./components/Test.vue";
+import Home from "./views/Home.vue";
+import Test from "./views/Test.vue";	
 
 export default defineComponent({
 	setup() {

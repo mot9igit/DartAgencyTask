@@ -76,6 +76,12 @@
 	transform: translate(-50%, -50%);
 }
 
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 @mixin adaptive-scales(
 	$desktop-l-scale,
 	$desktop-scale,

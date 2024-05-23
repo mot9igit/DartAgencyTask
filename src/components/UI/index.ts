@@ -7,6 +7,7 @@ import CustomRadio from "./CustomRadio.vue";
 import CustomTextBlock from "./CustomTextBlock.vue";
 import CustomIcon from "./CustomIcon.vue";
 import PersonCard from "./PersonCard.vue";
+import CustomTitle from "./CustomTitle.vue";
 
 export default [
 	ArrowButton,
@@ -18,4 +19,5 @@ export default [
 	CustomTextBlock,
 	CustomIcon,
 	PersonCard,
+	CustomTitle
 ];
