@@ -116,9 +116,9 @@ export default defineComponent({
 		position: absolute;
 
 		&--left {
-			left: 0;
+			left: -8px;
 			bottom: 0;
-			translate: -95% 0;
+			translate: 10% 0;
 
 			height: 80%;
 
@@ -128,9 +128,9 @@ export default defineComponent({
 		}
 
 		&--right {
-			right: 0;
+			right: -8px;
 			top: 3.85%;
-			translate: 95% 0;
+			translate: -10% 0;
 
 			height: 50%;
 
