@@ -1,14 +1,14 @@
 <template>
-	<div class="home">
+	<section class="home">
 		<header class="home__header header">
 			<hr class="header__hr" />
 			<CustomTitle class="header__title" text="Выберите свою" span="компанию" />
 			<hr class="header__hr" />
 		</header>
 		<div class="home__card-container">
-			<PersonCard :card="1" />
-			<PersonCard :card="2" />
-			<PersonCard :card="3" />
+			<PersonCard :card="1" @setCompany="setCompany" />
+			<PersonCard :card="2" @setCompany="setCompany" />
+			<PersonCard :card="3" @setCompany="setCompany" />
 		</div>
 		<footer class="home__foter footer">
 			<p class="footer__text">Подключение к сервисам MachineStore</p>
@@ -16,7 +16,7 @@
 				<img src="../assets/logo.svg" alt="logo" class="footer__logo" />
 			</a>
 		</footer>
-	</div>
+	</section>
 </template>
 
 <script lang="ts">
@@ -31,6 +31,11 @@ export default defineComponent({
 		PersonCard,
 		CustomTitle,
 	},
+	methods: {
+		setCompany(value: number) {
+			this.$emit("setCompanyNumber", value);
+		},
+	}
 });
 </script>
 
@@ -39,17 +44,10 @@ export default defineComponent({
 @import "../styles/media";
 
 .home {
-	@include adaptive-background;
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-
-	background-color: var(--color-alt-black);
-
-	height: 100dvh;
-	width: 100vw;
 
 	padding-inline: 195px;
 

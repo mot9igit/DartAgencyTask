@@ -1,6 +1,6 @@
 <template>
 	<section class="section">
-		<img :src="company.image" alt="company image" class="section__img" />
+		<img :src="companyImage" alt="company image" class="section__img" />
 		<div class="section__content content">
 			<h4 class="content__title">{{ company.title }}</h4>
 			<div class="content__opportunities">
@@ -10,16 +10,16 @@
 					:opportunity="opportunity"
 				/>
 			</div>
-            <CustomButton class="content__button">Выбрать</CustomButton>
+			<CustomButton class="content__button">Выбрать</CustomButton>
 		</div>
 
-        <ArrowButton direction="left" class="section__arrow section__arrow--left" />
-        <ArrowButton direction="right" class="section__arrow section__arrow--right" />
+		<ArrowButton direction="left" class="section__arrow section__arrow--left" />
+		<ArrowButton direction="right" class="section__arrow section__arrow--right" />
 	</section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Ref, defineComponent, ref } from "vue";
 import { CompanyType } from "../../types/SelectCompanyPageTypes";
 import { companies } from "../../data/Companies";
 import OpportunityCard from "./OpportunityCard.vue";
@@ -28,12 +28,12 @@ import ArrowButton from "../UI/ArrowButton.vue";
 
 export default defineComponent({
 	setup() {
-		const company: CompanyType | null = {
-			id: 0,
-			title: "",
-			image: "",
-			opportunities: [],
-		};
+        const company: Ref<CompanyType> = ref({
+            id: 0,
+            title: "",
+            image: "",
+            opportunities: [],
+        });
 
 		return {
 			company,
@@ -53,9 +53,14 @@ export default defineComponent({
 			return company ? company : { id: 0, title: "", image: "", opportunities: [] };
 		},
 	},
+    computed: {
+        companyImage() {
+            return `/img/cards/${this.company.image}`;
+        }
+    },
 	components: {
-        OpportunityCard,
-        CustomButton,
+		OpportunityCard,
+		CustomButton,
 	},
 	mounted() {
 		this.company = this.getCompany();
@@ -67,61 +72,63 @@ export default defineComponent({
 @import "../../styles/mixins";
 
 .section {
-    @include flex-center;
-    gap: 24px;
+	@include flex-center;
+	gap: 24px;
 
-    padding-inline: 195px;
-    padding-top: 80px;
+	padding: 80px 195px 0;
+
+	overflow: hidden;
 
 	&__img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
+		height: 944px;
+		width: 600px;
+		object-fit: contain;
 	}
 
 	.content {
-        display: flex;
-        align-items: center;
+		display: flex;
+		align-items: flex-start;
+        flex-direction: column;
 
 		&__title {
-            font: {
-                size: 100px;
-                weight: 700;
-            }
-            line-height: 100px;
-            
-            color: var(--color-white);
+			font: {
+				size: 100px;
+				weight: 700;
+			}
+			line-height: 100px;
 
-            margin-bottom: 80px;
+			color: var(--color-white);
+
+			margin-bottom: 80px;
 		}
 
 		&__opportunities {
-            display: grid;
-            grid-template: auto / repeat(2, 1fr);
-            gap: 24px;
+			display: grid;
+			grid-template: auto / repeat(2, 1fr);
+			gap: 24px;
 		}
 
-        &__button {
-            font: {
-                size: 18px;
-            }
+		&__button {
+			font: {
+				size: 18px;
+			}
 
-            margin-top: 40px;
-            height: 50px;
-            width: 241px;
-        }
+			margin-top: 40px;
+			height: 50px;
+			width: 241px;
+		}
 	}
 
-    &__arrow {
-        @include absolute-center;
+	&__arrow {
+		@include absolute-center;
 
-        &--left {
-            left: 0;
-        }
+		&--left {
+			left: 195px;
+		}
 
-        &--right {
-            left: 100%;
-        }
-    }
+		&--right {
+			left: calc(100% - 195px);
+		}
+	}
 }
 </style>

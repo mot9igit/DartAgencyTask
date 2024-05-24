@@ -1,6 +1,6 @@
 <template>
 	<div class="card-wrapper">
-		<button class="card">
+		<button class="card" type="button" @click="setCompany">
 			<img class="card__img" :src="image" />
 			<h4 class="card__title">{{ name }}</h4>
 		</button>
@@ -19,32 +19,36 @@ import { defineComponent } from "vue";
 export default defineComponent({
 	name: "PersonCard",
 
-	props: {
-		card: {
-			type: Number,
-			required: true,
-		},
-	},
-
-	computed: {
-		name() {
-			return this.cardNames[this.card];
-		},
-		image() {
-			return `/src/assets/img/cards/card${this.card}.png`;
-		},
-	},
-
+	
 	setup() {
 		const cardNames: Record<number, string> = {
 			1: "Производитель",
 			2: "Оптовая компания",
 			3: "Магазин",
 		};
-
+		
 		return {
 			cardNames,
 		};
+	},
+	props: {
+		card: {
+			type: Number,
+			required: true,
+		},
+	},
+	methods: {
+		setCompany() {			
+			this.$emit("setCompany", this.card);
+		}
+	},
+	computed: {
+		name() {
+			return this.cardNames[this.card];
+		},
+		image() {
+			return `/img/cards/card${this.card}.png`;
+		},
 	},
 });
 </script>

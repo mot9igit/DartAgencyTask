@@ -23,6 +23,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/mixins";
+
 .card {
 	display: flex;
 	flex-direction: column;
@@ -36,23 +38,25 @@ export default defineComponent({
 
 	width: 364px;
 	height: 166px;
-	clip-path: polygon(0 0, 100% 0, 100% 72.73%, 95.07% 100%, 0 100%);
+	clip-path: polygon(0 0, 100% 0, 100% 87%, 94.3% 100%, 0 100%);
+
+	position: relative;
 
 	&::after {
 		content: "";
 
 		position: absolute;
-		right: -11.5px;
+		right: -12px;
 		bottom: 0;
 
 		border: var(--border);
 		border-color: var(--color-transparent-35-white);
 		background-color: var(--color-transparent-35-white);
 
-		width: 21.1px;
+		width: 20px;
 		height: 18.8px;
 
-		transform: skew(-47.8deg);
+		transform: skew(-44deg);
 	}
 
 	&__title {
@@ -73,11 +77,12 @@ export default defineComponent({
 
 			content: "";
 
-			left: -16px;
+			left: -28px;
 
 			width: 12px;
 			aspect-ratio: 1;
 
+			background-color: var(--color-light-red);
 			box-shadow: 0 0 10px 0 var(--color-light-red);
 			rotate: 45deg;
 		}
