@@ -8,6 +8,7 @@ import CustomTextBlock from "./CustomTextBlock.vue";
 import CustomIcon from "./CustomIcon.vue";
 import PersonCard from "./PersonCard.vue";
 import CustomTitle from "./CustomTitle.vue";
+import CardTitle from "./CardTitle.vue";
 
 export default [
 	ArrowButton,
@@ -19,5 +20,6 @@ export default [
 	CustomTextBlock,
 	CustomIcon,
 	PersonCard,
-	CustomTitle
+	CustomTitle,
+	CardTitle
 ];

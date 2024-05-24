@@ -4,7 +4,7 @@ export const companies: CompanyType[] = [
 	{
 		id: 1,
 		title: "Производитель",
-		image: "card1-transparent.png",
+		image: "/img/cards/card1-transparent.png",
 		opportunities: [
 			{
 				id: 1,
@@ -26,7 +26,7 @@ export const companies: CompanyType[] = [
 	{
 		id: 2,
 		title: "Оптовая компания",
-		image: "card2-transparent.png",
+		image: "/img/cards/card2-transparent.png",
 		opportunities: [
 			{
 				id: 1,
@@ -48,7 +48,7 @@ export const companies: CompanyType[] = [
 	{
 		id: 3,
 		title: "Магазин",
-		image: "card3-transparent.png",
+		image: "/img/cards/card3-transparent.png",
 		opportunities: [
 			{
 				id: 1,

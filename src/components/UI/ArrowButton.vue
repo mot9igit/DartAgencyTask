@@ -53,6 +53,8 @@ export default defineComponent({
 
     transition-duration: var(--transition-duration);
 
+    z-index: 100;
+
     &:focus,
     &:active,
     &:hover {

@@ -1,6 +1,6 @@
 <template>
 	<section class="section">
-		<img :src="companyImage" alt="company image" class="section__img" />
+		<img :src="company.image" alt="company image" class="section__img" />
 		<div class="section__content content">
 			<h4 class="content__title">{{ company.title }}</h4>
 			<div class="content__opportunities">
@@ -13,8 +13,8 @@
 			<CustomButton class="content__button">Выбрать</CustomButton>
 		</div>
 
-		<ArrowButton direction="left" class="section__arrow section__arrow--left" />
-		<ArrowButton direction="right" class="section__arrow section__arrow--right" />
+		<ArrowButton direction="left" class="section__arrow section__arrow--left" @click="decreaseCompanyNumber" />
+		<ArrowButton direction="right" class="section__arrow section__arrow--right" @click="increaseCompanyNumber" />
 	</section>
 </template>
 
@@ -52,12 +52,13 @@ export default defineComponent({
 			);
 			return company ? company : { id: 0, title: "", image: "", opportunities: [] };
 		},
+		increaseCompanyNumber(): void {
+			this.$emit('setCompanyNumber', this.cardNumber + 1 > 3 ? this.cardNumber : this.cardNumber + 1)
+		},
+		decreaseCompanyNumber(): void {
+			this.$emit('setCompanyNumber', this.cardNumber - 1 < 1 ? this.cardNumber : this.cardNumber - 1)
+        },
 	},
-    computed: {
-        companyImage() {
-            return `/img/cards/${this.company.image}`;
-        }
-    },
 	components: {
 		OpportunityCard,
 		CustomButton,

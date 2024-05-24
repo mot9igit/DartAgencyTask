@@ -1,8 +1,8 @@
 <template>
 	<div class="card-wrapper">
-		<button class="card" type="button" @click="setCompany">
+		<button class="card" type="button" @click="setCompanyNumber">
 			<img class="card__img" :src="image" />
-			<h4 class="card__title">{{ name }}</h4>
+			<CardTitle class="card__title">{{ name }}</CardTitle>
 		</button>
 		<div class="card__section-wrapper card__section-wrapper--left">
 			<div class="card__section"></div>
@@ -38,8 +38,8 @@ export default defineComponent({
 		},
 	},
 	methods: {
-		setCompany() {			
-			this.$emit("setCompany", this.card);
+		setCompanyNumber() {					
+			this.$emit("setCompanyNumber", this.card);
 		}
 	},
 	computed: {
@@ -159,22 +159,6 @@ export default defineComponent({
 	}
 
 	&__title {
-		@include gray-gradient-background;
-
-		font: {
-			weight: 700;
-		}
-		color: var(--color-white);
-
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		position: absolute;
-		bottom: 0;
-
-		width: 100%;
-		height: 54px;
 	}
 }
 </style>

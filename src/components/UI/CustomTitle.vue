@@ -1,6 +1,7 @@
 <template>
 	<h3 class="title">
 		{{ text }}&nbsp;<span class="title__span">{{ span }}</span>
+		<slot></slot>
 	</h3>
 </template>
 

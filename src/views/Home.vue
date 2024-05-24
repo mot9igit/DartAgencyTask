@@ -6,9 +6,9 @@
 			<hr class="header__hr" />
 		</header>
 		<div class="home__card-container">
-			<PersonCard :card="1" @setCompany="setCompany" />
-			<PersonCard :card="2" @setCompany="setCompany" />
-			<PersonCard :card="3" @setCompany="setCompany" />
+			<PersonCard :card="1" @setCompanyNumber="setCompanyNumber" />
+			<PersonCard :card="2" @setCompanyNumber="setCompanyNumber" />
+			<PersonCard :card="3" @setCompanyNumber="setCompanyNumber" />
 		</div>
 		<footer class="home__foter footer">
 			<p class="footer__text">Подключение к сервисам MachineStore</p>
@@ -32,9 +32,9 @@ export default defineComponent({
 		CustomTitle,
 	},
 	methods: {
-		setCompany(value: number) {
+		setCompanyNumber(value: number) {
 			this.$emit("setCompanyNumber", value);
-		},
+		}
 	}
 });
 </script>
