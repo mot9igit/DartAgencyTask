@@ -1,57 +1,73 @@
 <template>
-    <input :id="id" type="radio" :name="name" class="radio" />
-    <label :for="id" class="radio__label"></label>
+	<div class="radio__wrapepr">
+		<input :id="id" type="radio" :name="name" class="radio" />
+		<label :for="id" class="radio__change"></label>
+		<label :for="id" class="radio__label">{{ label }}</label>
+	</div>
 </template>
 
 <script>
-    import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
-    export default defineComponent({
-        name: 'CustomRadio',
+export default defineComponent({
+	name: "CustomRadio",
 
-        props: {
-            id: {
-                type: String,
-                required: true,
-            },
-            name: {
-                type: String,
-                required: true,
-            }
-        }
-    });
+	props: {
+		id: {
+			type: String,
+			required: true,
+		},
+		name: {
+			type: String,
+			required: true,
+		},
+		label: {
+			type: String,
+			required: false,
+		},
+	},
+});
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/mixins';
+@import "../../styles/mixins";
 
 .radio {
-    @include visually-hidden;
+	@include visually-hidden;
 
-    &:hover {
-        & + .radio__label {
-            border-color: var(--color-red);
-        }
+	&:hover {
+		& + .radio__change {
+			border-color: var(--color-red);
+		}
+	}
+
+	&:focus,
+	&:active,
+	&:checked {
+		& + .radio__change {
+			border-color: var(--color-dark-light-red);
+		}
+	}
+
+    &__wrapper {
+        display: flex;
+        gap: 8px;
+
+		position: relative;
     }
 
-    &:focus,
-    &:active,
-    &:checked {
-        & + .radio__label {
-            border-color: var(--color-dark-light-red);
-        }
-    }
+	&__change {
+		display: block;
 
-    &__label {
-        display: block;
+		border: 1px solid var(--color-light-dark-gray);
+		border-radius: var(--border-radius-circle);
 
-        border: 1px solid var(--color-light-dark-gray);
-        border-radius: var(--border-radius-circle);
+		width: 18px;
+		height: 18px;
 
-        width: 18px;
-        aspect-ratio: 1;
+        flex-shrink: 0;
 
-        transition-duration: var(--transition-duration);
-    }
+		transition-duration: var(--transition-duration);
+	}
 }
 </style>

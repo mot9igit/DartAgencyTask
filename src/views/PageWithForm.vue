@@ -62,22 +62,24 @@
 				<main class="form__main">
 					<h4 class="form__subtitle">Компания №1</h4>
 
-					<section class="store form__store">
-						<div class="store__info">
-							<h3 class="store__title">Данные магазина</h3>
+					<section class="form__container">
+						<div class="container__info">
+							<h3 class="container__title">Данные магазина</h3>
 							<p class="form__text">
 								Эта информация необходима для того, чтобы знать, к кому обращаться в случае вопросов
 								по заказам в вашем магазине
 							</p>
 						</div>
-						<div class="store__data">
-							<div class="store__input-container">
+						<div class="container__data">
+							<div class="container__input-container">
 								<CustomInput class="form__input" />
 								<CustomInput class="form__input" />
 							</div>
-							<div class="map store__map">
+							<div class="map container__map">
 								<img src="/img/map.png" alt="map image" />
-								<CustomButtom theme="black" class="form__button">Выбрать на карте</CustomButtom>
+								<CustomButtom theme="black" class="form__button map__button"
+									>Выбрать на карте</CustomButtom
+								>
 							</div>
 							<CustomCheckbox
 								id="storeMode"
@@ -90,9 +92,9 @@
 						</div>
 					</section>
 
-					<section class="order form__order">
-						<div class="order__info">
-							<h6 class="order__title">Организационно-правовая форма</h6>
+					<section class="form__container">
+						<div class="container__info">
+							<h6 class="container__title">Организационно-правовая форма</h6>
 							<CustomCheckbox
 								id="orderCopy"
 								label="Копировать данные организационно-правовой формы
@@ -100,10 +102,112 @@
 								class="form__checkbox"
 							/>
 						</div>
+						<div class="container__input-container">
+							<CustomRadio id="ip" label="Индивидуальный предприниматель" name="orderSelect" />
+							<CustomRadio id="ur" label="Юридическое лицо" name="orderSelect" />
+						</div>
 					</section>
+
+					<section class="form__container">
+						<div class="container__info">
+							<h6 class="form__title">Юридические данные магазина</h6>
+							<CustomCheckbox
+								id="storeDataCopy"
+								label="Копировать юридические данные для остальных
+							магазинов"
+								class="form__checkbox"
+							/>
+							<div class="container__check">
+								<p class="form__text form__text--white">
+									Пожалуйста, проверьте автоматически заполненные поля
+								</p>
+								<img src="../assets/svg/not-error.svg" class="store-data__check-icon" />
+							</div>
+						</div>
+						<div class="container__data">
+							<div class="container__input-container container__input-container--border">
+								<CustomInput placeholder="ИНН" required="true" class="form__input" />
+								<CustomInput placeholder="КПП" class="form__input" />
+								<CustomInput placeholder="ОГРН" class="form__input" />
+								<CustomInput placeholder="Название юридического лица" class="form__input" />
+								<CustomInput placeholder="Система налогообложения" class="form__input" />
+								<CustomInput placeholder="Юридический Адрес" class="form__input" />
+								<CustomInput placeholder="Фактический адрес" required="true" class="form__input" />
+								<CustomInput placeholder="НДС" required="true" class="form__input" />
+								<CustomInput placeholder="БИК" required="true" class="form__input" />
+								<CustomInput placeholder="Банк" class="form__input" />
+								<CustomInput placeholder="К/с" class="form__input" />
+								<CustomInput placeholder="ИНН" required="true" class="form__input" />
+							</div>
+							<div class="container__input-container">
+								<CustomInput placeholder="Телефон/факс" required="true" class="form__input" />
+								<CustomInput placeholder="Email" required="true" class="form__input" />
+								<CustomInput placeholder="ФИО подписанта" required="true" class="form__input" />
+								<CustomInput
+									placeholder="Должность подписанта"
+									required="true"
+									class="form__input"
+								/>
+								<CustomInput
+									placeholder="Основание действий подписанта"
+									required="true"
+									class="form__input"
+								/>
+							</div>
+						</div>
+					</section>
+
+					<section class="form__container">
+						<div class="container__info">
+							<h6 class="form__title">Данные лица ответственного за подключение (ЛПР)</h6>
+							<p class="form__text">
+								На старте и в последующем, нам необходимо знать, к кому обращаться при подключении.
+							</p>
+							<CustomCheckbox
+								id="storeDataCopy"
+								label="Копировать юридические данные для остальных
+							магазинов"
+								class="form__checkbox"
+							/>
+						</div>
+						<div class="container__input-container">
+							<CustomInput placeholder="Должность" required="true" class="form__input" />
+							<CustomInput placeholder="ФИО" class="form__input" />
+							<CustomInput placeholder="Телефон" class="form__input" />
+							<CustomInput placeholder="Email" required="true" class="form__input" />
+						</div>
+					</section>
+
+					<CustomButton theme="black" class="form__button">+ Добавить компанию</CustomButton>
+
+					<section class="form__container">
+						<div class="container__info">
+							<h4 class="form__title">От сотрудников какой компании вы узнали о маркетплейсе</h4>
+						</div>
+						<div class="container__data">
+							<CustomInput placeholder="Выберите компанию" class="form__input" />
+						</div>
+					</section>
+
+					<CustomButton theme="red" type="submit" class="form__button">Отправить</CustomButton>
 				</main>
 			</form>
 		</main>
+		<footer class="footer form-page__footer">
+			<div class="footer__contacts contacts">
+				<a href="https://mst.tools/" target="_blank" class="footer__link">machinestore.ru</a>
+				<p class="contacts__text">
+					<a href="tel:+74993255250" class="footer__link">+7 (499) 325-52-50</a> – контактный
+					телефон для вопросов
+				</p>
+			</div>
+			<div class="footer__content container">
+				<div class="footer__icon-container">
+					<CustomIcon icon="vk" class="footer__icon" />
+				</div>
+				<p class="footer__text">© 2023 ООО МС</p>
+			</div>
+		</footer>
 	</section>
 </template>
 

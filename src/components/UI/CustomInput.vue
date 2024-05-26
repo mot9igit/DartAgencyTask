@@ -5,7 +5,7 @@
 			:type="type"
 			class="input"
 			:placeholder="placeholder"
-			:disabled="disable"
+			:disabled="disabled"
 			:required="required"
 		/>
 		<label :for="id" class="input__label"
@@ -33,7 +33,7 @@ export default defineComponent({
 			type: String,
 			default: "",
 		},
-		disable: {
+		disabled: {
 			type: Boolean,
 			default: false,
 		},

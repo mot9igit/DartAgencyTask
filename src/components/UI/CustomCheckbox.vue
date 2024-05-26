@@ -1,5 +1,5 @@
 <template>
-	<div class="checkbox__container">
+	<div class="checkbox__wrapper">
 		<input :id="id" type="checkbox" class="checkbox" />
 		<label :for="id" class="checkbox__change">
 			<svg
@@ -33,8 +33,8 @@ export default defineComponent({
 		},
 		label: {
 			type: String,
-			required: false
-		}
+			required: false,
+		},
 	},
 });
 </script>
@@ -64,7 +64,7 @@ export default defineComponent({
 		}
 	}
 
-	&__container {
+	&__wrapper {
 		display: flex;
 		gap: 8px;
 
@@ -94,6 +94,7 @@ export default defineComponent({
 		aspect-ratio: 1;
 	}
 
-	&__label {}
+	&__label {
+	}
 }
 </style>

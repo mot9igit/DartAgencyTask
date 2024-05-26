@@ -12,7 +12,7 @@
 		<form class="block">
       <CustomInput placeholder="ИНН" required=true />
       <CustomInput placeholder="Ваше имя" />
-      <CustomInput placeholder="Название магазина" disable=true />
+      <CustomInput placeholder="Название магазина" disabled=true />
       <CustomButton theme="red" type="submit" style="width: 150px;">Отправить</CustomButton>
     </form>
 		<div class="block">
