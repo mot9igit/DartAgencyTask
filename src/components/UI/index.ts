@@ -9,6 +9,7 @@ import CustomIcon from "./CustomIcon.vue";
 import PersonCard from "./PersonCard.vue";
 import CustomTitle from "./CustomTitle.vue";
 import CardTitle from "./CardTitle.vue";
+import CustomSelect from "./CustomSelect/CustomSelect.vue";
 
 export default [
 	ArrowButton,
@@ -21,5 +22,6 @@ export default [
 	CustomIcon,
 	PersonCard,
 	CustomTitle,
-	CardTitle
+	CardTitle,
+	CustomSelect
 ];

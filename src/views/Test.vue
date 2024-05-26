@@ -10,19 +10,20 @@
 		<CustomCheckbox id="checkbox" />
 		<CustomIcon icon="vk" link="https://vk.com" />
 		<form class="block">
-      <CustomInput placeholder="ИНН" required=true />
-      <CustomInput placeholder="Ваше имя" required="true" style="width: 300px;"/>
-      <CustomInput placeholder="Название магазина" disabled=true />
-      <CustomButton theme="red" type="submit" style="width: 150px;">Отправить</CustomButton>
-    </form>
+			<CustomInput placeholder="ИНН" required="true" />
+			<CustomInput placeholder="Ваше имя" required="true" style="width: 300px" />
+			<CustomInput placeholder="Название магазина" disabled="true" />
+			<CustomButton theme="red" type="submit" style="width: 150px">Отправить</CustomButton>
+		</form>
+		<CustomSelect placeholder="Выберите компанию" :companies="companiesInfo" style="width: 500px;" />
 		<div class="block">
 			<CustomRadio id="radio1" name="radio" />
 			<CustomRadio id="radio2" name="radio" />
 		</div>
 		<CustomTextBlock>Да</CustomTextBlock>
-		<div class="block" style="justify-content: center;">
+		<div class="block" style="justify-content: center">
 			<!-- <PersonCard card=1 /> -->
-			<PersonCard card=2 />
+			<PersonCard card="2" />
 			<!-- <PersonCard card=3 /> -->
 		</div>
 	</div>
@@ -30,12 +31,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { companiesInfo } from "../data/CompaniesInfo";
 
 export default defineComponent({
-    name: 'Test',
+	name: "Test",
 
 	setup() {
-		return {};
+		return {
+			companiesInfo
+		};
 	},
 });
 </script>
@@ -50,9 +54,9 @@ export default defineComponent({
 }
 .block {
 	display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-end;
+	flex-wrap: wrap;
 	gap: 10px;
 }
 </style>
