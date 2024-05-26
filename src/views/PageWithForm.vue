@@ -230,7 +230,11 @@
 							<h4 class="form__title">От сотрудников какой компании вы узнали о маркетплейсе</h4>
 						</div>
 						<div class="container__data">
-							<CustomInput placeholder="Выберите компанию" class="form__input" />
+							<CustomSelect
+								placeholder="Выберите компанию"
+								:companies="companiesInfo"
+								class="form__input"
+							/>
 						</div>
 					</section>
 
@@ -266,10 +270,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { companiesInfo } from "../data/CompaniesInfo";
 
 export default defineComponent({
 	setup() {
-		return {};
+		return {
+			companiesInfo,
+		};
 	},
 });
 </script>
@@ -556,9 +563,9 @@ export default defineComponent({
 			font-size: 13px;
 			line-height: 20px;
 
-            &--large {
-                font-size: 15px;
-            }
+			&--large {
+				font-size: 15px;
+			}
 		}
 
 		&__link {

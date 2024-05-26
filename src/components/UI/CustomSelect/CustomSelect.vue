@@ -85,6 +85,17 @@ export default defineComponent({
 
 	mounted() {
 		this.selectInput = document.querySelector('[data-id="selectInput"]') as HTMLInputElement;
+
+		const selectItems = document.getElementById('selectItems') as HTMLUListElement;
+		const selectArrow = document.getElementById('selectArrow') as HTMLImageElement;
+		window.addEventListener('click', (e) => {
+			if(e.target === this.selectInput || e.target === selectArrow) return;
+			else if(e.target === selectItems) e.preventDefault();
+			else {
+				this.isClicked = false;
+				this.selectInput.blur();
+			}
+		});
 	},
 });
 </script>
@@ -124,6 +135,7 @@ export default defineComponent({
 		translate: 0 -50%;
 
 		transition-duration: var(--transition-duration);
+		cursor: pointer;
 	}
 
 	&__items {
