@@ -80,6 +80,8 @@ export default defineComponent({
 			this.isClicked = false;
 			this.selectInput.value = company.name;
 			this.selectInput.blur();
+
+			this.$emit('change', company);
 		}
 	},
 

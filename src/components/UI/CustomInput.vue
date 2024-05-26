@@ -7,6 +7,7 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
+			:value="value"
 		/>
 		<label :for="id" class="input__label"
 			>{{ placeholder }} <span class="input__span"> – введите корректное значение</span></label
@@ -42,6 +43,10 @@ export default defineComponent({
 			type: Boolean,
 			default: false,
 		},
+		value: {
+			type: String,
+			default: "",
+		}
 	},
 });
 </script>
@@ -91,6 +96,13 @@ export default defineComponent({
 			display: block;
 		}
 	}
+
+	// &:user-valid {
+	// 	& + .input__label > .input__span,
+	// 	& + .input__label + .input__error-icon {
+	// 		display: none;
+	// 	}
+	// }
 
 	&:not(:user-invalid) {
 		& + .input__label > .input__span,

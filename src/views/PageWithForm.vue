@@ -76,8 +76,16 @@
 						</div>
 						<div class="container__data">
 							<div class="container__input-container store-data__input-container">
-								<CustomInput placeholder="Название магазина" class="form__input" />
-								<CustomInput placeholder="Адрес магазина" class="form__input" />
+								<CustomInput
+									placeholder="Название магазина"
+									:value="company.name"
+									class="form__input"
+								/>
+								<CustomInput
+									placeholder="Адрес магазина"
+									:value="company.address"
+									class="form__input"
+								/>
 							</div>
 							<div class="map form__map">
 								<img src="/img/map.png" alt="map" />
@@ -196,7 +204,7 @@
 
 					<section class="form__container">
 						<div class="container__info">
-							<h6 class="form__title">Данные лица ответственного за подключение (ЛПР)</h6>
+							<h6 class="form__title">Данные лица ответственного<br />за подключение (ЛПР)</h6>
 							<p class="form__text">
 								На старте и в последующем, нам необходимо знать, к кому обращаться при подключении.
 							</p>
@@ -234,6 +242,7 @@
 								placeholder="Выберите компанию"
 								:companies="companiesInfo"
 								class="form__input"
+								@change="setCompany"
 							/>
 						</div>
 					</section>
@@ -269,14 +278,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Ref, defineComponent, ref } from "vue";
 import { companiesInfo } from "../data/CompaniesInfo";
+import { SelectCompanyType } from "../types/SelectCompanyType";
 
 export default defineComponent({
 	setup() {
+		const company: Ref<SelectCompanyType> = ref({} as SelectCompanyType);
+
 		return {
 			companiesInfo,
+			company,
 		};
+	},
+
+	methods: {
+		setCompany(company: SelectCompanyType) {
+			this.company = company;
+		},
 	},
 });
 </script>
@@ -444,6 +463,12 @@ export default defineComponent({
 
 				&--add {
 					margin-top: 40px;
+				}
+			}
+
+			&__text {
+				&--white {
+					color: var(--color-white);
 				}
 			}
 
