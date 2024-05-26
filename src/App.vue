@@ -8,6 +8,10 @@
 			@setCompanyNumber="setCompanyNumber"
 		/>
 		<Edo v-if="location === '/edo'" :cardNumber="companyNumber" />
+		<AnswerNo v-if="location === '/edo/no'" />
+		<AnswerWantPut v-if="location === '/edo/want-put'" />
+		<PageWithForm v-if="location === '/form'" />
+
 		<!-- <component :is="currentView" @setCompanyNumber="setCompanyNumber" :cardNumber="companyNumber" /> -->
 	</main>
 </template>
@@ -19,6 +23,9 @@ import Home from "./views/Home.vue";
 import Test from "./views/Test.vue";
 import CompanySelectPage from "./components/CompanySelectPage/CompanySelectPage.vue";
 import Edo from "./views/Edo.vue";
+import AnswerNo from "./components/Edo/Answers/AnswerNo.vue";
+import AnswerWantPut from "./components/Edo/Answers/AnswerWantPut.vue";
+import PageWithForm from "./views/PageWithForm.vue";
 
 export default defineComponent({
 	setup() {
@@ -47,6 +54,9 @@ export default defineComponent({
 		Test,
 		CompanySelectPage,
 		Edo,
+		AnswerNo,
+		AnswerWantPut,
+		PageWithForm,
 	},
 	methods: {
 		setCompanyNumber(value: number) {

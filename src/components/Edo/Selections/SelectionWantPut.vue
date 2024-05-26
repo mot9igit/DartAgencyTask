@@ -27,7 +27,11 @@
 				>
 			</div>
 
-			<CustomButton class="selection__button modal__button" @click="close">Отправить</CustomButton>
+			<a href="edo/want-put">
+				<CustomButton class="selection__button modal__button" @click="close"
+					>Отправить</CustomButton
+				>
+			</a>
 		</div>
 	</div>
 </template>
@@ -37,7 +41,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
 	name: "SelectionWantPut",
-	
+
 	setup() {
 		return {};
 	},
@@ -45,7 +49,7 @@ export default defineComponent({
 		close(): void {
 			this.$emit("close");
 		},
-	}
+	},
 });
 </script>
 
@@ -80,11 +84,11 @@ export default defineComponent({
 
 		.selection__link {
 			color: var(--color-light-dark-gray);
-            text-decoration: underline;
-            cursor: pointer;
+			text-decoration: underline;
+			cursor: pointer;
 		}
 	}
-	
+
 	&__button {
 		margin-top: 40px;
 		padding-inline: 55px;

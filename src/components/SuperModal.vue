@@ -1,6 +1,6 @@
 <template>
-	<dialog class="modal" id="edoModal" aria-labelledby="modalTitle">
-		<div class="modal__content">
+	<dialog class="modal" id="edoModal" aria-labelledby="modalTitle" @click="close">
+		<div class="modal__content" @click.stop>
 			<header class="modal__header">
 				<h5 class="modal__title" id="modalTitle">{{ title }}</h5>
 				<form method="dialog">
@@ -43,9 +43,10 @@ export default defineComponent({
 .modal {
 	@include flex-center;
 
-	background: url("/img/background/fog.png") repeat-x center center / cover;
+	background: url("/img/background/fog.png") repeat center center / cover;
+	background-size: 150%;
 
-    animation: bd-animation 10s infinite;
+    animation: bg-animation 30s linear infinite;
 
 	position: absolute;
 	top: 0;
@@ -110,16 +111,17 @@ export default defineComponent({
 		}
 	}
 
-	@keyframes bg-animation {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
+}
+
+@keyframes bg-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
 	}
 }
 </style>

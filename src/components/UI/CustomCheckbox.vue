@@ -1,7 +1,7 @@
 <template>
 	<div class="checkbox__container">
 		<input :id="id" type="checkbox" class="checkbox" />
-		<label :for="id" class="checkbox__label">
+		<label :for="id" class="checkbox__change">
 			<svg
 				class="checkbox__icon"
 				width="18"
@@ -16,6 +16,7 @@
 				/>
 			</svg>
 		</label>
+		<label v-if="label" :for="id" class="checkbox__label">{{ label }}</label>
 	</div>
 </template>
 
@@ -30,6 +31,10 @@ export default defineComponent({
 			type: String,
 			required: true,
 		},
+		label: {
+			type: String,
+			required: false
+		}
 	},
 });
 </script>
@@ -44,26 +49,29 @@ export default defineComponent({
 	&:focus,
 	&:hover,
 	&:checked {
-		& + .checkbox__label {
+		& + .checkbox__change {
 			border-color: var(--color-red);
 		}
 	}
 
 	&:checked {
-        & + .checkbox__label {
+		& + .checkbox__change {
 			border: none;
 		}
 
-		& + .checkbox__label .checkbox__icon {
+		& + .checkbox__change .checkbox__icon {
 			display: block;
 		}
 	}
 
 	&__container {
+		display: flex;
+		gap: 8px;
+
 		position: relative;
 	}
 
-	&__label {
+	&__change {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -72,7 +80,9 @@ export default defineComponent({
 		border-radius: var(--border-radius-small);
 
 		width: 18px;
-		aspect-ratio: 1;
+		height: 18px;
+
+		flex-shrink: 0;
 
 		overflow: hidden;
 	}
@@ -83,5 +93,7 @@ export default defineComponent({
 		width: 100%;
 		aspect-ratio: 1;
 	}
+
+	&__label {}
 }
 </style>

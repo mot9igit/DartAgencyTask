@@ -11,7 +11,9 @@
 				</p>
 			</div>
 
-			<CustomButton class="selection__button modal__button" @click="close">Понятно</CustomButton>
+			<a href="/edo/no">
+				<CustomButton class="selection__button modal__button" @click="close">Понятно</CustomButton>
+			</a>
 		</div>
 
 		<img src="../../../assets/svg/smile.svg" class="selection__image" />
@@ -30,8 +32,8 @@ export default defineComponent({
 	methods: {
 		close() {
 			this.$emit("close");
-		}
-	}
+		},
+	},
 });
 </script>
 
@@ -40,13 +42,13 @@ export default defineComponent({
 	position: relative;
 
 	&__content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 
 		position: relative;
 		z-index: 2;
-    }
+	}
 
 	&__image {
 		position: absolute;

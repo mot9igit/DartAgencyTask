@@ -14,7 +14,13 @@
 		</div>
 	</section>
 
-	<SuperModal v-if="isModalShow" id="edoModal" :title="getModalTitle" @setSelection="setSelection" @close="closeModal">
+	<SuperModal
+		v-if="isModalShow"
+		id="edoModal"
+		:title="getModalTitle"
+		@setSelection="setSelection"
+		@close="closeModal"
+	>
 		<SelectionYes v-if="selection == 1" @close="closeModal" />
 		<SelectionNo v-if="selection == 2" @close="closeModal" />
 		<SelectionWantPut v-if="selection == 3" @close="closeModal" />
@@ -72,9 +78,9 @@ export default defineComponent({
 			// modal.showModal();
 			this.isModalShow = true;
 		},
-        closeModal(): void {
-            this.isModalShow = false;
-        },
+		closeModal(): void {
+			this.isModalShow = false;
+		},
 		setSelection(value: number): void {
 			this.selection = value;
 		},
