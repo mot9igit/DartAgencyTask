@@ -11,7 +11,7 @@
 		<CustomIcon icon="vk" link="https://vk.com" />
 		<form class="block">
       <CustomInput placeholder="ИНН" required=true />
-      <CustomInput placeholder="Ваше имя" />
+      <CustomInput placeholder="Ваше имя" required="true" style="width: 300px;"/>
       <CustomInput placeholder="Название магазина" disabled=true />
       <CustomButton theme="red" type="submit" style="width: 150px;">Отправить</CustomButton>
     </form>

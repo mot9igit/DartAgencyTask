@@ -11,6 +11,7 @@
 		<label :for="id" class="input__label"
 			>{{ placeholder }} <span class="input__span"> – введите корректное значение</span></label
 		>
+		<img src="../../assets/svg/error.svg" class="input__error-icon" />
 	</div>
 </template>
 
@@ -49,16 +50,16 @@ export default defineComponent({
 @import "../../styles/mixins";
 
 .input {
+	$height: 47;
+
 	background-color: var(--color-light-black);
 	color: var(--color-white);
 
 	border: var(--border);
 	border-radius: var(--border-radius);
 
-	height: 47px;
+	height: #{$height}px;
 	padding-inline: 16px;
-
-	position: relative;
 
 	&::placeholder {
 		color: var(--color-dark-alt-gray);
@@ -92,7 +93,8 @@ export default defineComponent({
 	}
 
 	&:not(:user-invalid) {
-		& + .input__label > .input__span {
+		& + .input__label > .input__span,
+		& + .input__label + .input__error-icon {
 			display: none;
 		}
 	}
@@ -101,6 +103,8 @@ export default defineComponent({
 		display: flex;
 		flex-direction: column-reverse;
 		gap: 4px;
+
+		position: relative;
 	}
 
 	&__label {
@@ -121,17 +125,16 @@ export default defineComponent({
 		line-height: 0.25px;
 
 		position: relative;
+	}
 
-		&::after {
-			content: url("../../assets/svg/error.svg");
+	&__error-icon {
+		position: absolute;
+		bottom: #{($height / 2)}px;
+		right: 6px;
+		translate: 0 50%;
 
-			position: absolute;
-			top: 32px;
-			right: 8px;
-
-			width: 20px;
-			height: 20px;
-		}
+		width: 20px;
+		height: 20px;
 	}
 }
 </style>
