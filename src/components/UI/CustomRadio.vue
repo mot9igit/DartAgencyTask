@@ -1,5 +1,5 @@
 <template>
-	<div class="radio__wrapepr">
+	<div class="radio__wrapper">
 		<input :id="id" type="radio" :name="name" class="radio" />
 		<label :for="id" class="radio__change"></label>
 		<label :for="id" class="radio__label">{{ label }}</label>
@@ -68,6 +68,10 @@ export default defineComponent({
         flex-shrink: 0;
 
 		transition-duration: var(--transition-duration);
+	}
+
+	&__label {
+		color: var(--color-white);
 	}
 }
 </style>

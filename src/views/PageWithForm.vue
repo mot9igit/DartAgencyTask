@@ -18,7 +18,7 @@
 
 		<main class="main container form-page__main">
 			<section class="start main__start">
-				<h3 class="start__titl">Что нам необходимо<br />для начала работы</h3>
+				<h3 class="start__title">Что нам необходимо<br />для начала работы</h3>
 				<div class="start__steps-container">
 					<div class="step__wrapper">
 						<span class="step__mark">1</span>
@@ -59,40 +59,51 @@
 					</p>
 				</header>
 
+				<div class="form__line-wrapper">
+					<hr class="form__line" />
+				</div>
+
 				<main class="form__main">
 					<h4 class="form__subtitle">Компания №1</h4>
 
-					<section class="form__container">
+					<section class="store-data form__store-data form__container">
 						<div class="container__info">
-							<h3 class="container__title">Данные магазина</h3>
+							<h6 class="container__title">Данные магазина</h6>
 							<p class="form__text">
 								Эта информация необходима для того, чтобы знать, к кому обращаться в случае вопросов
 								по заказам в вашем магазине
 							</p>
 						</div>
 						<div class="container__data">
-							<div class="container__input-container">
-								<CustomInput class="form__input" />
-								<CustomInput class="form__input" />
+							<div class="container__input-container store-data__input-container">
+								<CustomInput placeholder="Название магазина" class="form__input" />
+								<CustomInput placeholder="Адрес магазина" class="form__input" />
 							</div>
-							<div class="map container__map">
-								<img src="/img/map.png" alt="map image" />
-								<CustomButtom theme="black" class="form__button map__button"
-									>Выбрать на карте</CustomButtom
+							<div class="map form__map">
+								<img src="/img/map.png" alt="map" />
+								<CustomButton theme="black" class="form__button map__button"
+									>Выбрать на карте</CustomButton
 								>
 							</div>
 							<CustomCheckbox
 								id="storeMode"
 								label="Работа в режиме магазина*"
-								class="form__checkbox"
+								class="form__checkbox store-data__checkbox"
 							/>
-							<span class="form__span"
-								>* На вашем складе розничный покупатель может получить продукцию</span
+							<span class="form__span store-data__span"
+								>* На вашем складе розничный покупатель может получить<br />продукцию</span
 							>
 						</div>
 					</section>
 
-					<section class="form__container">
+					<div class="form__container form__line-wrapper">
+						<div class="container__info form__line-empty"></div>
+						<div class="container__data">
+							<hr class="form__line" />
+						</div>
+					</div>
+
+					<section class="order form__order form__container">
 						<div class="container__info">
 							<h6 class="container__title">Организационно-правовая форма</h6>
 							<CustomCheckbox
@@ -102,13 +113,22 @@
 								class="form__checkbox"
 							/>
 						</div>
-						<div class="container__input-container">
-							<CustomRadio id="ip" label="Индивидуальный предприниматель" name="orderSelect" />
-							<CustomRadio id="ur" label="Юридическое лицо" name="orderSelect" />
+						<div class="container__data">
+							<div class="container__input-container order__input-container">
+								<CustomRadio id="ip" label="Индивидуальный предприниматель" name="orderSelect" />
+								<CustomRadio id="ur" label="Юридическое лицо" name="orderSelect" />
+							</div>
 						</div>
 					</section>
 
-					<section class="form__container">
+					<div class="form__container form__line-wrapper">
+						<div class="container__info form__line-empty"></div>
+						<div class="container__data">
+							<hr class="form__line" />
+						</div>
+					</div>
+
+					<section class="ur-store-data form_ur-store-data form__container">
 						<div class="container__info">
 							<h6 class="form__title">Юридические данные магазина</h6>
 							<CustomCheckbox
@@ -117,29 +137,39 @@
 							магазинов"
 								class="form__checkbox"
 							/>
-							<div class="container__check">
+							<div class="ur-store-data__check">
 								<p class="form__text form__text--white">
 									Пожалуйста, проверьте автоматически заполненные поля
 								</p>
-								<img src="../assets/svg/not-error.svg" class="store-data__check-icon" />
+								<img src="../assets/svg/not-error.svg" class="ur-store-data__check-icon" />
 							</div>
 						</div>
 						<div class="container__data">
 							<div class="container__input-container container__input-container--border">
+								<div class="container__border"></div>
+
 								<CustomInput placeholder="ИНН" required="true" class="form__input" />
-								<CustomInput placeholder="КПП" class="form__input" />
-								<CustomInput placeholder="ОГРН" class="form__input" />
-								<CustomInput placeholder="Название юридического лица" class="form__input" />
-								<CustomInput placeholder="Система налогообложения" class="form__input" />
-								<CustomInput placeholder="Юридический Адрес" class="form__input" />
+								<CustomInput placeholder="КПП" disabled="true" class="form__input" />
+								<CustomInput placeholder="ОГРН" disabled="true" class="form__input" />
+								<CustomInput
+									placeholder="Название юридического лица"
+									disabled="true"
+									class="form__input"
+								/>
+								<CustomInput
+									placeholder="Система налогообложения"
+									disabled="true"
+									class="form__input"
+								/>
+								<CustomInput placeholder="Юридический Адрес" disabled="true" class="form__input" />
 								<CustomInput placeholder="Фактический адрес" required="true" class="form__input" />
 								<CustomInput placeholder="НДС" required="true" class="form__input" />
 								<CustomInput placeholder="БИК" required="true" class="form__input" />
-								<CustomInput placeholder="Банк" class="form__input" />
-								<CustomInput placeholder="К/с" class="form__input" />
+								<CustomInput placeholder="Банк" disabled="true" class="form__input" />
+								<CustomInput placeholder="К/с" disabled="true" class="form__input" />
 								<CustomInput placeholder="ИНН" required="true" class="form__input" />
 							</div>
-							<div class="container__input-container">
+							<div class="container__input-container ur-store-data__input-container">
 								<CustomInput placeholder="Телефон/факс" required="true" class="form__input" />
 								<CustomInput placeholder="Email" required="true" class="form__input" />
 								<CustomInput placeholder="ФИО подписанта" required="true" class="form__input" />
@@ -157,6 +187,13 @@
 						</div>
 					</section>
 
+					<div class="form__container form__line-wrapper">
+						<div class="container__info form__line-empty"></div>
+						<div class="container__data">
+							<hr class="form__line" />
+						</div>
+					</div>
+
 					<section class="form__container">
 						<div class="container__info">
 							<h6 class="form__title">Данные лица ответственного за подключение (ЛПР)</h6>
@@ -170,15 +207,23 @@
 								class="form__checkbox"
 							/>
 						</div>
-						<div class="container__input-container">
-							<CustomInput placeholder="Должность" required="true" class="form__input" />
-							<CustomInput placeholder="ФИО" class="form__input" />
-							<CustomInput placeholder="Телефон" class="form__input" />
-							<CustomInput placeholder="Email" required="true" class="form__input" />
+						<div class="container__data">
+							<div class="container__input-container">
+								<CustomInput placeholder="Должность" required="true" class="form__input" />
+								<CustomInput placeholder="ФИО" class="form__input" />
+								<CustomInput placeholder="Телефон" class="form__input" />
+								<CustomInput placeholder="Email" required="true" class="form__input" />
+							</div>
 						</div>
 					</section>
 
-					<CustomButton theme="black" class="form__button">+ Добавить компанию</CustomButton>
+					<CustomButton theme="black" class="form__button form__button--add"
+						>+ Добавить компанию</CustomButton
+					>
+
+					<div class="form__line-wrapper">
+						<hr class="form__line" />
+					</div>
 
 					<section class="form__container">
 						<div class="container__info">
@@ -189,23 +234,31 @@
 						</div>
 					</section>
 
-					<CustomButton theme="red" type="submit" class="form__button">Отправить</CustomButton>
+					<div class="form__line-wrapper">
+						<hr class="form__line" />
+					</div>
+
+					<CustomButton theme="red" type="submit" class="form__button form__button--submit"
+						>Отправить</CustomButton
+					>
 				</main>
 			</form>
 		</main>
 		<footer class="footer form-page__footer">
-			<div class="footer__contacts contacts">
-				<a href="https://mst.tools/" target="_blank" class="footer__link">machinestore.ru</a>
+			<div class="footer__contacts contacts container">
+				<a href="https://mst.tools/" target="_blank" class="footer__text footer__link"
+					>machinestore.ru</a
+				>
 				<p class="contacts__text">
 					<a href="tel:+74993255250" class="footer__link">+7 (499) 325-52-50</a> – контактный
-					телефон для вопросов
+					телефон<br />для вопросов
 				</p>
 			</div>
 			<div class="footer__content container">
 				<div class="footer__icon-container">
 					<CustomIcon icon="vk" class="footer__icon" />
 				</div>
-				<p class="footer__text">© 2023 ООО МС</p>
+				<p class="footer__text footer--large">© 2023 ООО МС</p>
 			</div>
 		</footer>
 	</section>
@@ -226,9 +279,6 @@ export default defineComponent({
 
 .form-page {
 	background-color: var(--color-alt-black);
-
-	height: 100dvh;
-	width: 100vw;
 
 	&__header,
 	.header {
@@ -299,7 +349,7 @@ export default defineComponent({
 		}
 	}
 
-	.form-page__main,
+	&__main,
 	.main {
 		@include flex-center;
 		flex-direction: column;
@@ -374,10 +424,195 @@ export default defineComponent({
 				}
 			}
 		}
+
+		&__form,
+		.form {
+			&__input {
+				width: 100%;
+			}
+
+			&__button {
+				padding-inline: 35px;
+				align-self: flex-end;
+
+				&--add {
+					margin-top: 40px;
+				}
+			}
+
+			&__header {
+				display: flex;
+				flex-direction: column;
+				gap: 22px;
+			}
+
+			&__main {
+				display: flex;
+				flex-direction: column;
+			}
+
+			&__line-wrapper {
+				margin-block: 40px;
+
+				.form__line {
+					background-color: var(--color-dark-gray);
+					border: none;
+
+					height: 1px;
+					width: 100%;
+				}
+			}
+
+			&__container {
+				display: flex;
+				justify-content: space-between;
+				gap: 90px;
+			}
+
+			&__subtitle {
+				margin-bottom: 40px;
+			}
+
+			&__store-data,
+			.store-data {
+				&__input-container {
+					margin-bottom: 16px;
+				}
+
+				&__map,
+				.map {
+					position: relative;
+					margin-bottom: 25px;
+
+					&__button {
+						@include absolute-center;
+						padding-inline: 55px;
+					}
+				}
+
+				&__checkbox {
+					margin-bottom: 16px;
+				}
+
+				&__span {
+					font: {
+						size: 12px;
+					}
+
+					color: var(--color-light-dark-alt-gray);
+				}
+			}
+
+			&__order,
+			.order {
+				&__input-container {
+					gap: 24px;
+					width: fit-content;
+				}
+			}
+
+			&__ur-store-data,
+			.ur-store-data {
+				&__check {
+					--border-dash: 8px;
+
+					@include flex-center;
+					gap: 16px;
+
+					background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23656565FF' stroke-width='1' stroke-dasharray='8' stroke-dashoffset='5' stroke-linecap='square'/%3e%3c/svg%3e");
+					padding: 24px;
+					margin-top: 82px;
+				}
+
+				&__input-container {
+					margin-top: 25px;
+				}
+			}
+		}
+	}
+
+	&__footer,
+	.footer {
+		display: flex;
+		flex-direction: column;
+
+		&__contacts {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		&__content {
+			display: flex;
+			justify-content: space-between;
+
+			border-top: 1px solid var(--color-dark-gray);
+
+			padding-block: 24px 40px;
+			margin-top: 24px;
+		}
+
+		&__text {
+			font-size: 13px;
+			line-height: 20px;
+
+            &--large {
+                font-size: 15px;
+            }
+		}
+
+		&__link {
+			color: var(--color-white);
+		}
 	}
 }
 
 .container {
 	padding-inline: 351px;
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		gap: 22px;
+
+		min-width: 375px;
+		width: 375px;
+	}
+
+	&__data {
+		display: flex;
+		flex-direction: column;
+
+		width: 100%;
+	}
+
+	&__input-container {
+		display: grid;
+		grid-template: auto / repeat(2, 1fr);
+		row-gap: 25px;
+		column-gap: 24px;
+
+		width: 100%;
+
+		position: relative;
+	}
+
+	&__border {
+		--border-dash: 8px;
+
+		position: absolute;
+		top: 0;
+		left: -23px;
+
+		height: 100%;
+		width: 10px;
+
+		background: linear-gradient(
+				to bottom,
+				var(--color-middle-dark-gray) var(--border-dash),
+				transparent var(--border-dash)
+			)
+			repeat-y center / 1px calc(var(--border-dash) * 2);
+	}
 }
 </style>

@@ -51,6 +51,8 @@ export default defineComponent({
 
 	padding-inline: 195px;
 
+	height: 100dvh;
+
 	.header {
 		@include flex-center;
 		gap: 28px;

@@ -95,6 +95,7 @@ export default defineComponent({
 	}
 
 	&__label {
+		color: var(--color-white);
 	}
 }
 </style>

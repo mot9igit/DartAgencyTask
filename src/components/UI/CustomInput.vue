@@ -49,7 +49,7 @@ export default defineComponent({
 @import "../../styles/mixins";
 
 .input {
-	background-color: var(--color-ver-dark-gray);
+	background-color: var(--color-light-black);
 	color: var(--color-white);
 
 	border: var(--border);
@@ -70,16 +70,16 @@ export default defineComponent({
 
 	&:not(:focus) {
 		& + .input__label {
-			visibility: hidden;
+			display: none;
 		}
 	}
 
 	&:disabled {
-		background-color: var(--color-light-black);
+		background-color: var(--color-light-alt-black);
 		border-color: var(--color-transparent-10-white);
 
 		&::placeholder {
-			color: var(--color-light-very-dark-gray);
+			color: var(--color-dark-alt-gray);
 		}
 	}
 
@@ -87,7 +87,7 @@ export default defineComponent({
 		border-color: var(--color-alt-red);
 
 		& + .input__label {
-			visibility: visible;
+			display: block;
 		}
 	}
 
