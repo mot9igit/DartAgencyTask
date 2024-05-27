@@ -1,20 +1,20 @@
 <template>
-	<div class="select" id="select" @click="selectHandleClick">
+	<div class="select" :id="id + 'Container'" @click="selectHandleClick">
 		<input
 			type="text"
 			class="select__input"
 			:placeholder="placeholder"
 			:id="id"
-			data-id="selectInput"
+			:disabled="disabled"
 			@click.prevent
 		/>
 		<img
 			src="../../../assets/svg/input-arrow.svg"
 			:class="`select__arrow ${isClicked && 'rotate'}`"
-			id="selectArrow"
+			:id="id + 'Arrow'"
 			@click="arrowHandleClick"
 		/>
-		<ul :class="`select__items ${!isClicked && 'hidden'}`" id="selectItems" @click.stop>
+		<ul :class="`select__items ${!isClicked && 'hidden'}`" :id="id + 'Items'" @click.stop>
 			<li class="select__item" v-for="company in companies">
 				<CustomSelectItem :company="company" @click="() => itemHandleClick(company)" />
 			</li>
@@ -31,8 +31,8 @@ export default defineComponent({
 	name: "CustomSelect",
 
 	components: {
-        CustomSelectItem,
-    },
+		CustomSelectItem,
+	},
 
 	setup() {
 		let isClicked: Ref<boolean> = ref(false);
@@ -48,16 +48,20 @@ export default defineComponent({
 	props: {
 		id: {
 			type: String,
-			required: false,
+			required: true,
 		},
 		placeholder: {
 			type: String,
 			required: false,
 		},
-        companies: {
-            type: Array as () => SelectCompanyType[],
-            required: true
-        }
+		disabled: {
+			type: Boolean,
+			required: false,
+		},
+		companies: {
+			type: Array as () => SelectCompanyType[],
+			required: true,
+		},
 	},
 	methods: {
 		selectHandleClick() {
@@ -81,18 +85,18 @@ export default defineComponent({
 			this.selectInput.value = company.name;
 			this.selectInput.blur();
 
-			this.$emit('change', company);
-		}
+			this.$emit("change", company);
+		},
 	},
 
 	mounted() {
-		this.selectInput = document.querySelector('[data-id="selectInput"]') as HTMLInputElement;
+		this.selectInput = document.getElementById(this.id!) as HTMLInputElement;
 
-		const selectItems = document.getElementById('selectItems') as HTMLUListElement;
-		const selectArrow = document.getElementById('selectArrow') as HTMLImageElement;
-		window.addEventListener('click', (e) => {
-			if(e.target === this.selectInput || e.target === selectArrow) return;
-			else if(e.target === selectItems) e.preventDefault();
+		const selectItems = document.getElementById(this.id + "Items") as HTMLUListElement;
+		const selectArrow = document.getElementById(this.id + "Arrow") as HTMLImageElement;
+		window.addEventListener("click", (e) => {
+			if (e.target === this.selectInput || e.target === selectArrow) return;
+			else if (e.target === selectItems) e.preventDefault();
 			else {
 				this.isClicked = false;
 				this.selectInput.blur();
@@ -127,6 +131,17 @@ export default defineComponent({
 
 		&::placeholder {
 			color: var(--color-dark-alt-gray);
+		}
+
+		&:disabled {
+			background-color: var(--color-light-alt-black);
+			border-color: var(--color-transparent-10-white);
+
+			cursor: default;
+
+			&::placeholder {
+				color: var(--color-dark-alt-gray);
+			}
 		}
 	}
 

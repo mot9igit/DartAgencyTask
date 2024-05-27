@@ -156,39 +156,47 @@
 							<div class="container__input-container container__input-container--border">
 								<div class="container__border"></div>
 
-								<CustomInput placeholder="ИНН" required="true" class="form__input" />
-								<CustomInput placeholder="КПП" disabled="true" class="form__input" />
-								<CustomInput placeholder="ОГРН" disabled="true" class="form__input" />
+								<CustomInput placeholder="ИНН" :required="true" class="form__input" />
+								<CustomInput placeholder="КПП" :disabled="true" class="form__input" />
+								<CustomInput placeholder="ОГРН" :disabled="true" class="form__input" />
 								<CustomInput
 									placeholder="Название юридического лица"
-									disabled="true"
+									:disabled="true"
 									class="form__input"
 								/>
-								<CustomInput
+								<CustomSelect
+									id="taxSelect"
 									placeholder="Система налогообложения"
-									disabled="true"
+									:disabled="true"
+									:companies="[]"
 									class="form__input"
 								/>
-								<CustomInput placeholder="Юридический Адрес" disabled="true" class="form__input" />
-								<CustomInput placeholder="Фактический адрес" required="true" class="form__input" />
-								<CustomInput placeholder="НДС" required="true" class="form__input" />
-								<CustomInput placeholder="БИК" required="true" class="form__input" />
-								<CustomInput placeholder="Банк" disabled="true" class="form__input" />
-								<CustomInput placeholder="К/с" disabled="true" class="form__input" />
-								<CustomInput placeholder="ИНН" required="true" class="form__input" />
+								<CustomInput placeholder="Юридический Адрес" :disabled="true" class="form__input" />
+								<CustomInput placeholder="Фактический адрес" :required="true" class="form__input" />
+								<CustomSelect
+									id="ndsSelect"
+									placeholder="НДС"
+									:required="true"
+									:companies="[]"
+									class="form__input"
+								/>
+								<CustomInput placeholder="БИК" :required="true" class="form__input" />
+								<CustomInput placeholder="Банк" :disabled="true" class="form__input" />
+								<CustomInput placeholder="К/с" :disabled="true" class="form__input" />
+								<CustomInput placeholder="ИНН" :required="true" class="form__input" />
 							</div>
 							<div class="container__input-container ur-store-data__input-container">
-								<CustomInput placeholder="Телефон/факс" required="true" class="form__input" />
-								<CustomInput placeholder="Email" required="true" class="form__input" />
-								<CustomInput placeholder="ФИО подписанта" required="true" class="form__input" />
+								<CustomInput placeholder="Телефон/факс" :required="true" class="form__input" />
+								<CustomInput placeholder="Email" :required="true" class="form__input" />
+								<CustomInput placeholder="ФИО подписанта" :required="true" class="form__input" />
 								<CustomInput
 									placeholder="Должность подписанта"
-									required="true"
+									:required="true"
 									class="form__input"
 								/>
 								<CustomInput
 									placeholder="Основание действий подписанта"
-									required="true"
+									:required="true"
 									class="form__input"
 								/>
 							</div>
@@ -209,7 +217,7 @@
 								На старте и в последующем, нам необходимо знать, к кому обращаться при подключении.
 							</p>
 							<CustomCheckbox
-								id="storeDataCopy"
+								id="lprDataCopy"
 								label="Копировать юридические данные для остальных
 							магазинов"
 								class="form__checkbox"
@@ -217,10 +225,10 @@
 						</div>
 						<div class="container__data">
 							<div class="container__input-container">
-								<CustomInput placeholder="Должность" required="true" class="form__input" />
+								<CustomInput placeholder="Должность" :required="true" class="form__input" />
 								<CustomInput placeholder="ФИО" class="form__input" />
 								<CustomInput placeholder="Телефон" class="form__input" />
-								<CustomInput placeholder="Email" required="true" class="form__input" />
+								<CustomInput placeholder="Email" :required="true" class="form__input" />
 							</div>
 						</div>
 					</section>
@@ -239,6 +247,7 @@
 						</div>
 						<div class="container__data">
 							<CustomSelect
+								id="companySelect"
 								placeholder="Выберите компанию"
 								:companies="companiesInfo"
 								class="form__input"
@@ -269,7 +278,7 @@
 			</div>
 			<div class="footer__content container">
 				<div class="footer__icon-container">
-					<CustomIcon icon="vk" class="footer__icon" />
+					<CustomIcon icon="vk" link="https://vk.com" class="footer__icon" />
 				</div>
 				<p class="footer__text footer--large">© 2023 ООО МС</p>
 			</div>

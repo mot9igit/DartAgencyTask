@@ -141,7 +141,7 @@ export default defineComponent({
 
 	&__error-icon {
 		position: absolute;
-		bottom: #{($height / 2)}px;
+		bottom: #{calc($height / 2)}px;
 		right: 6px;
 		translate: 0 50%;
 

@@ -15,7 +15,7 @@
 			<CustomInput placeholder="Название магазина" disabled="true" />
 			<CustomButton theme="red" type="submit" style="width: 150px">Отправить</CustomButton>
 		</form>
-		<CustomSelect placeholder="Выберите компанию" :companies="companiesInfo" style="width: 500px;" />
+		<CustomSelect id="testSelect" placeholder="Выберите компанию" :companies="companiesInfo" style="width: 500px;" />
 		<div class="block">
 			<CustomRadio id="radio1" name="radio" />
 			<CustomRadio id="radio2" name="radio" />
