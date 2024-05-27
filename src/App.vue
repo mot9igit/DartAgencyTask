@@ -7,7 +7,7 @@
 			:cardNumber="companyNumber"
 			@setCompanyNumber="setCompanyNumber"
 		/>
-		<Edo v-if="location === '/edo'" :cardNumber="companyNumber" />
+		<Edo v-if="location === '/edo'" :cardNumber="companyNumber" />	
 		<AnswerNo v-if="location === '/edo/no'" />
 		<AnswerWantPut v-if="location === '/edo/want-put'" />
 		<PageWithForm v-if="location === '/form'" />
@@ -39,7 +39,7 @@ export default defineComponent({
 
 		const location = window.location.pathname;
 
-		const companyNumber: any = ref(0);
+		const companyNumber: any = ref(1);
 
 		return {
 			// routes,

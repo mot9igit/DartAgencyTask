@@ -10,11 +10,21 @@
 					:opportunity="opportunity"
 				/>
 			</div>
-			<CustomButton class="content__button">Выбрать</CustomButton>
+			<a href="/edo">	
+				<CustomButton class="content__button">Выбрать</CustomButton>
+			</a>
 		</div>
 
-		<ArrowButton direction="left" class="section__arrow section__arrow--left" @click="decreaseCompanyNumber" />
-		<ArrowButton direction="right" class="section__arrow section__arrow--right" @click="increaseCompanyNumber" />
+		<ArrowButton
+			direction="left"
+			class="section__arrow section__arrow--left"
+			@click="decreaseCompanyNumber"
+		/>
+		<ArrowButton
+			direction="right"
+			class="section__arrow section__arrow--right"
+			@click="increaseCompanyNumber"
+		/>
 	</section>
 </template>
 
@@ -28,12 +38,12 @@ import ArrowButton from "../UI/ArrowButton.vue";
 
 export default defineComponent({
 	setup() {
-        const company: Ref<CompanyType> = ref({
-            id: 0,
-            title: "",
-            image: "",
-            opportunities: [],
-        });
+		const company: Ref<CompanyType> = ref({
+			id: 0,
+			title: "",
+			image: "",
+			opportunities: [],
+		});
 
 		return {
 			company,
@@ -53,11 +63,17 @@ export default defineComponent({
 			return company ? company : { id: 0, title: "", image: "", opportunities: [] };
 		},
 		increaseCompanyNumber(): void {
-			this.$emit('setCompanyNumber', this.cardNumber + 1 > 3 ? this.cardNumber : this.cardNumber + 1)
+			this.$emit(
+				"setCompanyNumber",
+				this.cardNumber + 1 > 3 ? this.cardNumber : this.cardNumber + 1
+			);
 		},
 		decreaseCompanyNumber(): void {
-			this.$emit('setCompanyNumber', this.cardNumber - 1 < 1 ? this.cardNumber : this.cardNumber - 1)
-        },
+			this.$emit(
+				"setCompanyNumber",
+				this.cardNumber - 1 < 1 ? this.cardNumber : this.cardNumber - 1
+			);
+		},
 	},
 	components: {
 		OpportunityCard,
@@ -89,7 +105,7 @@ export default defineComponent({
 	.content {
 		display: flex;
 		align-items: flex-start;
-        flex-direction: column;
+		flex-direction: column;
 
 		&__title {
 			font: {
