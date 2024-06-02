@@ -59,6 +59,9 @@ export default defineComponent({
 
 	height: 100dvh;
 
+	@include desktop-l {
+		padding-block: clamp(40px, #{calc(40 * 100 / 1980)}vw, 40px);
+	}
 
 	@include desktop {
 		padding-block: 40px;
@@ -93,6 +96,9 @@ export default defineComponent({
 		align-items: center;
 		gap: 40px;
 
+		@include desktop-l {
+			gap: clamp(24px, #{calc(40 * 100 / 1980)}vw, 40px);
+		}
 
 		@include desktop {
 			gap: 24px;

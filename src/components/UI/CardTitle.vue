@@ -22,8 +22,7 @@ export default defineComponent({
 .title {
 	@include gray-gradient-background;
 
-	$height: 54;
-	$width: 483;
+	--height: 54px;
 
 	font: {
 		size: 22px;
@@ -42,8 +41,12 @@ export default defineComponent({
 	bottom: 0;
 
 	width: 100%;
-	height: #{$height}px;
+	height: var(--height);
 
-	clip-path: polygon(0% 0%, 100% 0, calc(100% - #{$height}px) 100%, 0% 100%);
+	// clip-path: polygon(0% 0%, 100% 0, calc(100% - $height) 100%, 0% 100%);
+
+	@include desktop-l {
+		--height: clamp(35px, #{calc(54 * 100 / 1980)}vw, 54px);
+	}
 }
 </style>

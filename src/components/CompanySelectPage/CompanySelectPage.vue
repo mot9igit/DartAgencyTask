@@ -92,20 +92,32 @@ export default defineComponent({
 	@include flex-center;
 	gap: 24px;
 
-	padding: 80px 195px 0;
+	padding: 40px 195px 0;
 
 	overflow: hidden;
+
+	@include desktop {
+		padding: 0 40px;
+	}
 
 	&__img {
 		height: 944px;
 		width: 600px;
 		object-fit: contain;
+
+		@include desktop {
+			height: 606px;
+		}
 	}
 
 	.content {
 		display: flex;
 		align-items: flex-start;
 		flex-direction: column;
+
+		@include desktop {
+			padding-bottom: 40px;
+        }
 
 		&__title {
 			font: {
@@ -117,6 +129,12 @@ export default defineComponent({
 			color: var(--color-white);
 
 			margin-bottom: 80px;
+
+
+			@include desktop {
+				font-size: 80px;
+				margin-bottom: 40px;
+			}
 		}
 
 		&__opportunities {
@@ -141,10 +159,18 @@ export default defineComponent({
 
 		&--left {
 			left: 195px;
+
+			@include desktop {
+                left: 40px;
+            }
 		}
 
 		&--right {
 			left: calc(100% - 195px);
+
+			@include desktop {
+				left: calc(100% - 40px);
+			}
 		}
 	}
 }

@@ -62,12 +62,12 @@ export default defineComponent({
 
 	// max-width: 483px;
 	max-height: 573px;
-
 	height: var(--card-height);
 
 	aspect-ratio: 0.843;
 
 	position: relative;
+	transition-duration: var(--transition-duration);
 
 	&:hover,
 	&:active,
@@ -95,6 +95,10 @@ export default defineComponent({
 		}
 	}
 
+	@include desktop-l {
+		--card-height: clamp(375px, #{calc(573 * 100 / (1980 * 1280 / 2))}vw, 573px);
+		--title-height: clamp(35px, #{calc(54 * 100 / 1980)}vw, 54px);
+	}
 
 	@include desktop {
 		--card-height: 375px;
