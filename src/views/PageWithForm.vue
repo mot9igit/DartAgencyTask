@@ -5,7 +5,7 @@
 				<img src="../assets/logo.svg" alt="logo" class="header__logo" />
 			</a>
 			<div class="header__content">
-				<h2 class="header__title">Хотите продавать быстро?</h2>
+				<h2 class="header__title">Хотите продавать<br>быстро?</h2>
 				<p class="header__text">Добро пожаловать в наш маркетплейс!</p>
 				<CustomButton theme="red" class="header__button">Заполнить форму</CustomButton>
 			</div>
@@ -315,6 +315,8 @@ export default defineComponent({
 .form-page {
 	background-color: var(--color-alt-black);
 
+	height: 100dvh;
+
 	&__header,
 	.header {
 		display: flex;
@@ -337,7 +339,7 @@ export default defineComponent({
 			align-items: flex-start;
 			flex-direction: column;
 
-			width: 381px;
+			// width: 381px;
 		}
 
 		&__title {
@@ -373,6 +375,14 @@ export default defineComponent({
 				right: 255.75px;
 
 				z-index: 2;
+
+				@include desktop-l {
+					right: clamp(10px, #{(255.75 * 100 / 1920)}vw, 255.75px);
+				}
+
+				@include desktop {
+					right: 10px;
+				}
 			}
 
 			&--lines {
@@ -610,6 +620,14 @@ export default defineComponent({
 
 .container {
 	padding-inline: 351px;
+
+	@include desktop-l {
+		padding-inline: clamp(40px, #{calc(351 * 100 / 1980)}vw, 351px);
+	}
+
+	@include desktop {
+		padding-inline: 40px;
+	}
 
 	&__info {
 		display: flex;
