@@ -94,6 +94,12 @@ export default defineComponent({
 			display: block;
 		}
 	}
+
+
+	@include desktop {
+		--card-height: 375px;
+		--title-height: 35px;
+	}
 }
 
 .card {

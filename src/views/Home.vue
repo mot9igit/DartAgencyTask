@@ -59,6 +59,12 @@ export default defineComponent({
 
 	height: 100dvh;
 
+
+	@include desktop {
+		padding-block: 40px;
+		justify-content: space-between;
+	}
+
 	.header {
 		@include flex-center;
 		gap: 28px;
@@ -74,6 +80,11 @@ export default defineComponent({
 
 		&__title {
 		}
+
+
+		@include desktop {
+			margin-bottom: 0;
+		}
 	}
 
 	&__card-container {
@@ -81,6 +92,11 @@ export default defineComponent({
 		justify-content: center;
 		align-items: center;
 		gap: 40px;
+
+
+		@include desktop {
+			gap: 24px;
+		}
 	}
 
 	.footer {
@@ -104,6 +120,11 @@ export default defineComponent({
 		&__logo {
 			width: 274px;
 			height: 57px;
+		}
+
+
+		@include desktop {
+			margin-top: 0;
 		}
 	}
 }
