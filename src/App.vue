@@ -88,8 +88,8 @@ export default defineComponent({
 
 	background-color: var(--color-alt-black);
 
-	// width: 100vw;
-	// height: 100dvh;
+	width: 100vw;
+	height: 100dvh;
 
 	overflow-x: hidden;
 }

@@ -10,7 +10,7 @@
 		<div class="edo__content">
 			<CustomTitle class="edo__title" text="Есть ли у вас" span="ЭДО">?</CustomTitle>
 			<EdoSelect class="edo__select" @setSelection="setSelection" />
-			<CustomButton class="edo__button" theme="red" @click="showModal">Далее</CustomButton>
+			<CustomButton class="edo__button" theme="red" @click="showModal" :disabled="selection == 0">Далее</CustomButton>
 		</div>
 	</section>
 
@@ -111,19 +111,43 @@ export default defineComponent({
 	height: 100dvh;
 	width: 100vw;
 
+	@include desktop-l {
+		padding-inline: clamp(40px, #{calc(195 * 100 / 1980)}vw, 195px);
+	}
+
+	@include desktop {
+		padding-inline: 40px;
+	}
+
 	&__arrow {
 		position: absolute;
 		left: 195px;
 		top: 118px;
+
+		@include desktop-l {
+			left: clamp(40px, #{calc(195 * 100 / 1980)}vw, 195px);
+		}
+
+		@include desktop {
+			left: 40px;
+		}
 	}
 
 	&__img-container {
 		position: relative;
 
 		.edo__img {
-			width: 598px;
+			// width: 598px;
 			height: 944px;
 			object-fit: contain;
+
+			@include desktop-l {
+				height: clamp(606px, #{calc(944 * 100 / 1980)}vw, 944px);
+			}
+
+			@include desktop {
+				height: 606px;
+			}
 		}
 
 		.img-container__title {
@@ -131,7 +155,7 @@ export default defineComponent({
 			left: 0;
 			bottom: 131px;
 
-			width: 483px;
+			// width: 483px;
 		}
 	}
 
@@ -143,6 +167,14 @@ export default defineComponent({
 
 		top: 107px;
 		translate: -50% 0;
+
+		@include desktop-l {
+			top: clamp(41px, #{calc(107 * 100 / 1980)}vw, 107px);
+		}
+
+		@include desktop {
+			top: 41px;
+		}
 
 		.edo__title {
 			margin-bottom: 80px;

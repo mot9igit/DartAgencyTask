@@ -43,7 +43,7 @@ export default defineComponent({
 	width: 100%;
 	height: var(--height);
 
-	// clip-path: polygon(0% 0%, 100% 0, calc(100% - $height) 100%, 0% 100%);
+	clip-path: polygon(0% 0%, 100% 0, calc(100% - var(--height)) 100%, 0% 100%);
 
 	@include desktop-l {
 		--height: clamp(35px, #{calc(54 * 100 / 1980)}vw, 54px);

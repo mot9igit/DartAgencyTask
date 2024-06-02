@@ -90,11 +90,18 @@ export default defineComponent({
 
 .section {
 	@include flex-center;
+	align-items: flex-end;
 	gap: 24px;
 
-	padding: 40px 195px 0;
+	padding-top: 40px;
+	padding-inline: 195px;
 
 	overflow: hidden;
+
+	@include desktop-l {
+		padding-top: clamp(0px, #{calc(40 * 100 / 1980)}vw, 40px);
+		padding-inline: clamp(40px, #{calc(195 * 100 / 1980)}vw, 195px);
+	}
 
 	@include desktop {
 		padding: 0 40px;
@@ -102,8 +109,12 @@ export default defineComponent({
 
 	&__img {
 		height: 944px;
-		width: 600px;
+		// width: 600px;
 		object-fit: contain;
+
+		@include desktop-l {
+			height: clamp(606px, #{calc(606 * 100 / 1980)}vw, 944px);
+		}
 
 		@include desktop {
 			height: 606px;
@@ -114,6 +125,10 @@ export default defineComponent({
 		display: flex;
 		align-items: flex-start;
 		flex-direction: column;
+
+		@include desktop-l {
+			padding-bottom: clamp(40px, #{calc(40 * 100 / 1980)}vw, 0px);
+		}
 
 		@include desktop {
 			padding-bottom: 40px;
@@ -130,6 +145,10 @@ export default defineComponent({
 
 			margin-bottom: 80px;
 
+			@include desktop-l {
+				font-size: clamp(80px, #{calc(100 * 100 / 1980)}vw, 100px);
+				margin-bottom: clamp(40px, #{calc(80 * 100 / 1980)}vw, 80px);
+			}
 
 			@include desktop {
 				font-size: 80px;
@@ -155,10 +174,16 @@ export default defineComponent({
 	}
 
 	&__arrow {
-		@include absolute-center;
+		position: absolute;
+		top: 50%;
+		translate: 0 -50%;
 
 		&--left {
 			left: 195px;
+
+			@include desktop-l {
+				left: clamp(40px, #{calc(195 * 100 / 1980)}vw, 195px);
+			}
 
 			@include desktop {
                 left: 40px;
@@ -166,10 +191,14 @@ export default defineComponent({
 		}
 
 		&--right {
-			left: calc(100% - 195px);
+			right: 195px;
+
+			@include desktop-l {
+				right: clamp(40px, #{calc(195 * 100 / 1980)}vw, 195px);
+			}
 
 			@include desktop {
-				left: calc(100% - 40px);
+				right: 40px;
 			}
 		}
 	}

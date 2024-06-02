@@ -69,7 +69,7 @@ export default defineComponent({
 		border-radius: var(--border-radius);
 
 		width: 451px;
-		max-height: 90%;
+		max-height: 97%;
 
 		padding: 40px;
 

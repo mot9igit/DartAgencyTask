@@ -1,5 +1,5 @@
 <template>
-	<button :class="colorTheme" :type="type">
+	<button :class="colorTheme" :type="type" :disabled="disabled">
 		<div class="button__circle"></div>
 		<div class="button__content">
 			<slot></slot>
@@ -21,7 +21,11 @@ export default defineComponent({
 		type: {
 			type: String,
 			default: "button",
-		}
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	computed: {
 		colorTheme() {
@@ -83,6 +87,10 @@ export default defineComponent({
 		.button__circle {
 			animation: circle 1.1s linear;
 		}
+	}
+
+	&:disabled {
+		filter: brightness(0.6);
 	}
 
 	&__circle {
