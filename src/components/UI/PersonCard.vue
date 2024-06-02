@@ -96,7 +96,7 @@ export default defineComponent({
 	}
 
 	@include desktop-l {
-		--card-height: clamp(375px, #{calc(573 * 100 / (1980 * 1280 / 2))}vw, 573px);
+		--card-height: clamp(375px, #{calc((375 + 573) / 2 * 100 / 1980)}vw, 573px);
 		--title-height: clamp(35px, #{calc(54 * 100 / 1980)}vw, 54px);
 	}
 

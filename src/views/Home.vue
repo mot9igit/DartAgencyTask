@@ -56,6 +56,7 @@ export default defineComponent({
 	flex-direction: column;
 
 	padding-inline: 195px;
+	padding-bottom: 40px;
 
 	height: 100dvh;
 
@@ -84,6 +85,9 @@ export default defineComponent({
 		&__title {
 		}
 
+		@include desktop-l {
+			margin-bottom: clamp(0px, #{calc(40 * 100 / (1980 + 1280))}vw, 40px);
+		}
 
 		@include desktop {
 			margin-bottom: 0;
@@ -128,6 +132,9 @@ export default defineComponent({
 			height: 57px;
 		}
 
+		@include desktop-l {
+			margin-top: clamp(0px, #{calc(40 * 100 / 1980)}vw, 40px);
+		}
 
 		@include desktop {
 			margin-top: 0;
