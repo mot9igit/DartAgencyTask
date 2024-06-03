@@ -19,14 +19,13 @@ import { defineComponent } from "vue";
 export default defineComponent({
 	name: "PersonCard",
 
-	
 	setup() {
 		const cardNames: Record<number, string> = {
 			1: "Производитель",
 			2: "Оптовая компания",
 			3: "Магазин",
 		};
-		
+
 		return {
 			cardNames,
 		};
@@ -38,9 +37,9 @@ export default defineComponent({
 		},
 	},
 	methods: {
-		setCompanyNumber() {					
+		setCompanyNumber() {
 			this.$emit("setCompanyNumber", this.card);
-		}
+		},
 	},
 	computed: {
 		name() {
@@ -69,6 +68,24 @@ export default defineComponent({
 	position: relative;
 	transition-duration: var(--transition-duration);
 
+	@include desktop-l {
+		--card-height: clamp(375px, #{calc((375 + 573) / 2 * 100 / 1980)}vw, 573px);
+		--title-height: clamp(35px, #{calc(54 * 100 / 1980)}vw, 54px);
+	}
+
+	@include desktop {
+		--card-height: 375px;
+		--title-height: 35px;
+	}
+
+	@include tablet {
+		--title-height: clamp(25px, #{calc(35 * 100 / 1280)}vw, 35px);
+	}
+
+	@include mobile {
+		--title-height: 25px;
+	}
+
 	&:hover,
 	&:active,
 	&:focus {
@@ -93,16 +110,6 @@ export default defineComponent({
 		.card__section-wrapper {
 			display: block;
 		}
-	}
-
-	@include desktop-l {
-		--card-height: clamp(375px, #{calc((375 + 573) / 2 * 100 / 1980)}vw, 573px);
-		--title-height: clamp(35px, #{calc(54 * 100 / 1980)}vw, 54px);
-	}
-
-	@include desktop {
-		--card-height: 375px;
-		--title-height: 35px;
 	}
 }
 
@@ -169,6 +176,13 @@ export default defineComponent({
 	}
 
 	&__title {
+		@include tablet {
+			font-size: clamp(19px, #{calc(22 * 100 / 768)}vw, 22px) !important;
+		}
+
+		@include mobile {
+			font-size: 19px !important;
+		}
 	}
 }
 </style>

@@ -76,7 +76,7 @@ export default defineComponent({
 			this.sliderCardsStates[1] = this.setPrevState(this.sliderCardsStates[1]);
 			this.sliderCardsStates[2] = this.setPrevState(this.sliderCardsStates[2]);
 			this.sliderCardsStates[3] = this.setPrevState(this.sliderCardsStates[3]);
-            
+
 			this.$emit("setCompanyNumber", this.getCompanyNumber);
 		},
 		setNextState(state: CardSliderState) {
@@ -99,7 +99,7 @@ export default defineComponent({
 			if (this.sliderCardsStates[1] === CardSliderState.Active) return 1;
 			if (this.sliderCardsStates[2] === CardSliderState.Active) return 2;
 			if (this.sliderCardsStates[3] === CardSliderState.Active) return 3;
-		}
+		},
 	},
 });
 </script>
@@ -116,7 +116,7 @@ export default defineComponent({
 	height: 100%;
 	overflow: hidden;
 
-    padding-inline: 40px;
+	padding-inline: 40px;
 
 	&__card-container {
 		@include flex-center;
@@ -137,6 +137,16 @@ export default defineComponent({
 
 		transition-duration: var(--transition-duration);
 
+		@include tablet {
+			width: clamp(189px, #{calc(252 * 100 / 768)}vw, 252px);
+			height: clamp(224px, #{calc(463 * 100 / 768)}vw, 463px);
+		}
+
+		@include mobile {
+			width: 189px;
+			height: 224px;
+		}
+
 		&--last,
 		&--next {
 			pointer-events: none;
@@ -144,6 +154,10 @@ export default defineComponent({
 
 		&--last {
 			left: 20%;
+
+			@include tablet-mobile-average {
+				left: 100%;
+			}
 		}
 
 		&--active {
@@ -153,6 +167,16 @@ export default defineComponent({
 			height: 600px;
 
 			z-index: 100;
+
+			@include tablet {
+				width: clamp(238px, #{calc(252 * 100 / 768)}vw, 252px);
+				height: clamp(379px, #{calc(463 * 100 / 768)}vw, 463px);
+			}
+
+			@include mobile {
+				width: 238px;
+				height: 379px;
+			}
 
 			.card {
 				filter: none;
@@ -175,6 +199,10 @@ export default defineComponent({
 
 		&--next {
 			left: 80%;
+
+			@include tablet-mobile-average {
+				left: 100%;
+			}
 		}
 	}
 
@@ -182,6 +210,8 @@ export default defineComponent({
 		position: absolute;
 		top: 50%;
 		translate: 0 -50%;
+
+		z-index: 110 !important;
 
 		&--left {
 			left: 40px;

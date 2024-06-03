@@ -28,6 +28,7 @@
 		</div>
 
 		<CardSlider style="margin-block: 100px;" />
+
 	</div>
 </template>
 
@@ -46,7 +47,7 @@ export default defineComponent({
 	},
 
 	components: {
-		CardSlider
+		CardSlider,
 	}
 });
 </script>
