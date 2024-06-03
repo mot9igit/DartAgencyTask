@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { Ref, defineComponent, ref } from "vue";
 
 import Home from "./views/Home.vue";
 import Test from "./views/Test.vue";
@@ -39,7 +39,7 @@ export default defineComponent({
 
 		const location = window.location.pathname;
 
-		const companyNumber: any = ref(1);
+		const companyNumber: Ref<number> = ref(1);
 
 		return {
 			// routes,

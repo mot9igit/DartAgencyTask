@@ -74,6 +74,7 @@ export default defineComponent({
 		height: 50px;
 		width: 250px;
 		font-size: 18px;
+		min-width: auto;
 	}
 
 	&::after {

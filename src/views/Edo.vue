@@ -65,7 +65,7 @@ export default defineComponent({
 	props: {
 		cardNumber: {
 			type: Number,
-			default: 0,
+			default: 1,
 		},
 	},
 	components: {
@@ -96,6 +96,9 @@ export default defineComponent({
 			return this.modalTitles[this.selection];
 		},
 	},
+	mounted() {
+		this.getCompany;
+	}
 });
 </script>
 

@@ -58,7 +58,7 @@ export default defineComponent({
 	props: {
 		cardNumber: {
 			type: Number,
-			required: true,
+			default: 1
 		},
 	},
 	methods: {
@@ -157,12 +157,13 @@ export default defineComponent({
 	}
 
 	&__img {
-		height: 944px;
+		// height: 944px;
+		height: 100%;
 		// width: 600px;
 		object-fit: contain;
 
 		@include desktop-l {
-			height: clamp(606px, #{calc(606 * 100 / 1980)}vw, 944px);
+			// height: clamp(606px, #{calc(606 * 100 / 1980)}vw, 944px);
 		}
 
 		@include desktop {
