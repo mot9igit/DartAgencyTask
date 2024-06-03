@@ -67,13 +67,13 @@ export default defineComponent({
 	@include tablet {
 		height: clamp(50px, #{calc(78 * 100 / 768)}vw, 78px);
 		width: clamp(250px, #{calc(428 * 100 / 768)}vw, 428px);
-		font-size: clamp(20px, #{calc(30 * 100 / 768)}vw, 30px);
+		font-size: clamp(18px, #{calc(30 * 100 / 768)}vw, 30px);
 	}
 
 	@include tablet-mobile-average {
 		height: 50px;
 		width: 250px;
-		font-size: 20px;
+		font-size: 18px;
 	}
 
 	&::after {
@@ -96,7 +96,7 @@ export default defineComponent({
 			right: -11.9px;
 			width: 6.1%;
 			height: 24%;
-			transform: skew(-42deg);
+			transform: skew(-45deg);
 		}
 	}
 

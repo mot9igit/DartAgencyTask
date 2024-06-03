@@ -4,26 +4,26 @@
 
 		<div class="slider__card-container card-container">
 			<a href="/company-select">
-                <PersonCard
-                    card="1"
-                    :class="`slider__card slider__card--${getCardStyles('1')}`"
-                    id="sliderCard1"
-                />
-            </a>
+				<PersonCard
+					card="1"
+					:class="`slider__card slider__card--${getCardStyles('1')}`"
+					id="sliderCard1"
+				/>
+			</a>
 			<a href="/company-select">
-                <PersonCard
-                    card="2"
-                    :class="`slider__card slider__card--${getCardStyles('2')}`"
-                    id="sliderCard2"
-                />
-            </a>
+				<PersonCard
+					card="2"
+					:class="`slider__card slider__card--${getCardStyles('2')}`"
+					id="sliderCard2"
+				/>
+			</a>
 			<a href="/company-select">
-                <PersonCard
-                    card="3"
-                    :class="`slider__card slider__card--${getCardStyles('3')}`"
-                    id="sliderCard3"
-                />
-            </a>
+				<PersonCard
+					card="3"
+					:class="`slider__card slider__card--${getCardStyles('3')}`"
+					id="sliderCard3"
+				/>
+			</a>
 		</div>
 
 		<ArrowButton direction="right" class="slider__arrow slider__arrow--right" @click="nextCard" />
@@ -42,21 +42,21 @@ enum CardSliderState {
 export default defineComponent({
 	setup() {
 		const sliderCardsStates: Ref<Record<string, CardSliderState>> = ref({
-			'1': CardSliderState.Last,
-			'2': CardSliderState.Active,
-			'3': CardSliderState.Next,
+			"1": CardSliderState.Last,
+			"2": CardSliderState.Active,
+			"3": CardSliderState.Next,
 		});
 
 		const getCardStyles = (number: string): string => {
-            const cardState: CardSliderState = sliderCardsStates.value[number];
-            
+			const cardState: CardSliderState = sliderCardsStates.value[number];
+
 			return cardState === CardSliderState.Last
 				? "last"
 				: cardState === CardSliderState.Active
 				? "active"
 				: cardState === CardSliderState.Next
-                ? "next"
-                : '';
+				? "next"
+				: "";
 		};
 
 		return {
@@ -69,11 +69,15 @@ export default defineComponent({
 			this.sliderCardsStates[1] = this.setNextState(this.sliderCardsStates[1]);
 			this.sliderCardsStates[2] = this.setNextState(this.sliderCardsStates[2]);
 			this.sliderCardsStates[3] = this.setNextState(this.sliderCardsStates[3]);
+
+			this.$emit("setCompanyNumber", this.getCompanyNumber);
 		},
 		prevCard() {
 			this.sliderCardsStates[1] = this.setPrevState(this.sliderCardsStates[1]);
 			this.sliderCardsStates[2] = this.setPrevState(this.sliderCardsStates[2]);
 			this.sliderCardsStates[3] = this.setPrevState(this.sliderCardsStates[3]);
+            
+			this.$emit("setCompanyNumber", this.getCompanyNumber);
 		},
 		setNextState(state: CardSliderState) {
 			return state === CardSliderState.Active
@@ -90,7 +94,13 @@ export default defineComponent({
 				: CardSliderState.Last;
 		},
 	},
-	computed: {},
+	computed: {
+		getCompanyNumber() {
+			if (this.sliderCardsStates[1] === CardSliderState.Active) return 1;
+			if (this.sliderCardsStates[2] === CardSliderState.Active) return 2;
+			if (this.sliderCardsStates[3] === CardSliderState.Active) return 3;
+		}
+	},
 });
 </script>
 
@@ -106,40 +116,42 @@ export default defineComponent({
 	height: 100%;
 	overflow: hidden;
 
+    padding-inline: 40px;
+
 	&__card-container {
 		@include flex-center;
 		gap: 20px;
 
-        height: 800px;
-        width: 100%;
-        position: relative;
+		height: 800px;
+		width: 100%;
+		position: relative;
 	}
 
 	&__card {
-        position: absolute;
-        top: 50%;
-        translate: -50% -50%;
+		position: absolute;
+		top: 50%;
+		translate: -50% -50%;
 
 		width: 252px;
 		height: 463px;
 
 		transition-duration: var(--transition-duration);
 
-        &--last,
-        &--next {
-            pointer-events: none;
-        }
+		&--last,
+		&--next {
+			pointer-events: none;
+		}
 
 		&--last {
-            left: 25%;
+			left: 20%;
 		}
 
 		&--active {
-            left: 50%;
+			left: 50%;
 
-            width: 339px;
-            height: 600px;
-            
+			width: 339px;
+			height: 600px;
+
 			z-index: 100;
 
 			.card {
@@ -162,7 +174,7 @@ export default defineComponent({
 		}
 
 		&--next {
-            left: 75%;
+			left: 80%;
 		}
 	}
 
@@ -172,11 +184,11 @@ export default defineComponent({
 		translate: 0 -50%;
 
 		&--left {
-			left: 0;
+			left: 40px;
 		}
 
 		&--right {
-			right: 0;
+			right: 40px;
 		}
 	}
 }

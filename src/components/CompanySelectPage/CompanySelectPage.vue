@@ -12,12 +12,12 @@
 					:opportunity="opportunity"
 				/>
 			</div>
-			<a href="/edo" class="hidden-mobile-tablet">
+			<a href="/edo" class="hidden-tablet-mobile-average">
 				<CustomButton class="content__button">Выбрать</CustomButton>
 			</a>
 		</div>
 
-		<a href="/edo" class="visible-mobile-tablet">
+		<a href="/edo" class="visible-tablet-mobile-average">
 			<CustomButton class="content__button content__button--mobile">Выбрать</CustomButton>
 		</a>
 
@@ -117,28 +117,42 @@ export default defineComponent({
 	}
 
 	@include desktop-s {
-		align-items: center;
+		align-items: flex-end;
 	}
 
 	@include tablet {
 		padding-inline: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
+		align-items: flex-end;
 	}
 
-	@include mobile-tablet {
-        align-items: flex-end;
-    }
+	// @include mobile-tablet {
+	//     align-items: flex-end;
+	// }
 
 	@include mobile {
 		padding-inline: 20px;
 	}
 
 	&__img-container {
+		display: flex;
+		align-items: flex-end;
+
 		position: relative;
 		width: 100%;
+		height: 876px;
+		// overflow: hidden;
+
+		@include tablet {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+
+			justify-content: flex-end;
+			overflow: hidden;
+		}
 
 		@include mobile-tablet {
-			height: 310px;
-			overflow: hidden;
+			height: 500px;
 		}
 	}
 
@@ -153,23 +167,25 @@ export default defineComponent({
 
 		@include desktop {
 			height: 606px;
+			min-width: 350px;
 		}
 
 		@include desktop-s {
 			position: absolute;
 			bottom: -120px;
 			right: 0;
-			// height: clamp(844px, #{calc(876 * 100 / 1024)}vw, 876px);
+
+			height: 876px;
 		}
 
 		@include tablet {
-			height: clamp(400px, #{calc(606 * 100 / 768)}vw, 606px);
-			width: 372px;
+			height: clamp(450px, #{calc(800 * 100 / 768)}vw, 800px);
+			// width: 372px;
 			z-index: 10;
 		}
 
 		@include mobile {
-			height: 400px;
+			height: 450px;
 			width: 100%;
 		}
 	}

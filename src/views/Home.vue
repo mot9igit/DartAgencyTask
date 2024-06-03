@@ -1,9 +1,9 @@
 <template>
 	<section class="home">
 		<header class="home__header header">
-			<hr class="header__hr" />
+			<hr class="header__hr hidden-tablet-mobile-average" />
 			<CustomTitle class="header__title" text="Выберите свою" span="компанию" />
-			<hr class="header__hr" />
+			<hr class="header__hr hidden-tablet-mobile-average" />
 		</header>
 
 		<div class="home__card-container hidden-desktop-s">
@@ -17,7 +17,7 @@
 				<PersonCard :card="3" @setCompanyNumber="setCompanyNumber" />
 			</a>
 		</div>
-		<CardSlider class="visible-desktop-s"/>
+		<CardSlider class="visible-desktop-s" @setCompanyNumber="setCompanyNumber"/>
 
 		<footer class="home__foter footer">
 			<p class="footer__text">Подключение к сервисам MachineStore</p>
@@ -88,6 +88,15 @@ export default defineComponent({
 		}
 
 		&__title {
+			@include tablet {
+				min-width: clamp(300px, #{calc(470 * 100 / 768)}vw, 470px);
+			}
+
+			@include tablet-mobile-average {
+				width: 100%;
+				max-width: 300px;
+				margin-inline: 10px;
+			}
 		}
 
 		@include desktop-l {
