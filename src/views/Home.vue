@@ -5,7 +5,8 @@
 			<CustomTitle class="header__title" text="Выберите свою" span="компанию" />
 			<hr class="header__hr" />
 		</header>
-		<div class="home__card-container">
+
+		<div class="home__card-container hidden-desktop-s">
 			<a href="/company-select">
 				<PersonCard :card="1" @setCompanyNumber="setCompanyNumber" />
 			</a>
@@ -16,6 +17,8 @@
 				<PersonCard :card="3" @setCompanyNumber="setCompanyNumber" />
 			</a>
 		</div>
+		<CardSlider class="visible-desktop-s"/>
+
 		<footer class="home__foter footer">
 			<p class="footer__text">Подключение к сервисам MachineStore</p>
 			<a href="https://mst.tools/" target="_blank">
@@ -29,6 +32,7 @@
 import { defineComponent } from "vue";
 import PersonCard from "../components/UI/PersonCard.vue";
 import CustomTitle from "../components/UI/CustomTitle.vue";
+import CardSlider from "../components/CardSlider.vue";
 
 export default defineComponent({
 	name: "Home",
@@ -36,6 +40,7 @@ export default defineComponent({
 	components: {
 		PersonCard,
 		CustomTitle,
+		CardSlider,
 	},
 	methods: {
 		setCompanyNumber(value: number) {

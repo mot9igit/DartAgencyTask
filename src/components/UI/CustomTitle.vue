@@ -62,7 +62,6 @@ export default defineComponent({
 	overflow: hidden;
 
 	@include desktop-s {
-		min-width: auto;
 	}
 
 	@include tablet {

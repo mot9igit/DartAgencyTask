@@ -3,21 +3,27 @@
 		<ArrowButton direction="left" class="slider__arrow slider__arrow--left" @click="prevCard" />
 
 		<div class="slider__card-container card-container">
-			<PersonCard
-				card="1"
-				:class="`slider__card slider__card--${getCardStyles('1')}`"
-				id="sliderCard1"
-			/>
-			<PersonCard
-				card="2"
-				:class="`slider__card slider__card--${getCardStyles('2')}`"
-				id="sliderCard2"
-			/>
-			<PersonCard
-				card="3"
-				:class="`slider__card slider__card--${getCardStyles('3')}`"
-				id="sliderCard3"
-			/>
+			<a href="/company-select">
+                <PersonCard
+                    card="1"
+                    :class="`slider__card slider__card--${getCardStyles('1')}`"
+                    id="sliderCard1"
+                />
+            </a>
+			<a href="/company-select">
+                <PersonCard
+                    card="2"
+                    :class="`slider__card slider__card--${getCardStyles('2')}`"
+                    id="sliderCard2"
+                />
+            </a>
+			<a href="/company-select">
+                <PersonCard
+                    card="3"
+                    :class="`slider__card slider__card--${getCardStyles('3')}`"
+                    id="sliderCard3"
+                />
+            </a>
 		</div>
 
 		<ArrowButton direction="right" class="slider__arrow slider__arrow--right" @click="nextCard" />
@@ -114,8 +120,8 @@ export default defineComponent({
         top: 50%;
         translate: -50% -50%;
 
-		width: 339px;
-		height: 600px;
+		width: 252px;
+		height: 463px;
 
 		transition-duration: var(--transition-duration);
 
@@ -131,8 +137,9 @@ export default defineComponent({
 		&--active {
             left: 50%;
 
-			scale: 1.165;
-
+            width: 339px;
+            height: 600px;
+            
 			z-index: 100;
 
 			.card {
