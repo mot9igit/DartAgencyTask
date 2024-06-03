@@ -17,10 +17,10 @@
 				<PersonCard :card="3" @setCompanyNumber="setCompanyNumber" />
 			</a>
 		</div>
-		<CardSlider class="visible-desktop-s" @setCompanyNumber="setCompanyNumber"/>
+		<CardSlider class="visible-desktop-s" @setCompanyNumber="setCompanyNumber" />
 
 		<footer class="home__foter footer">
-			<p class="footer__text">Подключение к сервисам MachineStore</p>
+			<p class="footer__text hidden-mobile">Подключение к сервисам MachineStore</p>
 			<a href="https://mst.tools/" target="_blank">
 				<img src="../assets/logo.svg" alt="logo" class="footer__logo" />
 			</a>
@@ -137,6 +137,7 @@ export default defineComponent({
 			}
 			line-height: 22px;
 			letter-spacing: 0.5px;
+			text-align: center;
 
 			color: var(--color-transparent-65-white);
 		}
@@ -144,6 +145,14 @@ export default defineComponent({
 		&__logo {
 			width: 274px;
 			height: 57px;
+
+			@include tablet {
+				width: clamp(154px, #{calc(274 * 100 / 375)}vw, 274px);
+			}
+
+			@include mobile {
+				width: 154px;
+			}
 		}
 
 		@include desktop-l {
