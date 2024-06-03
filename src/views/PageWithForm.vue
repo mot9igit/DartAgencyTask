@@ -322,11 +322,13 @@ export default defineComponent({
 
 	&__header,
 	.header {
+		@include adaptive-background;
+
 		display: flex;
 		flex-direction: column;
 		gap: 88px;
 
-		background: url("/img/background/bg-bright.png") no-repeat center center / cover;
+		// background: url("/img/background/bg-bright.png") no-repeat center center / cover;
 
 		height: 580px;
 		width: 100%;
@@ -718,6 +720,8 @@ export default defineComponent({
 	.footer {
 		display: flex;
 		flex-direction: column;
+
+		background-color: var(--color-alt-black);
 
 		margin-top: 80px;
 
