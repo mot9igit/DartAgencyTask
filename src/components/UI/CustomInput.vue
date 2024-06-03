@@ -66,6 +66,8 @@ export default defineComponent({
 	height: #{$height}px;
 	padding-inline: 16px;
 
+	min-width: 280px;
+
 	&::placeholder {
 		color: var(--color-dark-alt-gray);
 	}

@@ -5,7 +5,7 @@
 				<img src="../assets/logo.svg" alt="logo" class="header__logo" />
 			</a>
 			<div class="header__content">
-				<h2 class="header__title">Хотите продавать<br>быстро?</h2>
+				<h2 class="header__title">Хотите продавать<br />быстро?</h2>
 				<p class="header__text">Добро пожаловать в наш маркетплейс!</p>
 				<CustomButton theme="red" class="header__button">Заполнить форму</CustomButton>
 			</div>
@@ -13,7 +13,7 @@
 			<div class="header__blackout"></div>
 
 			<img src="../assets/svg/drill.svg" alt="drill image" class="header__img header__img--drill" />
-			<img src="../assets/svg/lines.svg" alt="drill image" class="header__img header__img--lines" />
+			<img src="../assets/svg/lines.svg" alt="drill image" class="header__img header__img--lines hidden-tablet" />
 		</header>
 
 		<main class="main container form-page__main">
@@ -24,12 +24,12 @@
 						<span class="step__mark">1</span>
 						<p class="step start__step">Заполните форму</p>
 					</div>
-					<img src="../assets/svg/arrow.svg" class="start__arrow" />
+					<img src="../assets/svg/arrow.svg" class="start__arrow hidden-desktop-s" />
 					<div class="step__wrapper">
 						<span class="step__mark">2</span>
 						<p class="step start__step">Подписываем договор</p>
 					</div>
-					<img src="../assets/svg/arrow.svg" class="start__arrow" />
+					<img src="../assets/svg/arrow.svg" class="start__arrow hidden-desktop-s" />
 					<div class="step__wrapper">
 						<span class="step__mark">3</span>
 						<p class="step start__step">Мы создаём модуль для 1С</p>
@@ -38,12 +38,12 @@
 						<span class="step__mark">4</span>
 						<p class="step start__step">Проводим сопоставление товаров</p>
 					</div>
-					<img src="../assets/svg/arrow.svg" class="start__arrow" />
+					<img src="../assets/svg/arrow.svg" class="start__arrow hidden-desktop-s" />
 					<div class="step__wrapper">
 						<span class="step__mark">5</span>
 						<p class="step start__step">Проводим обучение по работе на маркетплейсе</p>
 					</div>
-					<img src="../assets/svg/arrow.svg" class="start__arrow" />
+					<img src="../assets/svg/arrow.svg" class="start__arrow hidden-desktop-s" />
 					<div class="step__wrapper">
 						<span class="step__mark">6</span>
 						<p class="step start__step">Запускаем ваш магазин на маркетплейсе</p>
@@ -88,7 +88,7 @@
 								/>
 							</div>
 							<div class="map form__map">
-								<img src="/img/map.png" alt="map" />
+								<img src="/img/map.png" alt="map" class="map__img" />
 								<CustomButton theme="black" class="form__button map__button"
 									>Выбрать на карте</CustomButton
 								>
@@ -99,13 +99,13 @@
 								class="form__checkbox store-data__checkbox"
 							/>
 							<span class="form__span store-data__span"
-								>* На вашем складе розничный покупатель может получить<br />продукцию</span
+								>* На вашем складе розничный покупатель может получить продукцию</span
 							>
 						</div>
 					</section>
 
 					<div class="form__container form__line-wrapper">
-						<div class="container__info form__line-empty"></div>
+						<div class="container__info form__line-empty hidden-desktop-s"></div>
 						<div class="container__data">
 							<hr class="form__line" />
 						</div>
@@ -130,7 +130,7 @@
 					</section>
 
 					<div class="form__container form__line-wrapper">
-						<div class="container__info form__line-empty"></div>
+						<div class="container__info form__line-empty hidden-desktop-s"></div>
 						<div class="container__data">
 							<hr class="form__line" />
 						</div>
@@ -138,13 +138,15 @@
 
 					<section class="ur-store-data form_ur-store-data form__container">
 						<div class="container__info">
-							<h6 class="form__title">Юридические данные магазина</h6>
-							<CustomCheckbox
-								id="storeDataCopy"
-								label="Копировать юридические данные для остальных
-							магазинов"
-								class="form__checkbox"
-							/>
+							<div class="container__info-block">
+								<h6 class="form__title">Юридические данные магазина</h6>
+								<CustomCheckbox
+									id="storeDataCopy"
+									label="Копировать юридические данные для остальных
+								магазинов"
+									class="form__checkbox"
+								/>
+							</div>
 							<div class="ur-store-data__check">
 								<p class="form__text form__text--white">
 									Пожалуйста, проверьте автоматически заполненные поля
@@ -154,7 +156,7 @@
 						</div>
 						<div class="container__data">
 							<div class="container__input-container container__input-container--border">
-								<div class="container__border"></div>
+								<div class="container__border hidden-desktop-s"></div>
 
 								<CustomInput placeholder="ИНН" :required="true" class="form__input" />
 								<CustomInput placeholder="КПП" :disabled="true" class="form__input" />
@@ -204,14 +206,14 @@
 					</section>
 
 					<div class="form__container form__line-wrapper">
-						<div class="container__info form__line-empty"></div>
+						<div class="container__info form__line-empty hidden-desktop-s"></div>
 						<div class="container__data">
 							<hr class="form__line" />
 						</div>
 					</div>
 
 					<section class="form__container">
-						<div class="container__info">
+						<div class="container__info container__info--column">
 							<h6 class="form__title">Данные лица ответственного<br />за подключение (ЛПР)</h6>
 							<p class="form__text">
 								На старте и в последующем, нам необходимо знать, к кому обращаться при подключении.
@@ -280,7 +282,7 @@
 				<div class="footer__icon-container">
 					<CustomIcon icon="vk" link="https://vk.com" class="footer__icon" />
 				</div>
-				<p class="footer__text footer--large">© 2023 ООО МС</p>
+				<p class="footer__text footer__text--large">© 2023 ООО МС</p>
 			</div>
 		</footer>
 	</section>
@@ -316,6 +318,7 @@ export default defineComponent({
 	background-color: var(--color-alt-black);
 
 	height: 100dvh;
+	width: 100vw;
 
 	&__header,
 	.header {
@@ -329,15 +332,41 @@ export default defineComponent({
 		width: 100%;
 
 		position: relative;
+		overflow: hidden;
+
+		@include tablet {
+			padding-inline: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
+		}
+
+		@include mobile-tablet {
+			justify-content: space-between;
+			padding-bottom: 50px;
+		}
+
+		@include mobile {
+			padding-inline: 20px;
+		}
 
 		&__logo {
 			margin-top: 40px;
+
+			@include tablet {
+				margin-top: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
+				width: clamp(154px, #{274 * 100 / 768}vw, 274px);
+			}
+
+			@include mobile {
+				margin-top: 20px;
+				width: 154px;
+			}
 		}
 
 		&__content {
 			display: flex;
 			align-items: flex-start;
 			flex-direction: column;
+
+			z-index: 10;
 
 			// width: 381px;
 		}
@@ -354,6 +383,10 @@ export default defineComponent({
 			height: 50px;
 			margin-top: 32px;
 			padding-inline: 35px;
+
+			@include mobile {
+				padding-inline: 56px;
+			}
 		}
 
 		&__blackout {
@@ -374,7 +407,7 @@ export default defineComponent({
 				top: 70px;
 				right: 255.75px;
 
-				z-index: 2;
+				z-index: 2;	
 
 				@include desktop-l {
 					right: clamp(10px, #{(255.75 * 100 / 1920)}vw, 255.75px);
@@ -382,6 +415,19 @@ export default defineComponent({
 
 				@include desktop {
 					right: 10px;
+				}
+
+				@include desktop-s {
+					width: 684px;
+					top: calc(100% - 800px / 2);
+				}
+
+				@include tablet {
+					width: clamp(435px, #{(684 * 100 / 768)}vw, 684px);
+				}
+
+				@include mobile {
+					width: 435px;
 				}
 			}
 
@@ -400,6 +446,24 @@ export default defineComponent({
 		flex-direction: column;
 		gap: 80px;
 
+		background-color: var(--color-alt-black);
+
+		@include tablet {
+			gap: clamp(50px, #{(80 * 100 / 768)}vw, 80px);
+			padding-inline: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
+		}
+
+		@include mobile-tablet {
+			button {
+				width: 100%;
+			}
+		}
+
+		@include mobile {
+			gap: 50px;
+			padding-inline: 20px;
+		}
+
 		&__start,
 		.start {
 			display: flex;
@@ -412,6 +476,14 @@ export default defineComponent({
 
 			padding: 60px 80px;
 
+			@include desktop-s {
+				padding-inline: clamp(20px, #{(80 * 100 / 1920)}vw, 80px);
+			}
+			
+			@include tablet {
+				padding: 60px 20px;
+			}
+
 			&__title {
 			}
 
@@ -421,7 +493,29 @@ export default defineComponent({
 				align-items: center;
 				gap: 44px;
 
-				width: 970px;
+				max-width: 970px;
+
+				@include desktop-s {
+					grid-template: auto / repeat(3, 1fr);
+					column-gap: clamp(5px, #{(44 * 100 / 1920)}vw, 44px);
+				}
+
+				@include tablet {
+					column-gap: 5px;
+					row-gap: clamp(32px, #{(44 * 100 / 1920)}vw, 44px);
+				}
+
+				@include tablet-mobile {
+					grid-template: auto / repeat(2, 1fr);
+				}
+
+				@include mobile-tablet {
+					grid-template: auto / 1fr;
+				}
+
+				@include mobile {
+					row-gap: 32px;
+				}
 			}
 
 			&__arrow {
@@ -472,6 +566,8 @@ export default defineComponent({
 
 		&__form,
 		.form {
+			width: 100%;
+
 			&__input {
 				width: 100%;
 			}
@@ -518,6 +614,18 @@ export default defineComponent({
 				display: flex;
 				justify-content: space-between;
 				gap: 90px;
+
+				@include desktop-l {
+					gap: clamp(50px, #{(90 * 100 / 1920)}vw, 90px);
+				}
+
+				@include desktop {
+					gap: 50px;
+				}
+
+				@include desktop-s {
+					flex-direction: column;
+				}
 			}
 
 			&__subtitle {
@@ -534,15 +642,23 @@ export default defineComponent({
 				.map {
 					position: relative;
 					margin-bottom: 25px;
+					width: 100%;
+
+					&__img {
+						width: 100%;
+					}
 
 					&__button {
 						@include absolute-center;
 						padding-inline: 55px;
+
+						width: calc(100% - 17px);
 					}
 				}
 
 				&__checkbox {
 					margin-bottom: 16px;
+					width: 50%;
 				}
 
 				&__span {
@@ -556,6 +672,14 @@ export default defineComponent({
 
 			&__order,
 			.order {
+				@include desktop {
+					gap: clamp(27px, #{(60 * 100 / 1920)}vw, 50px);
+				}
+
+				@include desktop-s {
+					gap: 27px;
+				}
+
 				&__input-container {
 					gap: 24px;
 					width: fit-content;
@@ -573,6 +697,14 @@ export default defineComponent({
 					background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23656565FF' stroke-width='1' stroke-dasharray='8' stroke-dashoffset='5' stroke-linecap='square'/%3e%3c/svg%3e");
 					padding: 24px;
 					margin-top: 82px;
+
+					@include desktop {
+						margin-top: clamp(0px, #{(82 * 100 / 1920)}vw, 82px);
+					}
+
+					@include desktop-s {
+						margin-top: 0;
+					}
 				}
 
 				&__input-container {
@@ -586,6 +718,16 @@ export default defineComponent({
 	.footer {
 		display: flex;
 		flex-direction: column;
+
+		margin-top: 80px;
+
+		@include tablet {
+			margin-top: clamp(50px, #{(80 * 100 / 768)}vw, 80px);
+		}
+
+		@include mobile {
+			margin-top: 50px;
+		}
 
 		&__contacts {
 			display: flex;
@@ -636,6 +778,30 @@ export default defineComponent({
 
 		min-width: 375px;
 		width: 375px;
+
+		@include desktop-s {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-end;
+			width: 100%;
+		}
+
+		@include tablet {
+			flex-direction: column;
+			align-items: flex-start;
+			min-width: 100%;
+		}
+
+		&--column {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+
+	&__info-block {
+		display: flex;
+		flex-direction: column;
+		gap: 22px;
 	}
 
 	&__data {
@@ -654,6 +820,10 @@ export default defineComponent({
 		width: 100%;
 
 		position: relative;
+
+		@include tablet-mobile-average {
+			grid-template: auto / 1fr;
+		}
 	}
 
 	&__border {

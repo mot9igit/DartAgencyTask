@@ -50,6 +50,24 @@ $mobile: 320;
     }
 }
 
+@mixin tablet-mobile {
+	@media (max-width: 700px) {
+        @content;
+    }
+}
+
+@mixin tablet-mobile-average {
+	@media (max-width: 650px) {
+        @content;
+    }
+}
+
+@mixin mobile-tablet {
+	@media (max-width: 500px) {
+        @content;
+    }
+}
+
 @mixin mobile {
 	@media (max-width: #{$mobile}px) {
 		@content;

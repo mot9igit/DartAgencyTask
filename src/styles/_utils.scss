@@ -2,20 +2,34 @@
 	max-width: 1920px;
 	padding-inline: 195px;
 
+	@include desktop-l-above {
+		max-width: 100vw;
+	}
+
+	@include desktop-l {
+		max-width: clamp(1280px, 100vw, 1920px);
+        padding-inline: clamp(142px, #{calc(142 * 100 / 1920)}vw, 195px);
+	}
+
 	@include desktop {
-		max-width: 1280px;
-		padding-inline: 142px;
+		max-width: clamp(1024px, 100vw, 1280px);
+		padding-inline: clamp(87px, #{calc(142 * 100 / 1280)}vw, 142px);
 	}
 
 	@include desktop-s {
-		max-width: 1024px;
-		padding-inline: 87px;
+		max-width: clamp(768px, 100vw, 1024px);
+		padding-inline: clamp(40px, #{calc(87 * 100 / 1024)}vw, 87px);
 	}
 
 	@include tablet {
-		max-width: 320px;
-		padding-inline: 41px;
+		max-width: clamp(320px, 100vw, 768px);
+		padding-inline: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
 	}
+
+	@include mobile {
+        max-width: 320px;
+        padding-inline: 20px;
+    }
 }
 
 .visually-hidden {
@@ -24,6 +38,18 @@
 
 .hidden-mobile {
 	@include mobile {
+		display: none !important;
+	}
+}
+
+.hidden-tablet {
+	@include tablet {
+        display: none !important;
+    }
+}
+
+.hidden-desktop-s {
+	@include desktop-s {
 		display: none !important;
 	}
 }
