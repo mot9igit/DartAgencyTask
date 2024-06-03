@@ -56,13 +56,29 @@ export default defineComponent({
 
     width: 100vw;
     height: 100dvh;
+	padding: 20px;
 
     z-index: 1000;
 
-    .selection {
-        @include flex-center;
-        flex-direction: column;
-    }
+	@include desktop {
+		background-size: 200%;
+	}
+
+	@include desktop-s {
+		background-size: 250%;
+	}
+
+	@include desktop {
+		background-size: 300%;
+	}
+
+	@include tablet-mobile-average {
+		background-size: 400%;
+	}
+
+	@include mobile-tablet {
+		background-size: 650%;
+	}
 
 	&__content {
 		background-color: var(--color-black);
@@ -73,7 +89,8 @@ export default defineComponent({
 
 		padding: 40px;
 
-		overflow: hidden;
+		overflow-x: hidden;
+		overflow-y: scroll;
 
 		.modal__header {
 			display: flex;

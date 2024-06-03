@@ -54,10 +54,22 @@
 	}
 }
 
+.hidden-tablet-mobile-average {
+	@include tablet-mobile-average {
+        display: none !important;
+    }
+}
+
 .visible-mobile {
 	@include mobile-above {
 		display: none !important;
 	}
+}
+
+.visible-tablet-mobile-average {
+	@include tablet-mobile-average-above {
+        display: none !important;
+    }
 }
 
 .grid {

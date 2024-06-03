@@ -1,6 +1,7 @@
 <template>
 	<section class="answer">
-		<img src="/img/background/no-edo-bg.png" alt="no edo image" class="answer__img" />
+		<div class="answer__img">
+		</div>
 		<div class="answer__content">
 			<p class="answer__text answer__text--main">
 				Нам очень жаль, но мы уверены, что в будущем сможем поработать с Вами. Ждем вас с ЭДО!
@@ -30,15 +31,23 @@ export default defineComponent({
 	width: 100vw;
 	height: 100dvh;
 
+	padding: 20px;
+
 	color: var(--color-white);
 
 	&__img {
 		@include absolute-center;
 
+		background: url("/img/background/no-edo-bg.png") no-repeat center center / cover;
+
 		filter: brightness(74%);
 
 		width: 100vw;
 		height: 100dvh;
+
+		@include desktop-s {
+			background-image: url("/img/background/no-edo-bg-small.png");
+		}
 	}
 
 	&__content {
@@ -63,6 +72,14 @@ export default defineComponent({
 		line-height: 28px;
 		letter-spacing: 0.5px;
 
+		@include tablet {
+			font-size: clamp(19px, #{calc(22 * 100 / 1440)}vw, 22px);
+		}
+
+		@include mobile {
+			font-size: 19px;
+		}
+
 		&--main {
 			font: {
 				weight: 700;
@@ -80,6 +97,13 @@ export default defineComponent({
 		height: 50px;
 		width: 241px;
 		margin-top: 40px;
+
+		@include mobile-tablet {
+			position: absolute;
+			bottom: 20px;
+			margin-top: 0px;
+			width: calc(100% - 20px * 2);
+		}
 	}
 }
 </style>

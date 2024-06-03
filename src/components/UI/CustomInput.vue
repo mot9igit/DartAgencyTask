@@ -68,6 +68,10 @@ export default defineComponent({
 
 	min-width: 280px;
 
+	@include mobile-tablet {
+		min-width: 100%;
+	}
+
 	&::placeholder {
 		color: var(--color-dark-alt-gray);
 	}

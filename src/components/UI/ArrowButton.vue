@@ -37,6 +37,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/media";
+
 .arrow-button {
     display: flex;
     justify-content: center;
@@ -54,6 +56,14 @@ export default defineComponent({
     transition-duration: var(--transition-duration);
 
     z-index: 100;
+
+    @include tablet {
+        width: clamp(40px, #{calc(56 * 100 / 1920)}vw, 56px);
+    }
+
+    @include mobile {
+        width: 40px;
+    }
 
     &:focus,
     &:active,

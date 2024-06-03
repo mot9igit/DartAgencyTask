@@ -1,17 +1,20 @@
 <template>
 	<section class="edo">
-		<ArrowButton direction="left" class="edo__arrow" />
+		<a href="/">
+			<ArrowButton direction="left" class="edo__arrow" />
+		</a>
 
 		<div class="edo__img-container img-container">
 			<img :src="company.image" class="edo__img" />
-			<CardTitle class="img-container__title">{{ company.title }}</CardTitle>
+			<CardTitle class="img-container__title hidden-tablet">{{ company.title }}</CardTitle>
 		</div>
 
 		<div class="edo__content">
 			<CustomTitle class="edo__title" text="Есть ли у вас" span="ЭДО">?</CustomTitle>
 			<EdoSelect class="edo__select" @setSelection="setSelection" />
-			<CustomButton class="edo__button" theme="red" @click="showModal" :disabled="selection == 0">Далее</CustomButton>
+			<CustomButton class="edo__button hidden-tablet-mobile-average" theme="red" @click="showModal" :disabled="selection == 0">Далее</CustomButton>
 		</div>
+		<CustomButton class="edo__button edo__button--mobile visible-tablet-mobile-average" theme="red" @click="showModal" :disabled="selection == 0">Далее</CustomButton>
 	</section>
 
 	<SuperModal
@@ -105,6 +108,7 @@ export default defineComponent({
 	align-items: flex-end;
 
 	position: relative;
+	overflow: hidden;
 
 	padding-inline: 195px;
 
@@ -116,7 +120,11 @@ export default defineComponent({
 	}
 
 	@include desktop {
-		padding-inline: 40px;
+		padding-inline: clamp(0px, #{calc(40 * 100 / 1280)}vw, 40px);
+	}
+
+	@include desktop-s {
+		padding-inline: 0px;
 	}
 
 	&__arrow {
@@ -131,10 +139,29 @@ export default defineComponent({
 		@include desktop {
 			left: 40px;
 		}
+
+		@include desktop-s {
+			top: 211px;
+		}
+
+		@include tablet {
+			top: clamp(35px, #{calc(40 * 100 / 768)}vw, 40px);
+			left: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
+		}
+
+		@include tablet-mobile-average {
+			top: 35px;
+			left: 20px;
+		}
 	}
 
 	&__img-container {
 		position: relative;
+
+		@include tablet-mobile-average {
+			height: 310px;
+			width: 100%;
+		}
 
 		.edo__img {
 			// width: 598px;
@@ -142,11 +169,27 @@ export default defineComponent({
 			object-fit: contain;
 
 			@include desktop-l {
-				height: clamp(606px, #{calc(944 * 100 / 1980)}vw, 944px);
+				height: clamp(600px, #{calc(944 * 100 / 1980)}vw, 944px);
 			}
 
 			@include desktop {
-				height: 606px;
+				height: clamp(700px, #{calc(600 * 100 / 1280)}vw, 800px);
+			}
+
+			@include desktop-s {
+				height: clamp(500px, #{calc(550 * 100 / 1024)}vw, 700px);
+			}
+
+			@include tablet {
+				height: clamp(500px, #{calc(720 * 100 / 768)}vw, 600px);
+			}
+
+			@include tablet-mobile-average {
+				width: 100%;
+			}
+
+			@include mobile {
+				height: 310px;
 			}
 		}
 
@@ -155,6 +198,7 @@ export default defineComponent({
 			left: 0;
 			bottom: 131px;
 
+			--height: 54px;
 			// width: 483px;
 		}
 	}
@@ -169,22 +213,52 @@ export default defineComponent({
 		translate: -50% 0;
 
 		@include desktop-l {
-			top: clamp(41px, #{calc(107 * 100 / 1980)}vw, 107px);
+			top: clamp(40px, #{calc(107 * 100 / 1980)}vw, 107px);
 		}
 
 		@include desktop {
-			top: 41px;
+			top: 40px;
+		}
+
+		@include desktop-s {
+			top: 200px;
+		}
+
+		@include tablet {
+			top: clamp(30px, #{calc(40 * 100 / 768)}vw, 40px);
+		}
+
+		@include tablet-mobile-average {
+			top: 30px;
 		}
 
 		.edo__title {
 			margin-bottom: 80px;
+
+			@include tablet {
+				margin-bottom: clamp(25px, #{calc(80 * 100 / 768)}vw, 80px);
+			}
+
+			@include mobile {
+				margin-bottom: 25px;
+			}
 		}
 
-		.edo__button {
-			margin-top: 40px;
+	}
 
-			width: 241px;
-			height: 50px;
+	.edo__button {
+		margin-top: 40px;
+
+		width: 241px;
+		height: 50px;
+
+		@include tablet-mobile-average {
+			position: absolute;
+			left: 50%;
+			bottom: 20px;
+			translate: -50%;
+
+			width: calc(100% - 20px * 2);
 		}
 	}
 }

@@ -29,13 +29,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/media";
+
 .title {
+	--height: 78px;
+
 	font: {
 		size: 30px;
 		weight: 600;
 	}
 	line-height: 30px;
-    letter-spacing: 0.25%;
+	letter-spacing: 0.25%;
 
 	display: flex;
 	justify-content: center;
@@ -47,8 +51,8 @@ export default defineComponent({
 	border-color: var(--color-transparent-35-white);
 	background-color: var(--color-transparent-5-white);
 
-	min-width: calc(428px + 24px * 2);
-	width: calc(428px + 24px * 2);
+	// min-width: calc(428px + 24px * 2);
+	width: 428px;
 	height: 78px;
 	padding-inline: 24px;
 
@@ -56,6 +60,18 @@ export default defineComponent({
 
 	position: relative;
 	overflow: hidden;
+
+	@include tablet {
+		height: clamp(50px, #{calc(78 * 100 / 768)}vw, 78px);
+		width: clamp(250px, #{calc(428 * 100 / 768)}vw, 428px);
+		font-size: clamp(20px, #{calc(30 * 100 / 768)}vw, 30px);
+	}
+
+	@include tablet-mobile-average {
+		height: 50px;
+		width: 250px;
+		font-size: 20px;
+	}
 
 	&::after {
 		content: "";
@@ -68,10 +84,17 @@ export default defineComponent({
 		border-color: var(--color-transparent-35-white);
 		background-color: var(--color-transparent-35-white);
 
-		width: 21.1px;
-		height: 18.8px;
+		width: 4.4%;
+		height: 27%;
 
-		transform: skew(-47.8deg);
+		transform: skew(-45deg);
+
+		@include tablet-mobile-average {
+			right: -11.9px;
+			width: 6.1%;
+			height: 24%;
+			transform: skew(-42deg);
+		}
 	}
 
 	&__span {
