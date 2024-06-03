@@ -66,7 +66,7 @@ export default defineComponent({
 	height: #{$height}px;
 	padding-inline: 16px;
 
-	min-width: 280px;
+	// min-width: 280px;
 
 	@include mobile-tablet {
 		min-width: 100%;

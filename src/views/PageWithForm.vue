@@ -13,7 +13,11 @@
 			<div class="header__blackout"></div>
 
 			<img src="../assets/svg/drill.svg" alt="drill image" class="header__img header__img--drill" />
-			<img src="../assets/svg/lines.svg" alt="drill image" class="header__img header__img--lines hidden-tablet" />
+			<img
+				src="../assets/svg/lines.svg"
+				alt="drill image"
+				class="header__img header__img--lines hidden-tablet"
+			/>
 		</header>
 
 		<main class="main container form-page__main">
@@ -409,7 +413,7 @@ export default defineComponent({
 				top: 70px;
 				right: 255.75px;
 
-				z-index: 2;	
+				z-index: 2;
 
 				@include desktop-l {
 					right: clamp(10px, #{(255.75 * 100 / 1920)}vw, 255.75px);
@@ -456,9 +460,9 @@ export default defineComponent({
 		}
 
 		@include mobile-tablet {
-			button {
-				width: 100%;
-			}
+			// button {
+			// 	width: 100%;
+			// }
 		}
 
 		@include mobile {
@@ -481,7 +485,7 @@ export default defineComponent({
 			@include desktop-s {
 				padding-inline: clamp(20px, #{(80 * 100 / 1920)}vw, 80px);
 			}
-			
+
 			@include tablet {
 				padding: 60px 20px;
 			}
@@ -652,9 +656,11 @@ export default defineComponent({
 
 					&__button {
 						@include absolute-center;
-						padding-inline: 55px;
+						// padding-inline: 17px;
 
-						width: calc(100% - 17px);
+						@include mobile {
+							width: calc(100% - 17px);
+						}
 					}
 				}
 
