@@ -723,7 +723,7 @@ export default defineComponent({
 
 		background-color: var(--color-alt-black);
 
-		margin-top: 80px;
+		padding-top: 80px;
 
 		@include tablet {
 			margin-top: clamp(50px, #{(80 * 100 / 768)}vw, 80px);
