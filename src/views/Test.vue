@@ -26,12 +26,15 @@
 			<PersonCard card="2" />
 			<!-- <PersonCard card=3 /> -->
 		</div>
+
+		<CardSlider style="margin-block: 100px;" />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { companiesInfo } from "../data/CompaniesInfo";
+import CardSlider from "../components/CardSlider.vue";
 
 export default defineComponent({
 	name: "Test",
@@ -41,6 +44,10 @@ export default defineComponent({
 			companiesInfo
 		};
 	},
+
+	components: {
+		CardSlider
+	}
 });
 </script>
 

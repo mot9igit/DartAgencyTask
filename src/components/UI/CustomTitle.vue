@@ -51,7 +51,7 @@ export default defineComponent({
 	border-color: var(--color-transparent-35-white);
 	background-color: var(--color-transparent-5-white);
 
-	// min-width: calc(428px + 24px * 2);
+	min-width: calc(428px + 24px * 2);
 	width: 428px;
 	height: 78px;
 	padding-inline: 24px;
@@ -60,6 +60,10 @@ export default defineComponent({
 
 	position: relative;
 	overflow: hidden;
+
+	@include desktop-s {
+		min-width: auto;
+	}
 
 	@include tablet {
 		height: clamp(50px, #{calc(78 * 100 / 768)}vw, 78px);
