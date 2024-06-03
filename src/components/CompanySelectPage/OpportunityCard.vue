@@ -42,6 +42,14 @@ export default defineComponent({
 
 	position: relative;
 
+	@include tablet {
+		width: clamp(280px, #{calc(364 * 100 / 768)}vw, 364px);
+	}
+
+	@include mobile {
+		width: 280px;
+	}
+
 	&::after {
 		content: "";
 
@@ -50,13 +58,19 @@ export default defineComponent({
 		bottom: 0;
 
 		border: var(--border);
-		border-color: var(--color-transparent-35-white);
+		// border-color: var(--color-transparent-35-white);
 		background-color: var(--color-transparent-35-white);
 
 		width: 20px;
 		height: 18.8px;
 
 		transform: skew(-44deg);
+
+		@include tablet-mobile-average {
+			transform: skew(-37deg);
+			right: -13px;
+			height: 17.9px;
+		}
 	}
 
 	&__title {
@@ -71,6 +85,14 @@ export default defineComponent({
 
 		margin-left: 28px;
 		position: relative;
+
+		@include tablet {
+			font-size: clamp(18px, #{calc(22 * 100 / 768)}vw, 22px);
+		}
+
+		@include mobile {
+			font-size: 18px;
+		}
 
 		&::before {
 			@include absolute-center;
@@ -95,6 +117,14 @@ export default defineComponent({
 		}
 		line-height: 22px;
 		letter-spacing: 0.5px;
+
+		@include tablet {
+			font-size: clamp(12px, #{calc(16 * 100 / 768)}vw, 16px);
+		}
+
+		@include mobile {
+			font-size: 12px;
+		}
 	}
 }
 </style>

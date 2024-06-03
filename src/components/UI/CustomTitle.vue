@@ -81,7 +81,7 @@ export default defineComponent({
 		bottom: 0;
 
 		border: var(--border);
-		border-color: var(--color-transparent-35-white);
+		// border-color: var(--color-transparent-35-white);
 		background-color: var(--color-transparent-35-white);
 
 		width: 4.4%;

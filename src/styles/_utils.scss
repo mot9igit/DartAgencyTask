@@ -60,6 +60,12 @@
     }
 }
 
+.hidden-mobile-tablet {
+	@include mobile-tablet {
+        display: none !important;
+    }
+}
+
 .visible-mobile {
 	@include mobile-above {
 		display: none !important;
@@ -70,6 +76,12 @@
 	@include tablet-mobile-average-above {
         display: none !important;
     }
+}
+
+.visible-mobile-tablet {
+	@include mobile-tablet-above {
+        display: none !important;
+    }	
 }
 
 .grid {
