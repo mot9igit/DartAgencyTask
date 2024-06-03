@@ -36,6 +36,8 @@ export default defineComponent({
 
 	padding: 32px;
 
+	filter: none;
+
 	width: 364px;
 	height: 166px;
 	clip-path: polygon(0 0, 100% 0, 100% 87%, 94.3% 100%, 0 100%);
