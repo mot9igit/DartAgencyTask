@@ -41,7 +41,6 @@ export default defineComponent({
 
 .modal {
 	@include flex-center;
-	@include scrollbar;
 
 	background: url("/img/background/fog.png") repeat center center / cover;
 	background-size: 150%;
@@ -81,6 +80,8 @@ export default defineComponent({
 	}
 
 	&__content {
+		@include scrollbar;
+
 		background-color: var(--color-black);
 		border-radius: var(--border-radius);
 
