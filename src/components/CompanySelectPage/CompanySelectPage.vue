@@ -70,11 +70,11 @@ export default defineComponent({
 			return company ? company : { id: 0, title: "", image: "", opportunities: [] };
 		},
 		increaseCompanyNumber(): void {
-			this.companyNumber = this.companyNumber + 1 > 3 ? this.companyNumber : this.companyNumber + 1;
+			this.companyNumber = this.companyNumber + 1 > 3 ? 1 : this.companyNumber + 1;
 			this.refreshCompany;
 		},
 		decreaseCompanyNumber(): void {
-			this.companyNumber = this.companyNumber - 1 < 1 ? this.companyNumber : this.companyNumber - 1;
+			this.companyNumber = this.companyNumber - 1 < 1 ? 3 : this.companyNumber - 1;
 			this.refreshCompany;
 		},
 	},
