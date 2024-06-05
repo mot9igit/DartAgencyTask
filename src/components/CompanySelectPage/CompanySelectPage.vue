@@ -121,7 +121,7 @@ export default defineComponent({
 	}
 
 	@include tablet {
-		padding-inline: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
+		padding-inline: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
 		align-items: flex-end;
 	}
 
@@ -273,7 +273,7 @@ export default defineComponent({
 			}
 
 			@include tablet {
-				gap: clamp(8px, #{24 * 100 / 768}vw, 24px);
+				gap: clamp(8px, #{calc(24 * 100 / 768)}vw, 24px);
 			}
 
 			@include tablet-mobile-average {

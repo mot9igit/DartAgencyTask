@@ -7,7 +7,9 @@
 			<div class="header__content">
 				<h2 class="header__title">Хотите продавать<br />быстро?</h2>
 				<p class="header__text">Добро пожаловать в наш маркетплейс!</p>
-				<CustomButton theme="red" class="header__button">Заполнить форму</CustomButton>
+				<a href="#form">
+					<CustomButton theme="red" class="header__button">Заполнить форму</CustomButton>
+				</a>
 			</div>
 
 			<div class="header__blackout"></div>
@@ -55,7 +57,7 @@
 				</div>
 			</section>
 
-			<form class="form main__form">
+			<form class="form main__form" id="form">
 				<header class="form__header">
 					<h3 class="form__title">Форма для подключения</h3>
 					<p class="form__text">
@@ -176,7 +178,7 @@ export default defineComponent({
 		overflow: hidden;
 
 		@include tablet {
-			padding-inline: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
+			padding-inline: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
 		}
 
 		@include mobile-tablet {
@@ -192,8 +194,8 @@ export default defineComponent({
 			margin-top: 40px;
 
 			@include tablet {
-				margin-top: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
-				width: clamp(154px, #{274 * 100 / 768}vw, 274px);
+				margin-top: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
+				width: clamp(154px, #{calc(274 * 100 / 768)}vw, 274px);
 			}
 
 			@include mobile {
@@ -251,7 +253,7 @@ export default defineComponent({
 				z-index: 2;
 
 				@include desktop-l {
-					right: clamp(10px, #{(255.75 * 100 / 1920)}vw, 255.75px);
+					right: clamp(10px, #{calc(255.75 * 100 / 1920)}vw, 255.75px);
 				}
 
 				@include desktop {
@@ -264,7 +266,7 @@ export default defineComponent({
 				}
 
 				@include tablet {
-					width: clamp(435px, #{(684 * 100 / 768)}vw, 684px);
+					width: clamp(435px, #{calc(684 * 100 / 768)}vw, 684px);
 				}
 
 				@include mobile {
@@ -290,8 +292,8 @@ export default defineComponent({
 		background-color: var(--color-alt-black);
 
 		@include tablet {
-			gap: clamp(50px, #{(80 * 100 / 768)}vw, 80px);
-			padding-inline: clamp(20px, #{(40 * 100 / 768)}vw, 40px);
+			gap: clamp(50px, #{calc(80 * 100 / 768)}vw, 80px);
+			padding-inline: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
 		}
 
 		@include mobile-tablet {
@@ -318,7 +320,7 @@ export default defineComponent({
 			padding: 60px 80px;
 
 			@include desktop-s {
-				padding-inline: clamp(20px, #{(80 * 100 / 1920)}vw, 80px);
+				padding-inline: clamp(20px, #{calc(80 * 100 / 1920)}vw, 80px);
 			}
 
 			@include tablet {
@@ -338,12 +340,12 @@ export default defineComponent({
 
 				@include desktop-s {
 					grid-template: auto / repeat(3, 1fr);
-					column-gap: clamp(5px, #{(44 * 100 / 1920)}vw, 44px);
+					column-gap: clamp(5px, #{calc(44 * 100 / 1920)}vw, 44px);
 				}
 
 				@include tablet {
 					column-gap: 5px;
-					row-gap: clamp(32px, #{(44 * 100 / 1920)}vw, 44px);
+					row-gap: clamp(32px, #{calc(44 * 100 / 1920)}vw, 44px);
 				}
 
 				@include tablet-mobile {
@@ -457,7 +459,7 @@ export default defineComponent({
 				gap: 90px;
 
 				@include desktop-l {
-					gap: clamp(50px, #{(90 * 100 / 1920)}vw, 90px);
+					gap: clamp(50px, #{calc(90 * 100 / 1920)}vw, 90px);
 				}
 
 				@include desktop {
@@ -516,7 +518,7 @@ export default defineComponent({
 			&__order,
 			.order {
 				@include desktop {
-					gap: clamp(27px, #{(60 * 100 / 1920)}vw, 50px);
+					gap: clamp(27px, #{calc(60 * 100 / 1920)}vw, 50px);
 				}
 
 				@include desktop-s {
@@ -542,7 +544,7 @@ export default defineComponent({
 					margin-top: 82px;
 
 					@include desktop {
-						margin-top: clamp(0px, #{(82 * 100 / 1920)}vw, 82px);
+						margin-top: clamp(0px, #{calc(82 * 100 / 1920)}vw, 82px);
 					}
 
 					@include desktop-s {
@@ -567,7 +569,7 @@ export default defineComponent({
 		padding-top: 80px;
 
 		@include tablet {
-			margin-top: clamp(50px, #{(80 * 100 / 768)}vw, 80px);
+			margin-top: clamp(50px, #{calc(80 * 100 / 768)}vw, 80px);
 		}
 
 		@include mobile {
