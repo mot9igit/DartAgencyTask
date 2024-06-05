@@ -34,10 +34,20 @@ import PersonCard from "../components/UI/PersonCard.vue";
 import CustomTitle from "../components/UI/CustomTitle.vue";
 import CardSlider from "../components/CardSlider.vue";
 import { RouterLink } from "vue-router";
+import { useStore } from "vuex";
+
 
 export default defineComponent({
 	name: "Home",
+	
+	setup() {
+		const store = useStore();
 
+		return {
+			store
+		}
+	},
+	
 	components: {
 		PersonCard,
 		CustomTitle,
@@ -45,9 +55,9 @@ export default defineComponent({
 	},
 	methods: {
 		setCompanyNumber(value: number) {
-			this.$emit("setCompanyNumber", value);
+			this.store.commit('setCompanyNumber', value);
 		},
-	},
+	}
 });
 </script>
 

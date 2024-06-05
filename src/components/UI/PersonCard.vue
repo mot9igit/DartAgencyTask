@@ -37,7 +37,7 @@ export default defineComponent({
 		},
 	},
 	methods: {
-		setCompanyNumber() {
+		setCompanyNumber() {			
 			this.$emit("setCompanyNumber", this.card);
 		},
 	},

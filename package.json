@@ -11,8 +11,10 @@
   "dependencies": {
     "sass": "^1.77.2",
     "sass-loader": "^14.2.1",
-    "vue": "^3.4.21",
-    "vue-router": "^4.0.13"
+    "vue": "^3.4.27",
+    "vue-router": "^4.0.13",
+    "vuex": "^4.0.2",
+    "vuex-composition-helpers": "^2.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

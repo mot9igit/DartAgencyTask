@@ -3,27 +3,30 @@
 		<ArrowButton direction="left" class="slider__arrow slider__arrow--left" @click="prevCard" />
 
 		<div class="slider__card-container card-container">
-			<a href="/company-select">
-				<PersonCard
-					card="1"
-					:class="`slider__card slider__card--${getCardStyles('1')}`"
-					id="sliderCard1"
-				/>
-			</a>
-			<a href="/company-select">
-				<PersonCard
-					card="2"
-					:class="`slider__card slider__card--${getCardStyles('2')}`"
-					id="sliderCard2"
-				/>
-			</a>
-			<a href="/company-select">
+			<RouterLink to="/company-select">
 				<PersonCard
 					card="3"
 					:class="`slider__card slider__card--${getCardStyles('3')}`"
 					id="sliderCard3"
+					@setCompanyNumber="setCompanyNumber"
 				/>
-			</a>
+			</RouterLink>
+			<RouterLink to="/company-select">
+				<PersonCard
+					card="2"
+					:class="`slider__card slider__card--${getCardStyles('2')}`"
+					id="sliderCard2"
+					@setCompanyNumber="setCompanyNumber"
+				/>
+			</RouterLink>
+			<RouterLink to="/company-select">
+				<PersonCard
+					card="1"
+					:class="`slider__card slider__card--${getCardStyles('1')}`"
+					id="sliderCard1"
+					@setCompanyNumber="setCompanyNumber"
+				/>
+			</RouterLink>
 		</div>
 
 		<ArrowButton direction="right" class="slider__arrow slider__arrow--right" @click="nextCard" />
@@ -32,6 +35,7 @@
 
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
+import { RouterLink } from "vue-router";
 
 enum CardSliderState {
 	Last,
@@ -65,6 +69,9 @@ export default defineComponent({
 		};
 	},
 	methods: {
+		setCompanyNumber(value: number) {
+			this.$emit("setCompanyNumber", value);	
+		},
 		nextCard() {
 			this.sliderCardsStates[1] = this.setNextState(this.sliderCardsStates[1]);
 			this.sliderCardsStates[2] = this.setNextState(this.sliderCardsStates[2]);
@@ -114,7 +121,7 @@ export default defineComponent({
 	position: relative;
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
+	// overflow-x: hidden;
 
 	padding-inline: 40px;
 

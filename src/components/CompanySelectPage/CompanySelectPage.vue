@@ -42,9 +42,13 @@ import OpportunityCard from "./OpportunityCard.vue";
 import CustomButton from "../UI/CustomButton.vue";
 import ArrowButton from "../UI/ArrowButton.vue";
 import { RouterLink } from "vue-router";
+import { useStore } from "vuex";
 
 export default defineComponent({
 	setup() {
+		const store = useStore();
+
+		const companyNumber: Ref<number> = ref(store.state.companyNumber);
 		const company: Ref<CompanyType> = ref({
 			id: 0,
 			title: "",
@@ -54,40 +58,37 @@ export default defineComponent({
 
 		return {
 			company,
+			companyNumber,
+			store
 		};
-	},
-	props: {
-		cardNumber: {
-			type: Number,
-			default: 1,
-		},
 	},
 	methods: {
 		getCompany(): CompanyType {
 			const company: CompanyType | undefined = companies.find(
-				(company) => company.id === this.cardNumber
+				(company) => company.id === this.companyNumber
 			);
 			return company ? company : { id: 0, title: "", image: "", opportunities: [] };
 		},
 		increaseCompanyNumber(): void {
-			this.$emit(
-				"setCompanyNumber",
-				this.cardNumber + 1 > 3 ? this.cardNumber : this.cardNumber + 1
-			);
+			this.companyNumber = this.companyNumber + 1 > 3 ? this.companyNumber : this.companyNumber + 1;
+			this.refreshCompany;
 		},
 		decreaseCompanyNumber(): void {
-			this.$emit(
-				"setCompanyNumber",
-				this.cardNumber - 1 < 1 ? this.cardNumber : this.cardNumber - 1
-			);
+			this.companyNumber = this.companyNumber - 1 < 1 ? this.companyNumber : this.companyNumber - 1;
+			this.refreshCompany;
 		},
+	},
+	computed: {
+		refreshCompany() {
+			this.company = this.getCompany();
+		}
 	},
 	components: {
 		OpportunityCard,
 		CustomButton,
 	},
 	mounted() {
-		this.company = this.getCompany();
+		this.refreshCompany;
 	},
 });
 </script>
