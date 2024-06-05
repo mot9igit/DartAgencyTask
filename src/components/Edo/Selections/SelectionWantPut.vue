@@ -27,17 +27,18 @@
 				>
 			</div>
 
-			<a href="edo/want-put">
+			<RouterLink to="/edo/want-put" class="selection__button-link">
 				<CustomButton class="selection__button modal__button" @click="close"
 					>Отправить</CustomButton
 				>
-			</a>
+			</RouterLink>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { RouterLink } from "vue-router";
 
 export default defineComponent({
 	name: "SelectionWantPut",
@@ -89,8 +90,11 @@ export default defineComponent({
 		}
 	}
 
-	&__button {
+	&__button-link {
 		margin-top: 40px;
+	}
+
+	&__button {
 		padding-inline: 55px;
 	}
 }

@@ -90,18 +90,55 @@
 	$mobile-scale
 ) {
 	@include desktop-l {
-		height: clamp(#{$desktop-scale}px, #{calc($desktop-l-scale * 100 / 1920)}dvh, #{$desktop-l-scale}px);
+		height: clamp(
+			#{$desktop-scale}px,
+			#{calc($desktop-l-scale * 100 / 1920)}dvh,
+			#{$desktop-l-scale}px
+		);
 	}
 
 	@include desktop {
-		height: clamp(#{$desktop-s-scale}px, #{calc($desktop-scale * 100 / 1280)}dvh, #{$desktop-scale}px);
+		height: clamp(
+			#{$desktop-s-scale}px,
+			#{calc($desktop-scale * 100 / 1280)}dvh,
+			#{$desktop-scale}px
+		);
 	}
 
 	@include desktop-s {
-		height: clamp(#{$tablet-scale}px, #{calc($desktop-s-scale * 100 / 1024)}dvh, #{$desktop-s-scale}px);
+		height: clamp(
+			#{$tablet-scale}px,
+			#{calc($desktop-s-scale * 100 / 1024)}dvh,
+			#{$desktop-s-scale}px
+		);
 	}
 
 	@include tablet {
 		height: clamp(#{$mobile-scale}px, #{calc($tablet-scale * 100 / 768)}dvh, #{$tablet-scale}px);
 	}
+}
+
+@mixin scrollbar {
+	&::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: var(--color-light-black);
+		border-radius: 5px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: var(--color-alt-black);
+	}
+
+	// &::-webkit-scrollbar-button {
+	// background-color: #4d7fff;
+	// border-radius: 5px;
+	// }
+
+	// &::-webkit-scrollbar-button:hover {
+	// 	background-color: #999999;
+	// }
 }

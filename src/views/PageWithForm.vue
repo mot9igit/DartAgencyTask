@@ -7,7 +7,7 @@
 			<div class="header__content">
 				<h2 class="header__title">Хотите продавать<br />быстро?</h2>
 				<p class="header__text">Добро пожаловать в наш маркетплейс!</p>
-				<a href="#form">
+				<a href="#form" class="header__button-link">
 					<CustomButton theme="red" class="header__button">Заполнить форму</CustomButton>
 				</a>
 			</div>
@@ -222,9 +222,12 @@ export default defineComponent({
 			color: var(--color-white);
 		}
 
+		&__button-link {
+			margin-top: 32px;
+		}
+
 		&__button {
 			height: 50px;
-			margin-top: 32px;
 			padding-inline: 35px;
 
 			@include mobile {

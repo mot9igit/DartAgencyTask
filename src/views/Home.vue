@@ -7,15 +7,15 @@
 		</header>
 
 		<div class="home__card-container hidden-desktop-s">
-			<a href="/company-select">
-				<PersonCard :card="1" @setCompanyNumber="setCompanyNumber" />
-			</a>
-			<a href="/company-select">
-				<PersonCard :card="2" @setCompanyNumber="setCompanyNumber" />
-			</a>
-			<a href="/company-select">
+			<RouterLink to="/company-select">
 				<PersonCard :card="3" @setCompanyNumber="setCompanyNumber" />
-			</a>
+			</RouterLink>
+			<RouterLink to="/company-select">
+				<PersonCard :card="2" @setCompanyNumber="setCompanyNumber" />
+			</RouterLink>
+			<RouterLink to="/company-select">
+				<PersonCard :card="1" @setCompanyNumber="setCompanyNumber" />
+			</RouterLink>
 		</div>
 		<CardSlider class="visible-desktop-s" @setCompanyNumber="setCompanyNumber" />
 
@@ -33,6 +33,7 @@ import { defineComponent } from "vue";
 import PersonCard from "../components/UI/PersonCard.vue";
 import CustomTitle from "../components/UI/CustomTitle.vue";
 import CardSlider from "../components/CardSlider.vue";
+import { RouterLink } from "vue-router";
 
 export default defineComponent({
 	name: "Home",

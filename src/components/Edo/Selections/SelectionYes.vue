@@ -4,7 +4,9 @@
 		<p class="selection__text modal__text">
 			Если не можете найти идентификатор, пропустите этот шаг
 		</p>
-		<CustomButton class="selection__button modal__button" @click="close">Далее</CustomButton>
+		<RouterLink to="/form" class="selection__link">
+			<CustomButton class="selection__button modal__button" @click="close">Далее</CustomButton>
+		</RouterLink>
 	</div>
 </template>
 
@@ -20,8 +22,8 @@ export default defineComponent({
 	methods: {
 		close(): void {
 			this.$emit("close");
-		}
-	}
+		},
+	},
 });
 </script>
 
@@ -38,8 +40,11 @@ export default defineComponent({
 		width: 100%;
 	}
 
-	&__button {
+	&__link {
 		margin-top: 40px;
+	}
+
+	&__button {
 		padding-inline: 55px;
 	}
 }

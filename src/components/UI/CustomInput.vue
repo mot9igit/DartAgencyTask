@@ -46,7 +46,7 @@ export default defineComponent({
 		value: {
 			type: String,
 			default: "",
-		}
+		},
 	},
 });
 </script>
@@ -132,6 +132,11 @@ export default defineComponent({
 		}
 		color: var(--color-light-dark-alt-gray);
 		letter-spacing: 0.25px;
+
+		position: absolute;
+		top: -4px;
+		left: 0;
+		translate: 0 -100%;
 	}
 
 	&__span {

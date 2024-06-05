@@ -54,6 +54,7 @@ export default defineComponent({
     aspect-ratio: 1;
 
     transition-duration: var(--transition-duration);
+    cursor: pointer;
 
     z-index: 100;
 

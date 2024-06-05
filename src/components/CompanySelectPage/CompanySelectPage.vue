@@ -12,14 +12,14 @@
 					:opportunity="opportunity"
 				/>
 			</div>
-			<a href="/edo" class="hidden-tablet-mobile-average">
+			<RouterLink to="/edo" class="content__link hidden-tablet-mobile-average">
 				<CustomButton class="content__button">Выбрать</CustomButton>
-			</a>
+			</RouterLink>
 		</div>
 
-		<a href="/edo" class="visible-tablet-mobile-average">
+		<RouterLink to="/edo" class="content__link visible-tablet-mobile-average">
 			<CustomButton class="content__button content__button--mobile">Выбрать</CustomButton>
-		</a>
+		</RouterLink>
 
 		<ArrowButton
 			direction="left"
@@ -41,6 +41,7 @@ import { companies } from "../../data/Companies";
 import OpportunityCard from "./OpportunityCard.vue";
 import CustomButton from "../UI/CustomButton.vue";
 import ArrowButton from "../UI/ArrowButton.vue";
+import { RouterLink } from "vue-router";
 
 export default defineComponent({
 	setup() {
@@ -58,7 +59,7 @@ export default defineComponent({
 	props: {
 		cardNumber: {
 			type: Number,
-			default: 1
+			default: 1,
 		},
 	},
 	methods: {
@@ -139,7 +140,7 @@ export default defineComponent({
 
 		position: relative;
 		width: 100%;
-		height: 876px;
+		// height: 876px;
 		// overflow: hidden;
 
 		@include tablet {
@@ -288,12 +289,15 @@ export default defineComponent({
 		}
 	}
 
+	.content__link {
+		margin-top: 40px;
+	}
+
 	.content__button {
 		font: {
 			size: 18px;
 		}
 
-		margin-top: 40px;
 		height: 50px;
 		width: 241px;
 

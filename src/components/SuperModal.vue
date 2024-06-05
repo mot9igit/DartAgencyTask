@@ -4,8 +4,8 @@
 			<header class="modal__header">
 				<h5 class="modal__title" id="modalTitle">{{ title }}</h5>
 				<form method="dialog">
-                    <CloseButton @click="close" />
-                </form>
+					<CloseButton @click="close" />
+				</form>
 			</header>
 
 			<slot></slot>
@@ -23,17 +23,16 @@ export default defineComponent({
 		return {};
 	},
 	props: {
-        title: {
-            type: String,
-            required: false
-        }
-    },
-    methods: {
-        close(): void{
-            this.$emit("close");
-        }
-    }
-    
+		title: {
+			type: String,
+			required: false,
+		},
+	},
+	methods: {
+		close(): void {
+			this.$emit("close");
+		},
+	},
 });
 </script>
 
@@ -42,11 +41,12 @@ export default defineComponent({
 
 .modal {
 	@include flex-center;
+	@include scrollbar;
 
 	background: url("/img/background/fog.png") repeat center center / cover;
 	background-size: 150%;
 
-    animation: bg-animation 30s linear infinite;
+	animation: bg-animation 30s linear infinite;
 
 	position: absolute;
 	top: 0;
@@ -54,11 +54,11 @@ export default defineComponent({
 	bottom: 0;
 	left: 0;
 
-    width: 100vw;
-    height: 100dvh;
+	width: 100vw;
+	height: 100dvh;
 	padding: 20px;
 
-    z-index: 1000;
+	z-index: 1000;
 
 	@include desktop {
 		background-size: 200%;
@@ -90,7 +90,7 @@ export default defineComponent({
 		padding: 40px;
 
 		overflow-x: hidden;
-		overflow-y: scroll;
+		overflow-y: auto;
 
 		.modal__header {
 			display: flex;
@@ -106,7 +106,7 @@ export default defineComponent({
 					weight: 500;
 				}
 
-                color: var(--color-white);
+				color: var(--color-white);
 			}
 		}
 
@@ -122,12 +122,11 @@ export default defineComponent({
 				weight: 400;
 			}
 
-            color: var(--color-light-dark-gray);
+			color: var(--color-light-dark-gray);
 			letter-spacing: 0.25px;
 			line-height: 106%;
 		}
 	}
-
 }
 
 @keyframes bg-animation {

@@ -25,6 +25,8 @@ export default defineComponent({
     width: 14px;
     aspect-ratio: 1;
 
+    cursor: pointer;
+
     &:hover {
         .button__cross {
             fill: var(--color-red);

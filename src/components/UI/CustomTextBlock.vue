@@ -36,6 +36,8 @@ export default defineComponent({
 	position: relative;
     overflow: hidden;
 
+	cursor: pointer;
+
 	&::after {
 		content: "";
 

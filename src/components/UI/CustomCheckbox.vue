@@ -85,6 +85,7 @@ export default defineComponent({
 		flex-shrink: 0;
 
 		overflow: hidden;
+		cursor: pointer;
 	}
 
 	&__icon {

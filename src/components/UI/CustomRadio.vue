@@ -68,6 +68,7 @@ export default defineComponent({
         flex-shrink: 0;
 
 		transition-duration: var(--transition-duration);
+		cursor: pointer;
 	}
 
 	&__label {

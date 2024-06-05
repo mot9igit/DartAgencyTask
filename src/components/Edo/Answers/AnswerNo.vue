@@ -1,19 +1,21 @@
 <template>
 	<section class="answer">
-		<div class="answer__img">
-		</div>
+		<div class="answer__img"></div>
 		<div class="answer__content">
 			<p class="answer__text answer__text--main">
 				Нам очень жаль, но мы уверены, что в будущем сможем поработать с Вами. Ждем вас с ЭДО!
 			</p>
 			<p class="answer__text">С надеждой, команда MachineStore.</p>
-			<CustomButton theme="red" class="answer__button">Я готов завести ЭДО</CustomButton>
+			<RouterLink to="/edo" class="answer__link">
+				<CustomButton theme="red" class="answer__button">Я готов завести ЭДО</CustomButton>
+			</RouterLink>
 		</div>
 	</section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { RouterLink } from "vue-router";
 
 export default defineComponent({
 	setup() {
@@ -89,6 +91,14 @@ export default defineComponent({
 		}
 	}
 
+	&__link {
+		margin-top: 40px;
+
+		@include mobile-tablet {
+			margin-top: 0px;
+		}
+	}
+
 	&__button {
 		font: {
 			size: 18px;
@@ -96,12 +106,10 @@ export default defineComponent({
 
 		height: 50px;
 		width: 241px;
-		margin-top: 40px;
 
 		@include mobile-tablet {
 			position: absolute;
 			bottom: 20px;
-			margin-top: 0px;
 			width: calc(100% - 20px * 2);
 		}
 	}

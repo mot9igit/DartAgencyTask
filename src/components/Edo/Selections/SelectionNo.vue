@@ -11,9 +11,9 @@
 				</p>
 			</div>
 
-			<a href="/edo/no">
+			<RouterLink to="/edo/no" class="selection__link">
 				<CustomButton class="selection__button modal__button" @click="close">Понятно</CustomButton>
-			</a>
+			</RouterLink>
 		</div>
 
 		<img src="../../../assets/svg/smile.svg" class="selection__image" />
@@ -47,6 +47,7 @@ export default defineComponent({
 		align-items: center;
 
 		position: relative;
+		overflow: hidden;
 		z-index: 2;
 	}
 
@@ -57,8 +58,11 @@ export default defineComponent({
 		z-index: 1;
 	}
 
-	&__button {
+	&__link {
 		margin-top: 40px;
+	}
+
+	&__button {
 		padding-inline: 55px;
 	}
 }

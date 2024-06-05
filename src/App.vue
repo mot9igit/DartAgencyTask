@@ -1,6 +1,6 @@
 <template>
 	<main class="main">
-		<Home v-if="location === '/'" @setCompanyNumber="setCompanyNumber" />
+		<!-- <Home v-if="location === '/'" @setCompanyNumber="setCompanyNumber" />
 		<Test v-if="location === '/test'" />
 		<CompanySelectPage
 			v-if="location === '/company-select' && companyNumber !== 0"
@@ -10,9 +10,9 @@
 		<Edo v-if="location === '/edo'" :cardNumber="companyNumber" />	
 		<AnswerNo v-if="location === '/edo/no'" />
 		<AnswerWantPut v-if="location === '/edo/want-put'" />
-		<PageWithForm v-if="location === '/form'" />
+		<PageWithForm v-if="location === '/form'" /> -->
 
-		<!-- <component :is="currentView" @setCompanyNumber="setCompanyNumber" :cardNumber="companyNumber" /> -->
+		<RouterView> </RouterView>
 	</main>
 </template>
 
@@ -26,6 +26,7 @@ import Edo from "./views/Edo.vue";
 import AnswerNo from "./components/Edo/Answers/AnswerNo.vue";
 import AnswerWantPut from "./components/Edo/Answers/AnswerWantPut.vue";
 import PageWithForm from "./views/PageWithForm.vue";
+import { RouterView } from "vue-router";
 
 export default defineComponent({
 	setup() {
@@ -85,12 +86,14 @@ export default defineComponent({
 .main {
 	@include adaptive-background;
 	@include flex-center;
+	@include scrollbar;
 
 	background-color: var(--color-alt-black);
 
 	width: 100vw;
-	height: 100dvh;
+	min-height: 100dvh;
 
 	overflow-x: hidden;
+	scroll-behavior: smooth;
 }
 </style>
