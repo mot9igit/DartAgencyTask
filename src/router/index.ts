@@ -7,6 +7,7 @@ import AnswerNo from "../components/Edo/Answers/AnswerNo.vue";
 import AnswerWantPut from "../components/Edo/Answers/AnswerWantPut.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import Test from "../views/Test.vue";
+import NotFound from "../views/NotFound.vue";
 
 type RouteType = {
 	path: string;
@@ -49,6 +50,11 @@ const routes: RouteType[] = [
 		path: "/test",
 		name: "Test",
 		component: Test
+	},
+	{
+		path: "/:pathMatch(.*)*",
+		name: "NotFound",
+		component: NotFound
 	}
 ];
 
