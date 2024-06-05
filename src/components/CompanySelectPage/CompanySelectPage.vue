@@ -141,7 +141,7 @@ export default defineComponent({
 
 		position: relative;
 		width: 100%;
-		// height: 876px;
+		height: 95%;
 		// overflow: hidden;
 
 		@include tablet {
