@@ -16,12 +16,14 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
+	setup() {
+		return {}
+	},
 	name: "CustomInput",
-
 	props: {
 		id: {
 			type: String,
@@ -47,7 +49,7 @@ export default defineComponent({
 			type: String,
 			default: "",
 		},
-	},
+	}
 });
 </script>
 

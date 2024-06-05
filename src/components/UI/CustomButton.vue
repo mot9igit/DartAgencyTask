@@ -1,30 +1,34 @@
 <template>
-	<button :class="colorTheme" :type="type" :disabled="disabled">
-		<div class="button__circle"></div>
+	<button :class="colorTheme" ref="button">
+		<div class="button__circle" ref="circle"></div>
 		<div class="button__content">
 			<slot></slot>
 		</div>
 	</button>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { Ref, defineComponent, ref } from "vue";
 
 export default defineComponent({
-	name: "CustomButton",
+	setup() {
+		const button: Ref<HTMLButtonElement> = ref({} as HTMLButtonElement);
+		const circle: Ref<HTMLDivElement> = ref({} as HTMLDivElement);
 
+		return {
+			button,
+			circle
+		}
+	},
+	name: "CustomButton",
 	props: {
+		id: {
+			type: String,
+			required: true,
+		},
 		theme: {
 			type: String,
 			default: "red",
-		},
-		type: {
-			type: String,
-			default: "button",
-		},
-		disabled: {
-			type: Boolean,
-			default: false,
 		},
 	},
 	computed: {
@@ -36,6 +40,13 @@ export default defineComponent({
 			};
 		},
 	},
+	mounted() {
+		this.button.addEventListener('mousedown', (e: any) => {
+			const rect: DOMRect = e.target.getBoundingClientRect();
+			this.circle.style.top = `${e.clientY - rect.top}px`;
+			this.circle.style.left = `${e.clientX - rect.left}px`;
+		})
+	}
 });
 </script>
 
@@ -87,7 +98,7 @@ export default defineComponent({
 
 	&:active {
 		.button__circle {
-			animation: circle 1.1s linear;
+			animation: circle 2s linear;
 		}
 	}
 
@@ -116,13 +127,13 @@ export default defineComponent({
 			opacity: 1;
 		}
 		75% {
-			width: 100%;
+			width: 200%;
 		}
 		90% {
 			opacity: 1;
 		}
 		100% {
-			width: 100%;
+			width: 200%;
 			opacity: 0;
 		}
 	}

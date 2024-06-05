@@ -5,15 +5,15 @@
 			<ArrowButton direction="right" />
 		</div>
 		<CloseButton />
-		<CustomButton style="width: 290px">Вывод средств</CustomButton>
-		<CustomButton style="width: 290px" theme="black">Вывод средств</CustomButton>
+		<CustomButton id="test1" style="width: 290px">Вывод средств</CustomButton>
+		<CustomButton id="test2" style="width: 290px" theme="black">Вывод средств</CustomButton>
 		<CustomCheckbox id="checkbox" />
 		<CustomIcon icon="vk" link="https://vk.com" />
 		<form class="block">
-			<CustomInput placeholder="ИНН" required="true" />
-			<CustomInput placeholder="Ваше имя" required="true" style="width: 300px" />
-			<CustomInput placeholder="Название магазина" disabled="true" />
-			<CustomButton theme="red" type="submit" style="width: 150px">Отправить</CustomButton>
+			<CustomInput id="inn" placeholder="ИНН" required="true" />
+			<CustomInput id="name" placeholder="Ваше имя" required="true" style="width: 300px" />
+			<CustomInput id="store" placeholder="Название магазина" disabled="true" />
+			<CustomButton id="submit" theme="red" type="submit" style="width: 150px">Отправить</CustomButton>
 		</form>
 		<CustomSelect id="testSelect" placeholder="Выберите компанию" :companies="companiesInfo" style="width: 500px;" />
 		<div class="block">
