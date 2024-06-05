@@ -160,6 +160,7 @@ export default defineComponent({
 
 	&__img-container {
 		position: relative;
+		height: 95%;
 
 		@include tablet-mobile-average {
 			height: 310px;
