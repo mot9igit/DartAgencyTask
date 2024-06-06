@@ -26,6 +26,7 @@
 import axios, { AxiosResponse } from "axios";
 import { Ref, defineComponent, ref } from "vue";
 import CompanyItem from "./CompanyItem.vue";
+import { useStore } from "vuex";
 
 export type CompanyType = {
 	value: string;
@@ -67,47 +68,48 @@ export type CompanyType = {
 		documents: string;
 		licenses: string;
 		finance: string;
-	};
-	address: {
-		value: string;
-		unrestricted_value: string;
-		invalidity: string;
-		data: {
-			postal_code: string;
-			country: string;
-			country_iso_code: string;
-			federal_district: string;
-			region_with_type: string;
-			region_type: string;
-			region_type_full: string;
-			region: string;
-			city: string;
-			street: string;
-			house: string;
-			fias_level: string;
-			kladr_id: string;
-			geoname_id: string;
-			capital_marker: string;
-			okato: string;
-			oktmo: string;
-			tax_office: string;
-			tax_office_legal: string;
-			timezone: string;
-			geo_lat: string;
-			geo_lon: string;
-			beltway_hit: string;
-			source: string;
+		address: {
+			value: string;
+			unrestricted_value: string;
+			invalidity: string;
+			data: {
+				postal_code: string;
+				country: string;
+				country_iso_code: string;
+				federal_district: string;
+				region_with_type: string;
+				region_type: string;
+				region_type_full: string;
+				region: string;
+				city: string;
+				street: string;
+				house: string;
+				fias_level: string;
+				kladr_id: string;
+				geoname_id: string;
+				capital_marker: string;
+				okato: string;
+				oktmo: string;
+				tax_office: string;
+				tax_office_legal: string;
+				timezone: string;
+				geo_lat: string;
+				geo_lon: string;
+				beltway_hit: string;
+				source: string;
+			};
 		};
+		phones: string[];
+		emails: string[];
+		ogrn_date: number;
+		okved_type: string;
+		employee_count: number;
 	};
-	phones: string[];
-	emails: string[];
-	ogrn_date: number;
-	okved_type: string;
-	employee_count: number;
 };
 
 export default defineComponent({
 	setup() {
+		const store = useStore();
 		let isShow: Ref<boolean> = ref(false);
 		let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
 
@@ -117,6 +119,7 @@ export default defineComponent({
 			isShow,
 			input,
 			companies,
+			store,
 		};
 	},
 	name: "CustomInputWithDropdown",
@@ -152,10 +155,11 @@ export default defineComponent({
 	methods: {
 		itemHandleClick(company: CompanyType) {
 			this.isShow = false;
-			this.input.value = company.value;
+			this.input.value = company.data.inn;
 			this.input.blur();
 
-			// this.$emit("change", company);
+			this.store.commit("setCompanyForInn", company);
+			this.$emit("refreshCompanyForInn");	
 		},
 		async setCompanies() {
 			const value: string = this.input.value;

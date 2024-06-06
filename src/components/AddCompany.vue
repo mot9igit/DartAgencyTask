@@ -105,12 +105,29 @@
 						<div class="container__border hidden-desktop-s"></div>
 
 						<!-- <CustomInput placeholder="ИНН" :required="true" class="form__input" /> -->
-						<CustomInputWithDropdown id="innSelect" placeholder="ИНН":required="true" class="form__input" />
-						<CustomInput placeholder="КПП" :disabled="true" class="form__input" />
-						<CustomInput placeholder="ОГРН" :disabled="true" class="form__input" />
+						<CustomInputWithDropdown
+							id="innSelect"
+							placeholder="ИНН"
+							:required="true"
+							class="form__input"
+							@refreshCompanyForInn="refreshCompanyForInn"
+						/>
+						<CustomInput
+							placeholder="КПП"
+							:disabled="true"
+							:value="checkValue(companyForInn.data?.kpp)"
+							class="form__input"
+						/>
+						<CustomInput
+							placeholder="ОГРН"
+							:disabled="true"
+							:value="checkValue(companyForInn.data?.ogrn)"
+							class="form__input"
+						/>
 						<CustomInput
 							placeholder="Название юридического лица"
 							:disabled="true"
+							:value="checkValue(companyForInn.data?.management?.name)"
 							class="form__input"
 						/>
 						<CustomSelect
@@ -120,7 +137,12 @@
 							:companies="[]"
 							class="form__input"
 						/>
-						<CustomInput placeholder="Юридический Адрес" :disabled="true" class="form__input" />
+						<CustomInput
+							placeholder="Юридический Адрес"
+							:value="checkValue(companyForInn.data?.address?.value)"
+							:disabled="true"
+							class="form__input"
+						/>
 						<CustomInput placeholder="Фактический адрес" :required="true" class="form__input" />
 						<CustomSelect
 							id="ndsSelect"
@@ -182,22 +204,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Ref, defineComponent, ref } from "vue";
 import { SelectCompanyType } from "../types/SelectCompanyType";
+import { CompanyType } from "./UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
 	setup() {
-		return {};
+		const store = useStore();
+		let companyForInn: Ref<CompanyType> = ref(store.state.companyForInn);
+
+		return {
+			store,
+			companyForInn,
+		};
 	},
 	props: {
 		company: {
 			type: Object as () => SelectCompanyType,
 			required: true,
 		},
-        index: {
-            type: Number,
-            required: true,
-        }
+		index: {
+			type: Number,
+			required: true,
+		},
+	},
+	methods: {
+		checkValue(value: string) {
+			return value == null || value == "" ? "" : value;
+		},
+		refreshCompanyForInn() {
+			this.companyForInn = this.store.state.companyForInn;
+			console.log(this.companyForInn);
+			
+		},
 	},
 });
 </script>
