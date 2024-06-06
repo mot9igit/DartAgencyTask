@@ -198,6 +198,10 @@ export default defineComponent({
 				this.setCompanies();
 				this.isShow = true;
 			}
+			else if(value.length === 0) {
+				this.store.commit("setCompanyForInn", {});
+				this.$emit("refreshCompanyForInn");
+			}
 		});
 
 		this.input.addEventListener("focus", () => {

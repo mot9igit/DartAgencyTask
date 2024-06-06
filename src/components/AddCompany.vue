@@ -127,7 +127,7 @@
 						<CustomInput
 							placeholder="Название юридического лица"
 							:disabled="true"
-							:value="checkValue(companyForInn.data?.management?.name)"
+							:value="checkValue(companyForInn.value)"
 							class="form__input"
 						/>
 						<CustomSelect
