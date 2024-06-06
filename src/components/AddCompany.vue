@@ -40,9 +40,10 @@
 						>
 					</div>
 					<CustomCheckbox
-						id="storeMode"
+						:id="'storeMode' + index"
 						label="Работа в режиме магазина*"
 						class="form__checkbox store-data__checkbox"
+						@onChange="setIsCopy"
 					/>
 					<span class="form__span store-data__span"
 						>* На вашем складе розничный покупатель может получить продукцию</span
@@ -87,7 +88,7 @@
 					<div class="container__info-block">
 						<h6 class="form__title">Юридические данные магазина</h6>
 						<CustomCheckbox
-							id="storeDataCopy"
+							:id="'storeDataCopy' + index"
 							label="Копировать юридические данные для остальных
                     магазинов"
 							class="form__checkbox"
@@ -106,10 +107,11 @@
 
 						<!-- <CustomInput placeholder="ИНН" :required="true" class="form__input" /> -->
 						<CustomInputWithDropdown
-							id="innSelect"
+							:id="'innSelect' + index"
 							placeholder="ИНН"
 							:required="true"
 							class="form__input"
+							:companyId="index"
 							@refreshCompanyForInn="refreshCompanyForInn"
 						/>
 						<CustomInput
@@ -131,7 +133,7 @@
 							class="form__input"
 						/>
 						<CustomSelect
-							id="taxSelect"
+							:id="'taxSelect' + index"
 							placeholder="Система налогообложения"
 							:disabled="true"
 							:companies="[]"
@@ -184,7 +186,7 @@
 						На старте и в последующем, нам необходимо знать, к кому обращаться при подключении.
 					</p>
 					<CustomCheckbox
-						id="lprDataCopy"
+						:id="'lprDataCopy' + index"
 						label="Копировать юридические данные для остальных
                 магазинов"
 						class="form__checkbox"
@@ -212,11 +214,13 @@ import { useStore } from "vuex";
 export default defineComponent({
 	setup() {
 		const store = useStore();
-		let companyForInn: Ref<CompanyType> = ref(store.state.companyForInn);
+		let companyForInn: Ref<CompanyType> = ref({} as CompanyType);
+		let isCopy: Ref<boolean> = ref(false);
 
 		return {
 			store,
 			companyForInn,
+			isCopy
 		};
 	},
 	props: {
@@ -234,10 +238,12 @@ export default defineComponent({
 			return value == null || value == "" ? "" : value;
 		},
 		refreshCompanyForInn() {
-			this.companyForInn = this.store.state.companyForInn;
-			console.log(this.companyForInn);
+			this.companyForInn = this.store.state.companiesForInn[this.index];
 			
 		},
+		setIsCopy(e: InputEvent) {
+			this.isCopy = (e.target as HTMLInputElement).checked;
+		}
 	},
 });
 </script>

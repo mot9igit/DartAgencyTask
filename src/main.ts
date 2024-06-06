@@ -15,15 +15,15 @@ UI.forEach(component => {
 const store = createStore({
     state: {
         companyNumber: 1,
-        companyForInn: {} as CompanyType,
+        companiesForInn: [],
     },
     mutations: {
         setCompanyNumber(state: any, value: number) {
             state.companyNumber = value;
         },
-        setCompanyForInn(state: any, value: CompanyType) {
-            state.companyForInn = value;
-        },
+        setCompanyForInn(state: any, value: CompanyType[]) {
+            state.companiesForInn = value;
+        }
     },
 });
 

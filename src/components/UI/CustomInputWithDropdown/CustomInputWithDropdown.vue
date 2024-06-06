@@ -151,6 +151,10 @@ export default defineComponent({
 			type: String,
 			default: "",
 		},
+		companyId: {
+			type: Number,
+			default: 0,
+		},
 	},
 	methods: {
 		itemHandleClick(company: CompanyType) {
@@ -158,8 +162,11 @@ export default defineComponent({
 			this.input.value = company.data.inn;
 			this.input.blur();
 
-			this.store.commit("setCompanyForInn", company);
-			this.$emit("refreshCompanyForInn");	
+			const newCompanies: CompanyType[] = this.store.state.companiesForInn;
+			newCompanies[this.companyId] = company;
+			
+			this.store.commit("setCompanyForInn", newCompanies);
+			this.$emit("refreshCompanyForInn");
 		},
 		async setCompanies() {
 			const value: string = this.input.value;
@@ -197,9 +204,8 @@ export default defineComponent({
 			if (value.length === 10 || value.length === 12) {
 				this.setCompanies();
 				this.isShow = true;
-			}
-			else if(value.length === 0) {
-				this.store.commit("setCompanyForInn", {});
+			} else if (value.length === 0) {
+				this.store.commit("addCompanyForInn", this.companyId, {} as CompanyType);
 				this.$emit("refreshCompanyForInn");
 			}
 		});

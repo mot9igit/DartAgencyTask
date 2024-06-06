@@ -1,6 +1,6 @@
 <template>
 	<div class="checkbox__wrapper">
-		<input :id="id" type="checkbox" class="checkbox" />
+		<input :id="id" type="checkbox" class="checkbox" @change="onChange" />
 		<label :for="id" class="checkbox__change">
 			<svg
 				class="checkbox__icon"
@@ -36,6 +36,11 @@ export default defineComponent({
 			required: false,
 		},
 	},
+	methods: {
+		onChange(e) {
+			this.$emit("onChange", e);
+		}
+	}
 });
 </script>
 
