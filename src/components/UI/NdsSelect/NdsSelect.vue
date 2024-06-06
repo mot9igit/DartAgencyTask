@@ -15,8 +15,8 @@
 			@click="arrowHandleClick"
 		/>
 		<ul :class="`select__items ${!isClicked && 'hidden'}`" :id="id + 'Items'" @click.stop>
-			<li class="select__item" v-for="company in companies">
-				<CustomSelectItem :company="company" @click="() => itemHandleClick(company)" />
+			<li class="select__item" v-for="nds in data">
+				<NdsSelectItem :nds="nds" @click="() => itemHandleClick(nds)" />
 			</li>
 		</ul>
 	</div>
@@ -24,27 +24,37 @@
 
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
-import { SelectCompanyType } from "../../../types/SelectCompanyType";
-import CustomSelectItem from "./CustomSelectItem.vue";
+import NdsSelectItem from "./NdsSelectItem.vue";
+
+export type NdsType = {
+	name: string;
+}
 
 export default defineComponent({
-	name: "CustomSelect",
-
-	components: {
-		CustomSelectItem,
-	},
+	name: "NdsSelect",
 
 	setup() {
 		let isClicked: Ref<boolean> = ref(false);
-
 		let selectInput: HTMLInputElement = {} as HTMLInputElement;
+
+		const data: NdsType[] = [
+			{
+				name: "Без НДС"
+			},
+			{
+				name: "20%"
+			}
+		]
 
 		return {
 			isClicked,
 			selectInput,
+			data
 		};
 	},
-
+	components: {
+		NdsSelectItem
+	},
 	props: {
 		id: {
 			type: String,
@@ -57,11 +67,7 @@ export default defineComponent({
 		disabled: {
 			type: Boolean,
 			required: false,
-		},
-		companies: {
-			type: Array as () => SelectCompanyType[],
-			required: true,
-		},
+		}
 	},
 	methods: {
 		selectHandleClick() {
@@ -80,12 +86,12 @@ export default defineComponent({
 				this.selectInput.blur();
 			}
 		},
-		itemHandleClick(company: SelectCompanyType) {
+		itemHandleClick(nds: NdsType) {
 			this.isClicked = false;
-			this.selectInput.value = company.name;
+			this.selectInput.value = nds.name;
 			this.selectInput.blur();
 
-			this.$emit("change", company);
+			this.$emit("change", nds);
 		},
 	},
 
@@ -142,10 +148,6 @@ export default defineComponent({
 			&::placeholder {
 				color: var(--color-dark-alt-gray);
 			}
-
-			& + .select__arrow {
-				pointer-events: none;
-			}
 		}
 	}
 
@@ -193,6 +195,14 @@ export default defineComponent({
 			background-color: var(--color-transparent-5-white);
 		}
 	}
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	border-radius: var(--border-radius);
 }
 
 .hidden {

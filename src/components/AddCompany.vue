@@ -148,11 +148,10 @@
 							class="form__input"
 						/>
 						<CustomInput placeholder="Фактический адрес" :required="true" class="form__input" />
-						<CustomSelect
+						<NdsSelect
 							id="ndsSelect"
 							placeholder="НДС"
 							:required="true"
-							:companies="[]"
 							class="form__input"
 						/>
 						<CustomInput placeholder="БИК" :required="true" class="form__input" />
