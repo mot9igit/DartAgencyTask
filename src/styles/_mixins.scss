@@ -142,3 +142,28 @@
 	// 	background-color: #999999;
 	// }
 }
+
+@mixin scrollbar-alt {
+	&::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--color-alt-black);
+		border-radius: 5px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: var(--color-light-black);
+	}
+
+	// &::-webkit-scrollbar-button {
+	// background-color: #4d7fff;
+	// border-radius: 5px;
+	// }
+
+	// &::-webkit-scrollbar-button:hover {
+	// 	background-color: #999999;
+	// }
+}

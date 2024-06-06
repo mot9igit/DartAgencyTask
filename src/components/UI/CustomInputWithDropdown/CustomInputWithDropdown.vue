@@ -332,7 +332,7 @@ export default defineComponent({
 	}
 
 	&__items {
-		@include scrollbar;
+		@include scrollbar-alt;
 
 		display: flex;
 		flex-direction: column;

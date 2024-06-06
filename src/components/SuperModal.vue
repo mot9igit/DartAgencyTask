@@ -80,7 +80,7 @@ export default defineComponent({
 	}
 
 	&__content {
-		@include scrollbar;
+		@include scrollbar-alt;
 
 		background-color: var(--color-black);
 		border-radius: var(--border-radius);
