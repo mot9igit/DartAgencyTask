@@ -7,6 +7,7 @@
 		<CloseButton />
 		<CustomButton id="test1" style="width: 290px">Вывод средств</CustomButton>
 		<CustomButton id="test2" style="width: 290px" theme="black">Вывод средств</CustomButton>
+		<CustomInputWithDropdown id="test1" style="width: 300px" placeholder="ИНН" required="true" />
 		<CustomCheckbox id="checkbox" />
 		<CustomIcon icon="vk" link="https://vk.com" />
 		<form class="block">

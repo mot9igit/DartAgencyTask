@@ -10,6 +10,7 @@ import PersonCard from "./PersonCard.vue";
 import CustomTitle from "./CustomTitle.vue";
 import CardTitle from "./CardTitle.vue";
 import CustomSelect from "./CustomSelect/CustomSelect.vue";
+import CustomInputWithDropdown from "./CustomInputWithDropdown/CustomInputWithDropdown.vue";
 
 export default [
 	ArrowButton,
@@ -23,5 +24,6 @@ export default [
 	PersonCard,
 	CustomTitle,
 	CardTitle,
-	CustomSelect
+	CustomSelect,
+	CustomInputWithDropdown
 ];
