@@ -43,7 +43,7 @@
 						:id="'storeMode' + index"
 						label="Работа в режиме магазина*"
 						class="form__checkbox store-data__checkbox"
-						@onChange="setIsCopy"
+						@onChange="setCopyIndex"
 					/>
 					<span class="form__span store-data__span"
 						>* На вашем складе розничный покупатель может получить продукцию</span
@@ -92,6 +92,7 @@
 							label="Копировать юридические данные для остальных
                     магазинов"
 							class="form__checkbox"
+							@change="setCopyIndex"
 						/>
 					</div>
 					<div class="ur-store-data__check">
@@ -110,6 +111,7 @@
 							:id="'innSelect' + index"
 							placeholder="ИНН"
 							:required="true"
+							:value="checkValue(companyForInn.data?.inn)"
 							class="form__input"
 							:companyId="index"
 							@refreshCompanyForInn="refreshCompanyForInn"
@@ -156,7 +158,7 @@
 						<CustomInput placeholder="БИК" :required="true" class="form__input" />
 						<CustomInput placeholder="Банк" :disabled="true" class="form__input" />
 						<CustomInput placeholder="К/с" :disabled="true" class="form__input" />
-						<CustomInput placeholder="ИНН" :required="true" class="form__input" />
+						<CustomInput placeholder="Р/с" :required="true" class="form__input" />
 					</div>
 					<div class="container__input-container ur-store-data__input-container">
 						<CustomInput placeholder="Телефон/факс" :required="true" class="form__input" />
@@ -187,8 +189,7 @@
 					</p>
 					<CustomCheckbox
 						:id="'lprDataCopy' + index"
-						label="Копировать юридические данные для остальных
-                магазинов"
+						label="Копировать данные лица ответственного за подключение для остальных магазинов"
 						class="form__checkbox"
 					/>
 				</div>
@@ -215,12 +216,10 @@ export default defineComponent({
 	setup() {
 		const store = useStore();
 		let companyForInn: Ref<CompanyType> = ref({} as CompanyType);
-		let isCopy: Ref<boolean> = ref(false);
 
 		return {
 			store,
 			companyForInn,
-			isCopy
 		};
 	},
 	props: {
@@ -232,6 +231,10 @@ export default defineComponent({
 			type: Number,
 			required: true,
 		},
+		copyIndex: {
+			type: Number,
+			required: false,
+		}
 	},
 	methods: {
 		checkValue(value: string) {
@@ -239,12 +242,18 @@ export default defineComponent({
 		},
 		refreshCompanyForInn() {
 			this.companyForInn = this.store.state.companiesForInn[this.index];
-			
 		},
-		setIsCopy(e: InputEvent) {
-			this.isCopy = (e.target as HTMLInputElement).checked;
-		}
+		setCopyIndex(e: InputEvent) {
+			if((e.target as HTMLInputElement).checked) {
+				this.$emit("setCopyIndex", this.index);
+			}
+		},
 	},
+	mounted() {
+		if(this.copyIndex != -1) {
+			this.companyForInn = this.store.state.companiesForInn[this.copyIndex];
+		}
+	}
 });
 </script>
 

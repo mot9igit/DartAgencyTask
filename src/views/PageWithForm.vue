@@ -66,7 +66,7 @@
 				</header>
 
 				<main class="form__main">
-					<AddCompany :company="company" :index="index" v-for="(company, index) in companies" />
+					<AddCompany :company="company" :index="index" :key="index" :copyIndex="copyIndex" @setCopyIndex="setCopyIndex" v-for="(company, index) in companies" />
 
 					<CustomButton theme="black" class="form__button form__button--add" @click="addCompany"
 						>+ Добавить компанию</CustomButton
@@ -131,11 +131,13 @@ export default defineComponent({
 	setup() {
 		const companies: Ref<any[]> = ref([AddCompany]);
 		const company: Ref<SelectCompanyType> = ref({} as SelectCompanyType);
+		let copyIndex: Ref<number> = ref(-1);
 
 		return {
 			companiesInfo,
 			companies,
 			company,
+			copyIndex,
 		};
 	},
 	components: {
@@ -148,6 +150,9 @@ export default defineComponent({
 		addCompany() {
 			this.companies.push(AddCompany);
 		},
+		setCopyIndex(index: number) {
+			this.copyIndex = index;
+		}
 	},
 });
 </script>

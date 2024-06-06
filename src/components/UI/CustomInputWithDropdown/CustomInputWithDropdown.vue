@@ -7,6 +7,7 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
+			:value="value"
 			ref="input"
 		/>
 		<label :for="id" class="input__label"
