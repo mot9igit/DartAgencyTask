@@ -57,7 +57,7 @@
 				</div>
 			</div>
 
-			<section class="order form__order form__container">
+			<!-- <section class="order form__order form__container">
 				<div class="container__info">
 					<h6 class="container__title">Организационно-правовая форма</h6>
 					<CustomCheckbox
@@ -73,7 +73,7 @@
 						<CustomRadio id="ur" label="Юридическое лицо" name="orderSelect" />
 					</div>
 				</div>
-			</section>
+			</section> -->
 
 			<div class="form__container form__line-wrapper">
 				<div class="container__info form__line-empty hidden-desktop-s"></div>
@@ -104,7 +104,8 @@
 					<div class="container__input-container container__input-container--border">
 						<div class="container__border hidden-desktop-s"></div>
 
-						<CustomInput placeholder="ИНН" :required="true" class="form__input" />
+						<!-- <CustomInput placeholder="ИНН" :required="true" class="form__input" /> -->
+						<CustomInputWithDropdown id="innSelect" placeholder="ИНН":required="true" class="form__input" />
 						<CustomInput placeholder="КПП" :disabled="true" class="form__input" />
 						<CustomInput placeholder="ОГРН" :disabled="true" class="form__input" />
 						<CustomInput

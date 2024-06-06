@@ -157,8 +157,6 @@ export default defineComponent({
 
 			// this.$emit("change", company);
 		},
-	},
-	computed: {
 		async setCompanies() {
 			const value: string = this.input.value;
 
@@ -175,9 +173,7 @@ export default defineComponent({
 					},
 				}
 			);
-
 			if (resposne.status !== 200) return;
-
 			this.companies = resposne.data.suggestions as CompanyType[];
 		},
 	},
@@ -191,11 +187,11 @@ export default defineComponent({
 			}
 		});
 
-		this.input.addEventListener("input", async () => {
+		this.input.addEventListener("input", () => {
 			const value: string = this.input.value;
 
 			if (value.length === 10 || value.length === 12) {
-				this.setCompanies;
+				this.setCompanies();
 				this.isShow = true;
 			}
 		});
