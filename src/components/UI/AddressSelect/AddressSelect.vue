@@ -82,7 +82,7 @@ export default defineComponent({
 		},
 		companyId: {
 			type: Number,
-			default: 0,
+			required: true,
 		},
 	},
 	methods: {

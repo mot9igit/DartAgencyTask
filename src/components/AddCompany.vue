@@ -30,6 +30,7 @@
 						<AddressSelect
 							placeholder="Адрес магазина"
 							:value="address"
+							:companyId="index"
 							@refreshAddress="refreshAddress"
 							@setCoordinates="setCoordinates"
 							class="form__input"
