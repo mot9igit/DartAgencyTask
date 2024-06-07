@@ -78,7 +78,7 @@ export default defineComponent({
 		},
 		value: {
 			type: String,
-			default: "",
+			required: false,
 		},
 		companyId: {
 			type: Number,
@@ -96,7 +96,7 @@ export default defineComponent({
 
 			this.store.commit("setAddresses", newAddresses);
 			this.$emit("refreshAddress");
-            this.$emit("setCoordinates");
+			this.$emit("setCoordinates");
 		},
 		async setAddresses() {
 			const response: AxiosResponse = await axios.post(
@@ -117,18 +117,28 @@ export default defineComponent({
 		},
 	},
 	mounted() {
+		setInterval(() => {
+			this.inputValue = this.store.state.addresses[this.companyId];
+		}, 1000);
+
 		window.addEventListener("click", (e) => {
 			if (e.target === this.input) return;
 			else if (e.target === this.input) e.stopPropagation();
 			else {
 				this.isShow = false;
-				if(this.input) this.input.blur();
+				if (this.input) this.input.blur();
 			}
 		});
 
 		this.input.addEventListener("input", () => {
 			this.setAddresses();
 			this.isShow = true;
+
+			const newAddresses: string[] = this.store.state.addresses;
+			newAddresses[this.companyId] = this.inputValue;
+
+			this.store.commit("setAddresses", newAddresses);
+			this.$emit("refreshAddress");
 
 			if (this.inputValue.length === 0) {
 				const newAddresses: string[] = this.store.state.addresses;

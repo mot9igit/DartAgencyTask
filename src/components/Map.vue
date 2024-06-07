@@ -74,8 +74,6 @@ const onClick = (object, event) => {
 };
 
 const updateCoordinates = (coordinates: CoordinatesType) => {
-	console.log("Child: " + coordinates);
-	
 	defaultMarker.value?.update({
 		coordinates: props.coordinates
 			? [
