@@ -51,6 +51,8 @@ const props = defineProps({
 	companyIndex: Number,
 });
 
+const emit = defineEmits(["refreshAddress"]);
+
 const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
 let address: Ref<string> = ref("");
 const store = useStore();
@@ -89,6 +91,8 @@ const refreshGeo = async () => {
 	const newAddresses = store.state.addresses;
 	newAddresses[props.companyIndex] = address.value;
 	store.commit("setAddress", newAddresses);
+
+	emit("refreshAddress");
 };
 
 const debounce = (func, delay) => {

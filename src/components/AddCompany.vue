@@ -29,13 +29,13 @@
 						/>
 						<CustomInput
 							placeholder="Адрес магазина"
-							:value="company.address"
+							:value="address"
 							class="form__input"
 						/>
 					</div>
 					<div class="map form__map">
 						<!-- <img src="/img/map.png" alt="map" class="map__img" /> -->
-						<Map class="map__img" :companyIndex="index" />
+						<Map class="map__img" :companyIndex="index" @refreshAddress="refreshAddress" />
 						<CustomButton theme="black" class="form__button map__button"
 							>Выбрать на карте</CustomButton
 						>
@@ -217,10 +217,12 @@ export default defineComponent({
 	setup() {
 		const store = useStore();
 		let companyForInn: Ref<CompanyType> = ref({} as CompanyType);
+		let address: Ref<string> = ref("");
 
 		return {
 			store,
 			companyForInn,
+			address
 		};
 	},
 	components: {
@@ -252,6 +254,9 @@ export default defineComponent({
 				this.$emit("setCopyIndex", this.index);
 			}
 		},
+		refreshAddress() {
+			this.address = this.store.state.addresses[this.index];
+		}
 	},
 	mounted() {
 		if(this.copyIndex != -1) {
