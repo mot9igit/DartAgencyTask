@@ -5,24 +5,30 @@
 				center: [37.617644, 55.755819],
 				zoom: 10,
 			},
-            theme: 'dark',
+			theme: 'dark',
 			showScaleInCopyrights: true,
 		}"
 		width="100%"
 		height="500px"
 	>
-		<YandexMapDefaultSchemeLayer :settings="{ theme: 'dark' }" />
+		<YandexMapDefaultSchemeLayer />
 		<YandexMapDefaultFeaturesLayer />
 
-		<YandexMapDefaultMarker
-            v-model="defaultMarker"
+		<YandexMapMarker
+			@click.stop
+			v-model="defaultMarker"
 			:settings="{
 				draggable: true,
-				title: `Долгота: ${defaultMarker?.coordinates[0].toFixed(
-					2
-				)}<br>Широта: ${defaultMarker?.coordinates[1].toFixed(2)}`,
 				coordinates: defaultMarker ? defaultMarker.coordinates : [37.617644, 55.755819],
 				onDragMove,
+			}"
+		>
+			<MapMarker :address="address" />
+		</YandexMapMarker>
+
+		<YandexMapListener
+			:settings="{
+				onClick,
 			}"
 		/>
 	</YandexMap>
@@ -30,27 +36,63 @@
 
 <script lang="ts" setup>
 import {
-  YandexMap, YandexMapDefaultSchemeLayer, YandexMapDefaultFeaturesLayer, YandexMapDefaultMarker,
-} from 'vue-yandex-maps';
-import { shallowRef, triggerRef } from 'vue';
-import type { YMapDefaultMarker } from '@yandex/ymaps3-types/packages/markers';
+	YandexMap,
+	YandexMapDefaultSchemeLayer,
+	YandexMapDefaultFeaturesLayer,
+	YandexMapListener,
+	YandexMapMarker,
+} from "vue-yandex-maps";
+import { Ref, ref, shallowRef, triggerRef } from "vue";
+import type { YMapDefaultMarker } from "@yandex/ymaps3-types/packages/markers";
+import axios, { AxiosResponse } from "axios";
 
 const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
+let address: Ref<string> = ref("");
 
 const onDragMove = () => {
-  triggerRef(defaultMarker);
+	triggerRef(defaultMarker);
+
+	// debounce(refreshGeo, 300);
 };
+
+const onClick = (object, event) => {
+	defaultMarker.value?.update({
+		coordinates: event.coordinates,
+	});
+	refreshGeo();
+};
+
+const refreshGeo = async () => {
+	const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
+		params: {
+			apikey: "9cc9371c-b0ef-422b-b0be-2b1d49e32386",
+			geocode:
+				defaultMarker.value?.coordinates[0].toString() +
+				"," +
+				defaultMarker.value?.coordinates[1].toString(),
+			format: "json",
+			results: 1,
+		},
+	});
+
+	if (response.status !== 200) return;
+
+	address.value =
+		response.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text;
+};
+
+function debounce(func, delay) {
+    let timer;
+    return function(this: any) {
+        const context = this as any;
+        const args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func.apply(context, args);
+        }, delay);
+    };
+}
+
 </script>
 
-<style lang="scss" scoped>
-.marker {
-	position: relative;
-	width: 50px;
-	height: 50px;
-	background-color: white;
-	border-radius: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-</style>
+<style lang="scss" scoped></style>

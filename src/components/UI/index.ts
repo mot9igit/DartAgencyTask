@@ -12,6 +12,7 @@ import CardTitle from "./CardTitle.vue";
 import CustomSelect from "./CustomSelect/CustomSelect.vue";
 import CustomInputWithDropdown from "./CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import NdsSelect from "./NdsSelect/NdsSelect.vue";
+import MapMarker from "./MapMarker.vue";
 
 export default [
 	ArrowButton,
@@ -27,5 +28,6 @@ export default [
 	CardTitle,
 	CustomSelect,
 	CustomInputWithDropdown,
-	NdsSelect
+	NdsSelect,
+	MapMarker
 ];
