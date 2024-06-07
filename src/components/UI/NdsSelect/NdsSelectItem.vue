@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import NdsType from "./NdsSelect.vue";
+import { NdsType } from "./NdsSelect.vue";
 
 export default defineComponent({
 	name: "NdsSelectItem",
