@@ -34,7 +34,8 @@
 						/>
 					</div>
 					<div class="map form__map">
-						<img src="/img/map.png" alt="map" class="map__img" />
+						<!-- <img src="/img/map.png" alt="map" class="map__img" /> -->
+						<Map class="map__img" />
 						<CustomButton theme="black" class="form__button map__button"
 							>Выбрать на карте</CustomButton
 						>
@@ -51,12 +52,12 @@
 				</div>
 			</section>
 
-			<div class="form__container form__line-wrapper">
+			<!-- <div class="form__container form__line-wrapper">
 				<div class="container__info form__line-empty hidden-desktop-s"></div>
 				<div class="container__data">
 					<hr class="form__line" />
 				</div>
-			</div>
+			</div> -->
 
 			<!-- <section class="order form__order form__container">
 				<div class="container__info">
@@ -210,6 +211,7 @@ import { Ref, defineComponent, ref } from "vue";
 import { SelectCompanyType } from "../types/SelectCompanyType";
 import { CompanyType } from "./UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import { useStore } from "vuex";
+import Map from "./Map.vue";
 
 export default defineComponent({
 	setup() {
@@ -221,6 +223,9 @@ export default defineComponent({
 			companyForInn,
 		};
 	},
+	components: {
+        Map,
+    },
 	props: {
 		company: {
 			type: Object as () => SelectCompanyType,

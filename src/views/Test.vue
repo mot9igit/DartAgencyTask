@@ -30,6 +30,7 @@
 
 		<CardSlider style="margin-block: 100px;" />
 
+		<Map />
 	</div>
 </template>
 
@@ -37,6 +38,7 @@
 import { defineComponent } from "vue";
 import { companiesInfo } from "../data/CompaniesInfo";
 import CardSlider from "../components/CardSlider.vue";
+import Map from "../components/Map.vue";
 
 export default defineComponent({
 	name: "Test",
@@ -49,6 +51,7 @@ export default defineComponent({
 
 	components: {
 		CardSlider,
+		Map
 	}
 });
 </script>
