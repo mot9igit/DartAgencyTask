@@ -165,17 +165,15 @@ export default defineComponent({
 
 			const newCompanies: CompanyType[] = this.store.state.companiesForInn;
 			newCompanies[this.companyId] = company;
-			
+
 			this.store.commit("setCompanyForInn", newCompanies);
 			this.$emit("refreshCompanyForInn");
 		},
 		async setCompanies() {
-			const value: string = this.input.value;
-
 			const resposne: AxiosResponse = await axios.post(
 				"http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party",
 				{
-					query: value,
+					query: this.input.value,
 				},
 				{
 					headers: {
@@ -207,7 +205,10 @@ export default defineComponent({
 				this.setCompanies();
 				this.isShow = true;
 			} else if (value.length === 0) {
-				this.store.commit("addCompanyForInn", this.companyId, {} as CompanyType);
+				const newCompanies: CompanyType[] = this.store.state.companiesForInn;
+				newCompanies[this.companyId] = {} as CompanyType;
+
+				this.store.commit("setCompanyForInn", newCompanies);
 				this.$emit("refreshCompanyForInn");
 			}
 		});
