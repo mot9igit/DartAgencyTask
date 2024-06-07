@@ -60,7 +60,8 @@ export default defineComponent({
 		border-radius: var(--border-radius-large);
 
 		padding: 8px;
-		width: 200px;
+		width: max-content;
+		max-width: 200px;
 
 		transition-duration: var(--transition-duration);
 		overflow: hidden;
@@ -69,6 +70,7 @@ export default defineComponent({
 	&__text {
 		font-size: 12px;
 		color: var(--color-white);
+		line-height: normal;
 	}
 }
 

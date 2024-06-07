@@ -35,7 +35,7 @@
 					</div>
 					<div class="map form__map">
 						<!-- <img src="/img/map.png" alt="map" class="map__img" /> -->
-						<Map class="map__img" />
+						<Map class="map__img" :companyIndex="index" />
 						<CustomButton theme="black" class="form__button map__button"
 							>Выбрать на карте</CustomButton
 						>

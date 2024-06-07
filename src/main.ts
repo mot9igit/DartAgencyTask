@@ -17,6 +17,7 @@ const store = createStore({
 	state: {
 		companyNumber: 1,
 		companiesForInn: [],
+		addresses: [],
 	},
 	mutations: {
 		setCompanyNumber(state: any, value: number) {
@@ -24,6 +25,9 @@ const store = createStore({
 		},
 		setCompanyForInn(state: any, value: CompanyType[]) {
 			state.companiesForInn = value;
+		},
+		setAddresses(state: any, value: string[]) {
+			state.addresses = value;
 		},
 	},
 });

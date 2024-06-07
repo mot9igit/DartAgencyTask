@@ -45,14 +45,20 @@ import {
 import { Ref, ref, shallowRef, triggerRef } from "vue";
 import type { YMapDefaultMarker } from "@yandex/ymaps3-types/packages/markers";
 import axios, { AxiosResponse } from "axios";
+import { useStore } from "vuex";
+
+const props = defineProps({
+	companyIndex: Number,
+});
 
 const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
 let address: Ref<string> = ref("");
+const store = useStore();
+let timer: Ref<NodeJS.Timeout> = ref({} as NodeJS.Timeout);
 
 const onDragMove = () => {
 	triggerRef(defaultMarker);
-
-	// debounce(refreshGeo, 300);
+	debounce(refreshGeo, 300);
 };
 
 const onClick = (object, event) => {
@@ -79,20 +85,16 @@ const refreshGeo = async () => {
 
 	address.value =
 		response.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text;
+
+	const newAddresses = store.state.addresses;
+	newAddresses[props.companyIndex] = address.value;
+	store.commit("setAddress", newAddresses);
 };
 
-function debounce(func, delay) {
-    let timer;
-    return function(this: any) {
-        const context = this as any;
-        const args = arguments;
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            func.apply(context, args);
-        }, delay);
-    };
-}
-
+const debounce = (func, delay) => {
+	clearTimeout(timer.value);
+	timer.value = setTimeout(func, delay);
+};
 </script>
 
 <style lang="scss" scoped></style>
