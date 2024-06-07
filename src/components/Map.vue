@@ -94,6 +94,8 @@ defineExpose({
 	updateCoordinates,
 });
 
+// TODO При обратном геокодировании адрес не записывается в маркер
+
 const refreshGeo = async () => {
 	const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
 		params: {

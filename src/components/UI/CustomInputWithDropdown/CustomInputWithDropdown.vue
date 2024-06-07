@@ -7,7 +7,7 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
-			:value="value"
+			v-model="inputValue"
 			ref="input"
 		/>
 		<label :for="id" class="input__label"
@@ -113,12 +113,14 @@ export default defineComponent({
 		const store = useStore();
 		let isShow: Ref<boolean> = ref(false);
 		let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+		let inputValue: Ref<string> = ref("");
 
 		const companies: Ref<CompanyType[]> = ref([]);
 
 		return {
 			isShow,
 			input,
+			inputValue,
 			companies,
 			store,
 		};
@@ -160,7 +162,7 @@ export default defineComponent({
 	methods: {
 		itemHandleClick(company: CompanyType) {
 			this.isShow = false;
-			this.input.value = company.data.inn;
+			this.inputValue = company.data.inn;
 			this.input.blur();
 
 			const newCompanies: CompanyType[] = this.store.state.companiesForInn;
@@ -173,7 +175,7 @@ export default defineComponent({
 			const resposne: AxiosResponse = await axios.post(
 				"http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party",
 				{
-					query: this.input.value,
+					query: this.inputValue,
 				},
 				{
 					headers: {
@@ -214,9 +216,7 @@ export default defineComponent({
 		});
 
 		this.input.addEventListener("focus", () => {
-			const value: string = this.input.value;
-
-			if (value.length === 10 || value.length === 12) {
+			if (this.inputValue.length === 10 || this.inputValue.length === 12) {
 				this.isShow = true;
 			}
 		});

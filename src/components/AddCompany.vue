@@ -250,9 +250,7 @@ export default defineComponent({
 
 		const mapRef: Ref<InstanceType<typeof Map> | null> = ref(null);
 
-		const invokeChild = (coordinates: CoordinatesType) => {
-			console.log("Parent: " + coordinates);
-			
+		const invokeChild = (coordinates: CoordinatesType) => {			
 			mapRef.value?.updateCoordinates(coordinates);
 		};
 

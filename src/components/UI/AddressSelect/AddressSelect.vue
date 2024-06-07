@@ -122,7 +122,7 @@ export default defineComponent({
 			else if (e.target === this.input) e.stopPropagation();
 			else {
 				this.isShow = false;
-				this.input.blur();
+				if(this.input) this.input.blur();
 			}
 		});
 
