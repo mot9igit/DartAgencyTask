@@ -36,6 +36,10 @@
 	@include visually-hidden;
 }
 
+.hidden {
+	display: none !important;
+}
+
 .hidden-mobile {
 	@include mobile {
 		display: none !important;

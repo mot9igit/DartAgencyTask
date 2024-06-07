@@ -27,16 +27,13 @@
 							:value="company.name"
 							class="form__input"
 						/>
-						<CustomInput
-							placeholder="Адрес магазина"
-							:value="address"
-							class="form__input"
-						/>
+						<CustomInput placeholder="Адрес магазина" :value="address" class="form__input" />
 					</div>
 					<div class="map form__map">
 						<!-- <img src="/img/map.png" alt="map" class="map__img" /> -->
+						<div :class="`map__overlay ${isShowMap && 'hidden'}`"></div>
 						<Map class="map__img" :companyIndex="index" @refreshAddress="refreshAddress" />
-						<CustomButton theme="black" class="form__button map__button"
+						<CustomButton theme="black" :class="`form__button map__button ${isShowMap && 'hidden'}`" @click="isShowMap = true"
 							>Выбрать на карте</CustomButton
 						>
 					</div>
@@ -149,12 +146,7 @@
 							class="form__input"
 						/>
 						<CustomInput placeholder="Фактический адрес" :required="true" class="form__input" />
-						<NdsSelect
-							id="ndsSelect"
-							placeholder="НДС"
-							:required="true"
-							class="form__input"
-						/>
+						<NdsSelect id="ndsSelect" placeholder="НДС" :required="true" class="form__input" />
 						<CustomInput placeholder="БИК" :required="true" class="form__input" />
 						<CustomInput placeholder="Банк" :disabled="true" class="form__input" />
 						<CustomInput placeholder="К/с" :disabled="true" class="form__input" />
@@ -218,16 +210,18 @@ export default defineComponent({
 		const store = useStore();
 		let companyForInn: Ref<CompanyType> = ref({} as CompanyType);
 		let address: Ref<string> = ref("");
+		let isShowMap: Ref<boolean> = ref(false);
 
 		return {
 			store,
 			companyForInn,
-			address
+			address,
+			isShowMap,
 		};
 	},
 	components: {
-        Map,
-    },
+		Map,
+	},
 	props: {
 		company: {
 			type: Object as () => SelectCompanyType,
@@ -240,7 +234,7 @@ export default defineComponent({
 		copyIndex: {
 			type: Number,
 			required: false,
-		}
+		},
 	},
 	methods: {
 		checkValue(value: string) {
@@ -250,19 +244,19 @@ export default defineComponent({
 			this.companyForInn = this.store.state.companiesForInn[this.index];
 		},
 		setCopyIndex(e: InputEvent) {
-			if((e.target as HTMLInputElement).checked) {
+			if ((e.target as HTMLInputElement).checked) {
 				this.$emit("setCopyIndex", this.index);
 			}
 		},
 		refreshAddress() {
 			this.address = this.store.state.addresses[this.index];
-		}
+		},
 	},
 	mounted() {
-		if(this.copyIndex != -1) {
+		if (this.copyIndex != -1) {
 			this.companyForInn = this.store.state.companiesForInn[this.copyIndex];
 		}
-	}
+	},
 });
 </script>
 

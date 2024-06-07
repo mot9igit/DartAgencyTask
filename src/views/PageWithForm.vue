@@ -66,7 +66,14 @@
 				</header>
 
 				<main class="form__main">
-					<AddCompany :company="company" :index="index" :key="index" :copyIndex="copyIndex" @setCopyIndex="setCopyIndex" v-for="(company, index) in companies" />
+					<AddCompany
+						:company="company"
+						:index="index"
+						:key="index"
+						:copyIndex="copyIndex"
+						@setCopyIndex="setCopyIndex"
+						v-for="(company, index) in companies"
+					/>
 
 					<CustomButton theme="black" class="form__button form__button--add" @click="addCompany"
 						>+ Добавить компанию</CustomButton
@@ -152,7 +159,7 @@ export default defineComponent({
 		},
 		setCopyIndex(index: number) {
 			this.copyIndex = index;
-		}
+		},
 	},
 });
 </script>
@@ -500,11 +507,25 @@ export default defineComponent({
 					margin-bottom: 25px;
 					width: 100%;
 
+					&__overlay {
+						position: absolute;
+
+						background-color: rgba(0, 0, 0, 0.5);
+
+						width: 100%;
+						height: 100%;
+
+						z-index: 2;
+					}
+
 					&__img {
 						width: 100%;
+						z-index: 1;
 					}
 
 					&__button {
+						z-index: 3;
+
 						@include absolute-center;
 						// padding-inline: 17px;
 

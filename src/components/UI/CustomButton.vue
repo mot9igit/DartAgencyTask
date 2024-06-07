@@ -1,5 +1,5 @@
 <template>
-	<button :class="colorTheme" ref="button">
+	<button :class="colorTheme" ref="button" type="button">
 		<div class="button__circle" ref="circle"></div>
 		<div class="button__content">
 			<slot></slot>
