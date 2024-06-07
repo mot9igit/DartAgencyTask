@@ -1,7 +1,7 @@
 <template>
 	<section class="form-page">
 		<header class="header container form-page__header">
-			<a href="https://mst.tools/" target="_blank">
+			<a href="https://mst.tools/" target="_blank" class="header__logo-link">
 				<img src="../assets/logo.svg" alt="logo" class="header__logo" />
 			</a>
 			<div class="header__content">
@@ -195,8 +195,13 @@ export default defineComponent({
 			padding-inline: 20px;
 		}
 
-		&__logo {
+		&__logo-link {
 			margin-top: 40px;
+		}
+
+		&__logo {
+			position: relative;
+			z-index: 10;
 
 			@include tablet {
 				margin-top: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
