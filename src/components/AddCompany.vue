@@ -245,7 +245,7 @@ export default defineComponent({
 		let isShowMap: Ref<boolean> = ref(false);
 		let coordinates: Ref<CoordinatesType> = ref({} as CoordinatesType);
 
-		const mapRef = ref(null);
+		const mapRef: Ref<InstanceType<typeof Map> | null> = ref(null);
 
 		const invokeChild = (coordinates: CoordinatesType) => {
 			console.log("Parent: " + coordinates);
