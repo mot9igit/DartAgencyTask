@@ -196,6 +196,8 @@
 						На старте и в последующем, нам необходимо знать, к кому обращаться при подключении.
 					</p>
 					<CustomCheckbox
+						v-if="personCopyIndex === -1 || personCopyIndex === index"
+						@change="setPersonCopy"
 						:id="'lprDataCopy' + index"
 						label="Копировать данные лица ответственного за подключение для остальных магазинов"
 						class="form__checkbox"
@@ -280,6 +282,10 @@ export default defineComponent({
 			type: Number,
 			required: false,
 		},
+		personCopyIndex: {
+			type: Number,
+			required: false,
+		}
 	},
 	methods: {
 		checkValue(value: string) {
@@ -294,6 +300,14 @@ export default defineComponent({
 			}
 			else {
 				this.$emit("setCopyIndex", -1);
+			}
+		},
+		setPersonCopy(e: InputEvent) {
+			if ((e.target as HTMLInputElement).checked) {
+				this.$emit("setPersonCopyIndex", this.index);
+			}
+			else {
+				this.$emit("setPersonCopyIndex", -1);
 			}
 		},
 		refreshAddress() {

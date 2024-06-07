@@ -71,6 +71,7 @@
 						:index="index"
 						:key="index"
 						:copyIndex="copyIndex"
+						:personCopyIndex="personCopyIndex"
 						@setCopyIndex="setCopyIndex"
 						v-for="(company, index) in companies"
 					/>
@@ -139,12 +140,14 @@ export default defineComponent({
 		const companies: Ref<any[]> = ref([AddCompany]);
 		const company: Ref<SelectCompanyType> = ref({} as SelectCompanyType);
 		let copyIndex: Ref<number> = ref(-1);
+		let personCopyIndex: Ref<number> = ref(-1);
 
 		return {
 			companiesInfo,
 			companies,
 			company,
 			copyIndex,
+			personCopyIndex,
 		};
 	},
 	components: {
@@ -159,6 +162,9 @@ export default defineComponent({
 		},
 		setCopyIndex(index: number) {
 			this.copyIndex = index;
+		},
+		setPersonCopyIndex(index: number) {
+			this.personCopyIndex = index;
 		},
 	},
 });
