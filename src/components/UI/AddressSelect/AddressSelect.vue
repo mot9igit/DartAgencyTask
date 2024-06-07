@@ -36,8 +36,6 @@ export type AddressType = {
 
 export default defineComponent({
 	setup() {
-        let timer: NodeJS.Timeout = {} as NodeJS.Timeout;
-
 		const store = useStore();
 		let isShow: Ref<boolean> = ref(false);
 		let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);

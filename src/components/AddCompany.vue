@@ -101,6 +101,7 @@
 					<div class="container__info-block">
 						<h6 class="form__title">Юридические данные магазина</h6>
 						<CustomCheckbox
+							v-if="copyIndex === -1 || copyIndex === index"
 							:id="'storeDataCopy' + index"
 							label="Копировать юридические данные для остальных
                     магазинов"
@@ -290,6 +291,9 @@ export default defineComponent({
 		setCopyIndex(e: InputEvent) {
 			if ((e.target as HTMLInputElement).checked) {
 				this.$emit("setCopyIndex", this.index);
+			}
+			else {
+				this.$emit("setCopyIndex", -1);
 			}
 		},
 		refreshAddress() {

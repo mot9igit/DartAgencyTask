@@ -186,6 +186,7 @@ export default defineComponent({
 				}
 			);
 			if (resposne.status !== 200) return;
+
 			this.companies = resposne.data.suggestions as CompanyType[];
 		},
 	},
