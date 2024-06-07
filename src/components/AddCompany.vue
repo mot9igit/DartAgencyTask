@@ -27,13 +27,28 @@
 							:value="company.name"
 							class="form__input"
 						/>
-						<CustomInput placeholder="Адрес магазина" :value="address" class="form__input" />
+						<AddressSelect
+							placeholder="Адрес магазина"
+							:value="address"
+							@refreshAddress="refreshAddress"
+							@setCoordinates="setCoordinates"
+							class="form__input"
+						/>
 					</div>
 					<div class="map form__map">
 						<!-- <img src="/img/map.png" alt="map" class="map__img" /> -->
 						<div :class="`map__overlay ${isShowMap && 'hidden'}`"></div>
-						<Map class="map__img" :companyIndex="index" @refreshAddress="refreshAddress" />
-						<CustomButton theme="black" :class="`form__button map__button ${isShowMap && 'hidden'}`" @click="isShowMap = true"
+						<Map
+							ref="mapRef"
+							class="map__img"
+							:companyIndex="index"
+							:coordinates="coordinates"
+							@refreshAddress="refreshAddress"
+						/>
+						<CustomButton
+							theme="black"
+							:class="`form__button map__button ${isShowMap && 'hidden'}`"
+							@click="isShowMap = true"
 							>Выбрать на карте</CustomButton
 						>
 					</div>
@@ -204,6 +219,23 @@ import { SelectCompanyType } from "../types/SelectCompanyType";
 import { CompanyType } from "./UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import { useStore } from "vuex";
 import Map from "./Map.vue";
+import axios, { AxiosResponse } from "axios";
+
+export type CoordinatesType = {
+	response: {
+		GeoObjectCollection: {
+			featureMember: [
+				{
+					GeoObject: {
+						Point: {
+							pos: string;
+						};
+					};
+				}
+			];
+		};
+	};
+};
 
 export default defineComponent({
 	setup() {
@@ -211,12 +243,24 @@ export default defineComponent({
 		let companyForInn: Ref<CompanyType> = ref({} as CompanyType);
 		let address: Ref<string> = ref("");
 		let isShowMap: Ref<boolean> = ref(false);
+		let coordinates: Ref<CoordinatesType> = ref({} as CoordinatesType);
+
+		const mapRef = ref(null);
+
+		const invokeChild = (coordinates: CoordinatesType) => {
+			console.log("Parent: " + coordinates);
+			
+			mapRef.value?.updateCoordinates(coordinates);
+		};
 
 		return {
 			store,
 			companyForInn,
 			address,
 			isShowMap,
+			coordinates,
+			mapRef,
+			invokeChild,
 		};
 	},
 	components: {
@@ -250,6 +294,20 @@ export default defineComponent({
 		},
 		refreshAddress() {
 			this.address = this.store.state.addresses[this.index];
+		},
+		async setCoordinates() {
+			const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
+				params: {
+					apikey: "9cc9371c-b0ef-422b-b0be-2b1d49e32386",
+					geocode: this.address,
+					format: "json",
+				},
+			});
+
+			if (response.status !== 200) return;
+
+			this.coordinates = response.data as CoordinatesType;
+			this.invokeChild(this.coordinates);
 		},
 	},
 	mounted() {

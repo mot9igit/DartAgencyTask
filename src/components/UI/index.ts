@@ -13,6 +13,7 @@ import CustomSelect from "./CustomSelect/CustomSelect.vue";
 import CustomInputWithDropdown from "./CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import NdsSelect from "./NdsSelect/NdsSelect.vue";
 import MapMarker from "./MapMarker.vue";
+import AddressSelect from "./AddressSelect/AddressSelect.vue";
 
 export default [
 	ArrowButton,
@@ -29,5 +30,6 @@ export default [
 	CustomSelect,
 	CustomInputWithDropdown,
 	NdsSelect,
-	MapMarker
+	MapMarker,
+	AddressSelect,
 ];

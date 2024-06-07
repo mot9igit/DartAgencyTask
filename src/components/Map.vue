@@ -2,7 +2,7 @@
 	<YandexMap
 		:settings="{
 			location: {
-				center: [37.617644, 55.755819],
+				center: defaultMarker ? defaultMarker.coordinates : [37.617644, 55.755819],
 				zoom: 10,
 			},
 			theme: 'dark',
@@ -46,14 +46,17 @@ import { Ref, ref, shallowRef, triggerRef } from "vue";
 import type { YMapDefaultMarker } from "@yandex/ymaps3-types/packages/markers";
 import axios, { AxiosResponse } from "axios";
 import { useStore } from "vuex";
+import { CoordinatesType } from "./AddCompany.vue";
 
 const props = defineProps({
 	companyIndex: Number,
+	coordinates: Object as () => CoordinatesType,
 });
 
 const emit = defineEmits(["refreshAddress"]);
 
 const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
+
 let address: Ref<string> = ref("");
 const store = useStore();
 let timer: Ref<NodeJS.Timeout> = ref({} as NodeJS.Timeout);
@@ -69,6 +72,27 @@ const onClick = (object, event) => {
 	});
 	refreshGeo();
 };
+
+const updateCoordinates = (coordinates: CoordinatesType) => {
+	console.log("Child: " + coordinates);
+	
+	defaultMarker.value?.update({
+		coordinates: props.coordinates
+			? [
+					+coordinates.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(
+						" "
+					)[0],
+					+coordinates.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(
+						" "
+					)[1],
+			  ]
+			: [37.617644, 55.755819],
+	});
+};
+
+defineExpose({
+	updateCoordinates,
+});
 
 const refreshGeo = async () => {
 	const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
