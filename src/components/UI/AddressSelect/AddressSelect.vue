@@ -7,7 +7,7 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
-			:value="value"
+			v-model="inputValue"
 			ref="input"
 		/>
 		<label :for="id" class="input__label"
@@ -15,7 +15,7 @@
 		>
 		<img src="../../../assets/svg/error.svg" class="input__error-icon" />
 
-		<ul :class="`input__items ${!isShow && 'hidden'}`" :id="id" @click.stop>
+		<ul :class="`input__items ${!isShow && 'hidden'}`" :id="id + 'Items'" @click.stop>
 			<li class="input__item" v-for="address in addresses">
 				<AddressSelectItem :address="address" @click="() => itemHandleClick(address)" />
 			</li>
@@ -39,6 +39,7 @@ export default defineComponent({
 		const store = useStore();
 		let isShow: Ref<boolean> = ref(false);
 		let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+		let inputValue: Ref<string> = ref("");
 
 		const addresses: Ref<AddressType[]> = ref([]);
 
@@ -47,6 +48,7 @@ export default defineComponent({
 			input,
 			addresses,
 			store,
+			inputValue,
 		};
 	},
 	name: "AddressSelect",
@@ -86,7 +88,7 @@ export default defineComponent({
 	methods: {
 		itemHandleClick(address: AddressType) {
 			this.isShow = false;
-			this.input.value = address.value;
+			this.inputValue = address.value;
 			this.input.blur();
 
 			const newAddresses: string[] = this.store.state.addresses;
@@ -97,12 +99,10 @@ export default defineComponent({
             this.$emit("setCoordinates");
 		},
 		async setAddresses() {
-			const value: string = this.input.value;
-
 			const response: AxiosResponse = await axios.post(
 				"http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address",
 				{
-					query: value,
+					query: this.inputValue,
 				},
 				{
 					headers: {
@@ -127,12 +127,10 @@ export default defineComponent({
 		});
 
 		this.input.addEventListener("input", () => {
-			const value: string = this.input.value;
-
 			this.setAddresses();
 			this.isShow = true;
 
-			if (value.length === 0) {
+			if (this.inputValue.length === 0) {
 				const newAddresses: string[] = this.store.state.addresses;
 				newAddresses[this.companyId] = "";
 
@@ -142,9 +140,7 @@ export default defineComponent({
 		});
 
 		this.input.addEventListener("focus", () => {
-			const value: string = this.input.value;
-
-			if (value.length === 10 || value.length === 12) {
+			if (this.inputValue.length === 10 || this.inputValue.length === 12) {
 				this.isShow = true;
 			}
 		});
@@ -299,8 +295,5 @@ export default defineComponent({
 			background-color: var(--color-transparent-5-white);
 		}
 	}
-}
-.hidden {
-	display: none;
 }
 </style>

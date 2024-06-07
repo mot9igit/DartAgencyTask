@@ -2,7 +2,7 @@
 	<YandexMap
 		:settings="{
 			location: {
-				center: defaultMarker ? defaultMarker.coordinates : [37.617644, 55.755819],
+				center: [37.617644, 55.755819],
 				zoom: 10,
 			},
 			theme: 'dark',
@@ -114,7 +114,7 @@ const refreshGeo = async () => {
 
 	const newAddresses = store.state.addresses;
 	newAddresses[props.companyIndex] = address.value;
-	store.commit("setAddress", newAddresses);
+	store.commit("setAddresses", newAddresses);
 
 	emit("refreshAddress");
 };

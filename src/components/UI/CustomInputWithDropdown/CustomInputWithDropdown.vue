@@ -15,7 +15,7 @@
 		>
 		<img src="../../../assets/svg/error.svg" class="input__error-icon" />
 
-		<ul :class="`input__items ${!isShow && 'hidden'}`" :id="id" @click.stop>
+		<ul :class="`input__items ${!isShow && 'hidden'}`" :id="id + 'Items'" @click.stop>
 			<li class="input__item" v-for="company in companies">
 				<CompanyItem :company="company" @click="() => itemHandleClick(company)" />
 			</li>
@@ -191,10 +191,10 @@ export default defineComponent({
 	mounted() {
 		window.addEventListener("click", (e) => {
 			if (e.target === this.input) return;
-			else if (e.target === this.input) e.preventDefault();
+			else if (e.target === this.input) e.stopPropagation();
 			else {
 				this.isShow = false;
-				this.input.blur();
+				if (this.input) this.input.blur();
 			}
 		});
 
@@ -204,7 +204,7 @@ export default defineComponent({
 			if (value.length === 10 || value.length === 12) {
 				this.setCompanies();
 				this.isShow = true;
-			} else if (value.length === 0) {
+			} else if (value.length === 0) {				
 				const newCompanies: CompanyType[] = this.store.state.companiesForInn;
 				newCompanies[this.companyId] = {} as CompanyType;
 
@@ -371,8 +371,5 @@ export default defineComponent({
 			background-color: var(--color-transparent-5-white);
 		}
 	}
-}
-.hidden {
-	display: none;
 }
 </style>
