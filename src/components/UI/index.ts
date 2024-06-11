@@ -11,7 +11,7 @@ import CustomTitle from "./CustomTitle.vue";
 import CardTitle from "./CardTitle.vue";
 import CustomSelect from "./CustomSelect/CustomSelect.vue";
 import CustomInputWithDropdown from "./CustomInputWithDropdown/CustomInputWithDropdown.vue";
-import NdsSelect from "./TextSelect/TextSelect.vue";
+import TextSelect from "./TextSelect/TextSelect.vue";
 import MapMarker from "./MapMarker.vue";
 import AddressSelect from "./AddressSelect/AddressSelect.vue";
 
@@ -29,7 +29,7 @@ export default [
 	CardTitle,
 	CustomSelect,
 	CustomInputWithDropdown,
-	NdsSelect,
+	TextSelect,
 	MapMarker,
 	AddressSelect,
 ];

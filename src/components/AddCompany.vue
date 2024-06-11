@@ -148,7 +148,7 @@
 							:value="checkValue(companyForInn?.value)"
 							class="form__input"
 						/>
-						<NdsSelect
+						<TextSelect
 							:id="'taxSelect' + index"
 							placeholder="Система налогообложения"
 							:data="dataForTaxSystem"
@@ -161,7 +161,7 @@
 							class="form__input"
 						/>
 						<AddressSelect placeholder="Фактический адрес" :required="true" class="form__input" />
-						<NdsSelect
+						<TextSelect
 							id="ndsSelect"
 							placeholder="НДС"
 							:required="true"

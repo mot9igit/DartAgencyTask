@@ -1,6 +1,6 @@
 <template>
 	<article class="item">
-		<p>{{ nds.name }}</p>
+		<p>{{ data.name }}</p>
 	</article>
 </template>
 
@@ -16,7 +16,7 @@ export default defineComponent({
 	},
 
 	props: {
-		nds: {
+		data: {
 			type: Object as () => DataType,
 			required: true,
 		},

@@ -15,8 +15,8 @@
 			@click="arrowHandleClick"
 		/>
 		<ul :class="`select__items ${!isClicked && 'hidden'}`" :id="id + 'Items'" @click.stop>
-			<li class="select__item" v-for="nds in data">
-				<NdsSelectItem :nds="nds" @click="() => itemHandleClick(nds)" />
+			<li class="select__item" v-for="dataItem in data">
+				<TextSelectItem :data="dataItem" @click="() => itemHandleClick(dataItem)" />
 			</li>
 		</ul>
 	</div>
