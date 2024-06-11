@@ -12,9 +12,7 @@
 		<div class="edo__content">
 			<CustomTitle class="edo__title" text="Есть ли у вас" span="ЭДО">?</CustomTitle>
 			<EdoSelect class="edo__select" @setSelection="setSelection" />
-			<CustomButton class="edo__button hidden-tablet-mobile-average" theme="red" @click="showModal" :disabled="selection == 0">Далее</CustomButton>
 		</div>
-		<CustomButton class="edo__button edo__button--mobile visible-tablet-mobile-average" theme="red" @click="showModal" :disabled="selection == 0">Далее</CustomButton>
 	</section>
 
 	<SuperModal
@@ -77,8 +75,6 @@ export default defineComponent({
 	},
 	methods: {
 		showModal(): void {
-			// const modal: HTMLDialogElement = document.getElementById("edoModal") as HTMLDialogElement;
-			// modal.showModal();
 			this.isModalShow = true;
 		},
 		closeModal(): void {
@@ -86,6 +82,7 @@ export default defineComponent({
 		},
 		setSelection(value: number): void {
 			this.selection = value;
+			this.showModal();
 		},
 	},
 	computed: {
