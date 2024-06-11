@@ -105,9 +105,13 @@ export default defineComponent({
 	padding-inline: 195px;
 
 	height: 100dvh;
-	width: 100vw;
+	width: 100%;
 
 	overflow: hidden;
+
+	@include desktop-l-above {
+		align-items: center;
+	}
 
 	@include desktop-l {
 		padding-top: clamp(0px, #{calc(40 * 100 / 1980)}vw, 40px);
@@ -140,9 +144,11 @@ export default defineComponent({
 		align-items: flex-end;
 
 		position: relative;
-		width: 100%;
 		height: 95%;
-		// overflow: hidden;
+
+		@include desktop-s {
+			width: 100%;
+		}
 
 		@include tablet {
 			position: absolute;
@@ -160,7 +166,7 @@ export default defineComponent({
 
 	&__img {
 		// height: 944px;
-		height: 100%;
+		max-height: 100%;
 		// width: 600px;
 		object-fit: contain;
 
@@ -199,8 +205,6 @@ export default defineComponent({
 		align-items: flex-start;
 		flex-direction: column;
 
-		width: 100%;
-
 		@include desktop-l {
 			padding-bottom: clamp(40px, #{calc(40 * 100 / 1980)}vw, 0px);
 		}
@@ -215,6 +219,7 @@ export default defineComponent({
 			translate: -50% 0;
 
 			padding-inline: clamp(40px, #{calc(121 * 100 / 1024)}vw, 121px);
+			width: 100%;
 		}
 
 		@include tablet {
