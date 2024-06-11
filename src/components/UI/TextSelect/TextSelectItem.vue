@@ -6,10 +6,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NdsType } from "./TextSelect.vue";
+import { DataType } from "./TextSelect.vue";
 
 export default defineComponent({
-	name: "NdsSelectItem",
+	name: "TextSelectItem",
 
 	setup() {
 		return {};
@@ -17,7 +17,7 @@ export default defineComponent({
 
 	props: {
 		nds: {
-			type: Object as () => NdsType,
+			type: Object as () => DataType,
 			required: true,
 		},
 	},

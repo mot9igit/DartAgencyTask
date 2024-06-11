@@ -24,14 +24,14 @@
 
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
-import NdsSelectItem from "./TextSelectItem.vue";
+import TextSelectItem from "./TextSelectItem.vue";
 
 export type DataType = {
 	name: string;
 }
 
 export default defineComponent({
-	name: "NdsSelect",
+	name: "TextSelect",
 
 	setup() {
 		let isClicked: Ref<boolean> = ref(false);
@@ -43,7 +43,7 @@ export default defineComponent({
 		};
 	},
 	components: {
-		NdsSelectItem
+		TextSelectItem
 	},
 	props: {
 		id: {
