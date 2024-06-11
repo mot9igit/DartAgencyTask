@@ -2,7 +2,6 @@
 	<div class="input__container">
 		<input
 			:id="id"
-			:type="type"
 			class="input"
 			:placeholder="placeholder"
 			:disabled="disabled"
@@ -17,7 +16,7 @@
 
 		<ul :class="`input__items ${!isShow && 'hidden'}`" :id="id + 'Items'" @click.stop>
 			<li class="input__item" v-for="company in companies">
-				<CompanyItem :company="company" @click="() => itemHandleClick(company)" />
+				<CompanyItem :company="company" :type="type" @click="() => itemHandleClick(company)" />
 			</li>
 		</ul>
 	</div>
@@ -32,7 +31,10 @@ import { useStore } from "vuex";
 export type CompanyType = {
 	value: string;
 	data: {
-		kpp: string;
+		kpp: string | undefined;
+		bic: string | undefined;
+		swift: string | undefined;
+		correspondent_account: string | undefined;
 		management: {
 			name: string;
 		};
@@ -56,8 +58,8 @@ export type CompanyType = {
 			full: string;
 			short: string;
 		};
-		inn: string;
-		ogrn: string;
+		inn: string | undefined;
+		ogrn: string | undefined;
 		okpo: string;
 		okato: string;
 		oktmo: string;
@@ -108,6 +110,11 @@ export type CompanyType = {
 	};
 };
 
+export enum SearchCompanyEnum {
+	INN = "ИНН",
+	BIC = "БИК",
+}
+
 export default defineComponent({
 	setup() {
 		const store = useStore();
@@ -135,8 +142,8 @@ export default defineComponent({
 			required: false,
 		},
 		type: {
-			type: String,
-			default: "text",
+			type: Object as () => SearchCompanyEnum,
+			default: SearchCompanyEnum.INN,
 		},
 		placeholder: {
 			type: String,
@@ -162,18 +169,25 @@ export default defineComponent({
 	methods: {
 		itemHandleClick(company: CompanyType) {
 			this.isShow = false;
-			this.inputValue = company.data.inn;
+			this.inputValue =
+				this.type === SearchCompanyEnum.INN ? company.data?.inn! : company.data?.bic!;
 			this.input.blur();
 
-			const newCompanies: CompanyType[] = this.store.state.companiesForInn;
+			const newCompanies: CompanyType[] =
+				this.type === SearchCompanyEnum.INN
+					? this.store.state.companiesForInn
+					: this.store.state.banks;
 			newCompanies[this.companyId] = company;
-
-			this.store.commit("setCompanyForInn", newCompanies);
-			this.$emit("refreshCompanyForInn");
+			this.refreshCompanies(newCompanies);
 		},
 		async setCompanies() {
-			const resposne: AxiosResponse = await axios.post(
-				"http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party",
+			const url: string =
+				this.type === SearchCompanyEnum.INN
+					? "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party"
+					: "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/bank";
+
+			const response: AxiosResponse = await axios.post(
+				url,
 				{
 					query: this.inputValue,
 				},
@@ -185,9 +199,19 @@ export default defineComponent({
 					},
 				}
 			);
-			if (resposne.status !== 200) return;
+			if (response.status !== 200) return;
 
-			this.companies = resposne.data.suggestions as CompanyType[];
+			this.companies = response.data.suggestions as CompanyType[];
+		},
+		refreshCompanies(newCompanies: CompanyType[]) {
+			if (this.type == SearchCompanyEnum.INN) {
+				this.store.commit("setCompanyForInn", newCompanies);
+				this.$emit("refreshCompanyForInn");
+			}
+			if (this.type == SearchCompanyEnum.BIC) {
+				this.store.commit("setBanks", newCompanies);
+				this.$emit("refreshBank");
+			}
 		},
 	},
 	mounted() {
@@ -203,15 +227,22 @@ export default defineComponent({
 		this.input.addEventListener("input", () => {
 			const value: string = this.input.value;
 
-			if (value.length === 10 || value.length === 12) {
-				this.setCompanies();
-				this.isShow = true;
-			} else if (value.length === 0) {				
+			if (this.type == SearchCompanyEnum.INN) {
+				if (value.length === 10 || value.length === 12) {
+					this.setCompanies();
+					this.isShow = true;
+				}
+			}
+			if (this.type == SearchCompanyEnum.BIC) {
+				if (value.length === 9) {
+					this.setCompanies();
+					this.isShow = true;
+				}
+			}
+			if (value.length === 0) {
 				const newCompanies: CompanyType[] = this.store.state.companiesForInn;
 				newCompanies[this.companyId] = {} as CompanyType;
-
-				this.store.commit("setCompanyForInn", newCompanies);
-				this.$emit("refreshCompanyForInn");
+				this.refreshCompanies(newCompanies);
 			}
 		});
 

@@ -24,9 +24,9 @@
 
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
-import NdsSelectItem from "./NdsSelectItem.vue";
+import NdsSelectItem from "./TextSelectItem.vue";
 
-export type NdsType = {
+export type DataType = {
 	name: string;
 }
 
@@ -37,19 +37,9 @@ export default defineComponent({
 		let isClicked: Ref<boolean> = ref(false);
 		let selectInput: HTMLInputElement = {} as HTMLInputElement;
 
-		const data: NdsType[] = [
-			{
-				name: "Без НДС"
-			},
-			{
-				name: "20%"
-			}
-		]
-
 		return {
 			isClicked,
 			selectInput,
-			data
 		};
 	},
 	components: {
@@ -67,6 +57,10 @@ export default defineComponent({
 		disabled: {
 			type: Boolean,
 			required: false,
+		},
+		data: {
+			type: Array as () => DataType[],
+            required: true,
 		}
 	},
 	methods: {
@@ -86,7 +80,7 @@ export default defineComponent({
 				this.selectInput.blur();
 			}
 		},
-		itemHandleClick(nds: NdsType) {
+		itemHandleClick(nds: DataType) {
 			this.isClicked = false;
 			this.selectInput.value = nds.name;
 			this.selectInput.blur();

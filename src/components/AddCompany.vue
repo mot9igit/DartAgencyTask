@@ -121,12 +121,11 @@
 					<div class="container__input-container container__input-container--border">
 						<div class="container__border hidden-desktop-s"></div>
 
-						<!-- <CustomInput placeholder="ИНН" :required="true" class="form__input" /> -->
 						<CustomInputWithDropdown
 							:id="'innSelect' + index"
 							placeholder="ИНН"
 							:required="true"
-							:value="checkValue(companyForInn.data?.inn)"
+							:value="checkValue(companyForInn?.data?.inn || '')"
 							class="form__input"
 							:companyId="index"
 							@refreshCompanyForInn="refreshCompanyForInn"
@@ -134,39 +133,63 @@
 						<CustomInput
 							placeholder="КПП"
 							:disabled="true"
-							:value="checkValue(companyForInn.data?.kpp)"
+							:value="checkValue(companyForInn?.data?.kpp || '')"
 							class="form__input"
 						/>
 						<CustomInput
 							placeholder="ОГРН"
 							:disabled="true"
-							:value="checkValue(companyForInn.data?.ogrn)"
+							:value="checkValue(companyForInn?.data?.ogrn || '')"
 							class="form__input"
 						/>
 						<CustomInput
 							placeholder="Название юридического лица"
 							:disabled="true"
-							:value="checkValue(companyForInn.value)"
+							:value="checkValue(companyForInn?.value)"
 							class="form__input"
 						/>
-						<CustomSelect
+						<NdsSelect
 							:id="'taxSelect' + index"
 							placeholder="Система налогообложения"
-							:disabled="true"
-							:companies="[]"
+							:data="dataForTaxSystem"
 							class="form__input"
 						/>
 						<CustomInput
 							placeholder="Юридический Адрес"
-							:value="checkValue(companyForInn.data?.address?.value)"
+							:value="checkValue(companyForInn?.data?.address?.value)"
 							:disabled="true"
 							class="form__input"
 						/>
-						<CustomInput placeholder="Фактический адрес" :required="true" class="form__input" />
-						<NdsSelect id="ndsSelect" placeholder="НДС" :required="true" class="form__input" />
-						<CustomInput placeholder="БИК" :required="true" class="form__input" />
-						<CustomInput placeholder="Банк" :disabled="true" class="form__input" />
-						<CustomInput placeholder="К/с" :disabled="true" class="form__input" />
+						<AddressSelect placeholder="Фактический адрес" :required="true" class="form__input" />
+						<NdsSelect
+							id="ndsSelect"
+							placeholder="НДС"
+							:required="true"
+							:data="dataForInn"
+							class="form__input"
+						/>
+						<CustomInputWithDropdown
+							:id="'innSelect' + index"
+							placeholder="БИК"
+							:required="true"
+							:value="checkValue(bank?.data?.bic || '')"
+							:type="enumForTaxSystem"
+							class="form__input"
+							:companyId="index"
+							@refreshBank="refreshBank"
+						/>
+						<CustomInput
+							placeholder="Банк"
+							:disabled="true"
+							:value="checkValue(bank?.value)"
+							class="form__input"
+						/>
+						<CustomInput
+							placeholder="К/с"
+							:disabled="true"
+							:value="checkValue(bank?.data?.correspondent_account || '')"
+							class="form__input"
+						/>
 						<CustomInput placeholder="Р/с" :required="true" class="form__input" />
 					</div>
 					<div class="container__input-container ur-store-data__input-container">
@@ -220,10 +243,14 @@
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
 import { SelectCompanyType } from "../types/SelectCompanyType";
-import { CompanyType } from "./UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
+import {
+	CompanyType,
+	SearchCompanyEnum,
+} from "./UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import { useStore } from "vuex";
 import Map from "./Map.vue";
 import axios, { AxiosResponse } from "axios";
+import { DataType } from "./UI/TextSelect/TextSelect.vue";
 
 export type CoordinatesType = {
 	response: {
@@ -245,24 +272,48 @@ export default defineComponent({
 	setup() {
 		const store = useStore();
 		let companyForInn: Ref<CompanyType> = ref({} as CompanyType);
+		let bank: Ref<CompanyType> = ref({} as CompanyType);
 		let address: Ref<string> = ref("");
 		let isShowMap: Ref<boolean> = ref(false);
 		let coordinates: Ref<CoordinatesType> = ref({} as CoordinatesType);
 
 		const mapRef: Ref<InstanceType<typeof Map> | null> = ref(null);
 
-		const invokeChild = (coordinates: CoordinatesType) => {			
+		const invokeChild = (coordinates: CoordinatesType) => {
 			mapRef.value?.updateCoordinates(coordinates);
 		};
+
+		const dataForInn: DataType[] = [
+			{
+				name: "Без НДС",
+			},
+			{
+				name: "20%",
+			},
+		];
+
+		const dataForTaxSystem: DataType[] = [
+			{
+				name: "ОСНО",
+			},
+			{
+				name: "УСН",
+			},
+		];
+		const enumForTaxSystem: SearchCompanyEnum = SearchCompanyEnum.BIC;
 
 		return {
 			store,
 			companyForInn,
+			bank,
 			address,
 			isShowMap,
 			coordinates,
 			mapRef,
 			invokeChild,
+			dataForInn,
+			dataForTaxSystem,
+			enumForTaxSystem,
 		};
 	},
 	components: {
@@ -284,7 +335,7 @@ export default defineComponent({
 		personCopyIndex: {
 			type: Number,
 			required: false,
-		}
+		},
 	},
 	methods: {
 		checkValue(value: string) {
@@ -293,19 +344,20 @@ export default defineComponent({
 		refreshCompanyForInn() {
 			this.companyForInn = this.store.state.companiesForInn[this.index];
 		},
+		refreshBank() {
+			this.bank = this.store.state.banks[this.index];
+		},
 		setCopyIndex(e: InputEvent) {
 			if ((e.target as HTMLInputElement).checked) {
 				this.$emit("setCopyIndex", this.index);
-			}
-			else {
+			} else {
 				this.$emit("setCopyIndex", -1);
 			}
 		},
 		setPersonCopy(e: InputEvent) {
 			if ((e.target as HTMLInputElement).checked) {
 				this.$emit("setPersonCopyIndex", this.index);
-			}
-			else {
+			} else {
 				this.$emit("setPersonCopyIndex", -1);
 			}
 		},

@@ -1,25 +1,41 @@
 <template>
 	<article class="item">
 		<h6 class="item__title">{{ company.value }}</h6>
-		<p class="item__text">ИНН: {{ company.data.inn }}</p>
-		<p class="item__text">КПП: {{ company.data.kpp }}</p>
-		<p class="item__text">ОГРН: {{ company.data.ogrn }}</p>
+		<div v-if="type === innEnum" class="item__content">
+			<p class="item__text">ИНН: {{ company.data?.inn }}</p>
+			<p class="item__text">КПП: {{ company.data?.kpp }}</p>
+			<p class="item__text">ОГРН: {{ company.data?.ogrn }}</p>
+		</div>
+		<div v-if="type === bicEnum" class="item__content">
+			<p class="item__text">БИК: {{ company.data?.bic }}</p>
+			<p class="item__text">К/с: {{ company.data?.correspondent_account }}</p>
+		</div>
 	</article>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { CompanyType } from "./CustomInputWithDropdown.vue";
+import { CompanyType, SearchCompanyEnum } from "./CustomInputWithDropdown.vue";
 
 export default defineComponent({
 	setup() {
-		return {};
+		const innEnum: SearchCompanyEnum = SearchCompanyEnum.INN;
+		const bicEnum: SearchCompanyEnum = SearchCompanyEnum.BIC;
+
+		return {
+			innEnum,
+			bicEnum
+		};
 	},
     props: {
         company: {
             type: Object as () => CompanyType,
             required: true,
-        }
+        },
+		type: {
+			type: Object as () => SearchCompanyEnum,
+			required: true
+		}
     }
 });
 </script>
