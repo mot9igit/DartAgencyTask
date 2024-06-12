@@ -194,6 +194,7 @@
 					</div>
 					<div class="container__input-container ur-store-data__input-container">
 						<CustomInput
+							:id="`telephoneInput${index}`"
 							ref="telephoneInput"
 							placeholder="Телефон/факс"
 							type="tel"
@@ -283,7 +284,7 @@ export default defineComponent({
 		let address: Ref<string> = ref("");
 		let isShowMap: Ref<boolean> = ref(false);
 		let coordinates: Ref<CoordinatesType> = ref({} as CoordinatesType);
-			
+
 		// Данные формы
 		const telephoneInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
 
@@ -293,7 +294,6 @@ export default defineComponent({
 		const invokeChild = (coordinates: CoordinatesType) => {
 			mapRef.value?.updateCoordinates(coordinates);
 		};
-
 
 		// Данные для select-ов
 		const dataForInn: DataType[] = [
@@ -394,6 +394,10 @@ export default defineComponent({
 		},
 	},
 	mounted() {
+		IMask(document.getElementById("telephoneInput" + this.index) as HTMLInputElement, {
+			mask: "+{7} (000) 000-00-00",
+		})
+
 		if (this.copyIndex != -1) {
 			this.companyForInn = this.store.state.companiesForInn[this.copyIndex];
 			this.bank = this.store.state.banks[this.copyIndex];
