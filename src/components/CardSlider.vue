@@ -1,5 +1,11 @@
 <template>
-	<div class="slider">
+	<div
+		class="slider"
+		@mousedown="handleMouseDown"
+		@mouseup="handleMouseUp"
+		@touchstart="handleTouchStart"
+		@touchend="handleTouchEnd"
+	>
 		<ArrowButton direction="left" class="slider__arrow slider__arrow--left" @click="prevCard" />
 
 		<div class="slider__card-container card-container">
@@ -63,14 +69,17 @@ export default defineComponent({
 				: "";
 		};
 
+		const coordsBeforeSlide: number[] = [0, 0];
+
 		return {
 			sliderCardsStates,
 			getCardStyles,
+			coordsBeforeSlide,
 		};
 	},
 	methods: {
 		setCompanyNumber(value: number) {
-			this.$emit("setCompanyNumber", value);	
+			this.$emit("setCompanyNumber", value);
 		},
 		nextCard() {
 			this.sliderCardsStates[1] = this.setNextState(this.sliderCardsStates[1]);
@@ -100,6 +109,30 @@ export default defineComponent({
 				? CardSliderState.Next
 				: CardSliderState.Last;
 		},
+		handleMouseDown(event: MouseEvent) {
+			this.coordsBeforeSlide = [event.clientX, event.clientY];
+		},
+		handleMouseUp(event: MouseEvent) {
+			const coordsAfterSlide = [event.clientX, event.clientY];
+
+			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0]) {
+				this.nextCard();
+			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0]) {
+				this.prevCard();
+			}
+		},
+		handleTouchStart(event: TouchEvent) {
+			this.coordsBeforeSlide = [event.touches[0].clientX, event.touches[0].clientY];
+		},
+		handleTouchEnd(event: TouchEvent) {
+			const coordsAfterSlide = [event.changedTouches[0].clientX, event.changedTouches[0].clientY];
+
+			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0]) {
+				this.nextCard();
+			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0]) {
+				this.prevCard();
+			}
+		}
 	},
 	computed: {
 		getCompanyNumber() {

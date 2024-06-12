@@ -1,5 +1,5 @@
 <template>
-	<div class="card-wrapper">
+	<div class="card-wrapper" unselectable="on">
 		<button class="card" type="button" @click="setCompanyNumber">
 			<img class="card__img" :src="image" />
 			<CardTitle class="card__title">{{ name }}</CardTitle>

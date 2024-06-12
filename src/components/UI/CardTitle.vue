@@ -33,6 +33,8 @@ export default defineComponent({
 	letter-spacing: 0.5px;
 	color: var(--color-white);
 
+	user-select: none;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
