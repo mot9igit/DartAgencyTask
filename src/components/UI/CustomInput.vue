@@ -5,7 +5,7 @@
 			:type="type"
 			class="input"
 			:placeholder="placeholder"
-			:disabled="disabled"
+			:disabled="disabled"ц
 			:required="required"
 			:value="value"
 		/>

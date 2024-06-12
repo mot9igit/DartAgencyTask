@@ -23,239 +23,153 @@
 </template>
 
 <script lang="ts">
+export default defineComponent({
+	name: "CustomInputWithDropdown",
+});
+</script>
+
+<script lang="ts" setup>
 import axios, { AxiosResponse } from "axios";
-import { Ref, defineComponent, ref } from "vue";
+import { Ref, defineComponent, onMounted, ref } from "vue";
 import CompanyItem from "./CompanyItem.vue";
 import { useStore } from "vuex";
+import { LegalDataType } from "../../../types/DataFromForm";
+import { CompanyType, SearchCompanyEnum } from "../../../types/CustomInputWithDropdownTypes";
 
-export type CompanyType = {
-	value: string;
-	data: {
-		kpp: string | undefined;
-		bic: string | undefined;
-		swift: string | undefined;
-		correspondent_account: string | undefined;
-		management: {
-			name: string;
+
+const props = defineProps({
+	id: {
+		type: String,
+		required: false,
+	},
+	type: {
+		type: Object as () => SearchCompanyEnum,
+		default: SearchCompanyEnum.INN,
+	},
+	placeholder: {
+		type: String,
+		default: "",
+	},
+	disabled: {
+		type: Boolean,
+		default: false,
+	},
+	required: {
+		type: Boolean,
+		default: false,
+	},
+	value: {
+		type: String,
+		default: "",
+	},
+	companyId: {
+		type: Number,
+		default: 0,
+	},
+});
+
+const emit = defineEmits(["refreshLegalData"]);
+
+const store = useStore();
+let isShow: Ref<boolean> = ref(false);
+let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+let inputValue: Ref<string> = ref(props.value);
+
+const companies: Ref<CompanyType[]> = ref([]);
+
+
+const itemHandleClick = (company: CompanyType) => {
+	isShow.value = false;
+	inputValue.value = props.type === SearchCompanyEnum.INN ? company.data?.inn! : company.data?.bic!;
+	input.value.blur();
+
+	const newData: LegalDataType[] = store.state.formLegalData;
+
+	if (props.type === SearchCompanyEnum.INN) {
+		newData[props.companyId] = {
+			...newData[props.companyId],
+			inn: company.data?.inn || "",
+			kpp: company.data?.kpp || "",
+			ogrn: company.data?.ogrn || "",
+			legal_entity_name: company.value || "",
 		};
-		state: {
-			status: string;
-			code: string;
-			actuality_date: number;
-			registration_date: number;
-			liquidation_date: number;
+	}
+
+	if (props.type === SearchCompanyEnum.BIC) {
+		newData[props.companyId] = {
+			...newData[props.companyId],
+			bic: company.data?.bic!,
+			bank: company.value,
+			correspondent_account: company.data?.correspondent_account!,
 		};
-		opf: {
-			type: string;
-			code: string;
-			full: string;
-			short: string;
-		};
-		name: {
-			full_with_opf: string;
-			short_with_opf: string;
-			latin: string;
-			full: string;
-			short: string;
-		};
-		inn: string | undefined;
-		ogrn: string | undefined;
-		okpo: string;
-		okato: string;
-		oktmo: string;
-		okogu: string;
-		okfs: string;
-		okved: string;
-		okveds: string;
-		authorities: string;
-		documents: string;
-		licenses: string;
-		finance: string;
-		address: {
-			value: string;
-			unrestricted_value: string;
-			invalidity: string;
-			data: {
-				postal_code: string;
-				country: string;
-				country_iso_code: string;
-				federal_district: string;
-				region_with_type: string;
-				region_type: string;
-				region_type_full: string;
-				region: string;
-				city: string;
-				street: string;
-				house: string;
-				fias_level: string;
-				kladr_id: string;
-				geoname_id: string;
-				capital_marker: string;
-				okato: string;
-				oktmo: string;
-				tax_office: string;
-				tax_office_legal: string;
-				timezone: string;
-				geo_lat: string;
-				geo_lon: string;
-				beltway_hit: string;
-				source: string;
-			};
-		};
-		phones: string[];
-		emails: string[];
-		ogrn_date: number;
-		okved_type: string;
-		employee_count: number;
-	};
+	}
+	refreshCompanies(newData);
+};
+const setCompanies = async () => {
+	const url: string =
+		props.type === SearchCompanyEnum.INN
+			? "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party"
+			: "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/bank";
+
+	const response: AxiosResponse = await axios.post(
+		url,
+		{
+			query: inputValue.value,
+		},
+		{
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+				Authorization: "Token 34e9caeb5d40781585d9b5cb3b156199fbaca4e2",
+			},
+		}
+	);
+	if (response.status !== 200) return;
+
+	companies.value = response.data.suggestions as CompanyType[];
+};
+const refreshCompanies = (newData: LegalDataType[]) => {
+	store.commit("setFormLegalData", newData);
+	emit("refreshLegalData");
 };
 
-export enum SearchCompanyEnum {
-	INN = "ИНН",
-	BIC = "БИК",
-}
+onMounted(() => {
+	window.addEventListener("click", (e) => {
+		if (e.target === input.value) return;
+		else if (e.target === input.value) e.stopPropagation();
+		else {
+			isShow.value = false;
+			if (input.value) input.value.blur();
+		}
+	});
 
-export default defineComponent({
-	setup() {
-		const store = useStore();
-		let isShow: Ref<boolean> = ref(false);
-		let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
-		let inputValue: Ref<string> = ref("");
+	input.value.addEventListener("input", () => {
+		const value: string = input.value.value;
 
-		const companies: Ref<CompanyType[]> = ref([]);
-
-		return {
-			isShow,
-			input,
-			inputValue,
-			companies,
-			store,
-		};
-	},
-	name: "CustomInputWithDropdown",
-	components: {
-		CompanyItem,
-	},
-	props: {
-		id: {
-			type: String,
-			required: false,
-		},
-		type: {
-			type: Object as () => SearchCompanyEnum,
-			default: SearchCompanyEnum.INN,
-		},
-		placeholder: {
-			type: String,
-			default: "",
-		},
-		disabled: {
-			type: Boolean,
-			default: false,
-		},
-		required: {
-			type: Boolean,
-			default: false,
-		},
-		value: {
-			type: String,
-			default: "",
-		},
-		companyId: {
-			type: Number,
-			default: 0,
-		},
-	},
-	methods: {
-		itemHandleClick(company: CompanyType) {
-			this.isShow = false;
-			this.inputValue =
-				this.type === SearchCompanyEnum.INN ? company.data?.inn! : company.data?.bic!;
-			this.input.blur();
-
-			const newCompanies: CompanyType[] =
-				this.type === SearchCompanyEnum.INN
-					? this.store.state.companiesForInn
-					: this.store.state.banks;
-			newCompanies[this.companyId] = company;
-			this.refreshCompanies(newCompanies);
-		},
-		async setCompanies() {
-			const url: string =
-				this.type === SearchCompanyEnum.INN
-					? "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party"
-					: "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/bank";
-
-			const response: AxiosResponse = await axios.post(
-				url,
-				{
-					query: this.inputValue,
-				},
-				{
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						Authorization: "Token 34e9caeb5d40781585d9b5cb3b156199fbaca4e2",
-					},
-				}
-			);
-			if (response.status !== 200) return;
-
-			this.companies = response.data.suggestions as CompanyType[];
-		},
-		refreshCompanies(newCompanies: CompanyType[]) {
-			if (this.type == SearchCompanyEnum.INN) {
-				this.store.commit("setCompanyForInn", newCompanies);
-				this.$emit("refreshCompanyForInn");
+		if (props.type == SearchCompanyEnum.INN) {
+			if (value.length === 10 || value.length === 12) {
+				setCompanies();
+				isShow.value = true;
 			}
-			if (this.type == SearchCompanyEnum.BIC) {
-				this.store.commit("setBanks", newCompanies);
-				this.$emit("refreshBank");
+		}
+		if (props.type == SearchCompanyEnum.BIC) {
+			if (value.length === 9) {
+				setCompanies();
+				isShow.value = true;
 			}
-		},
-	},
-	mounted() {
-		setTimeout(() => {
-			this.inputValue = this.value;
-		}, 100);
+		}
+		if (value.length === 0) {
+			const newCompanies: LegalDataType[] = store.state.formLegalData;
+			newCompanies[props.companyId] = {} as LegalDataType;
+			refreshCompanies(newCompanies);
+		}
+	});
 
-		window.addEventListener("click", (e) => {
-			if (e.target === this.input) return;
-			else if (e.target === this.input) e.stopPropagation();
-			else {
-				this.isShow = false;
-				if (this.input) this.input.blur();
-			}
-		});
-
-		this.input.addEventListener("input", () => {
-			const value: string = this.input.value;
-
-			if (this.type == SearchCompanyEnum.INN) {
-				if (value.length === 10 || value.length === 12) {
-					this.setCompanies();
-					this.isShow = true;
-				}
-			}
-			if (this.type == SearchCompanyEnum.BIC) {
-				if (value.length === 9) {
-					this.setCompanies();
-					this.isShow = true;
-				}
-			}
-			if (value.length === 0) {
-				const newCompanies: CompanyType[] = this.store.state.companiesForInn;
-				newCompanies[this.companyId] = {} as CompanyType;
-				this.refreshCompanies(newCompanies);
-			}
-		});
-
-		this.input.addEventListener("focus", () => {
-			if (this.inputValue.length === 10 || this.inputValue.length === 12) {
-				this.isShow = true;
-			}
-		});
-	},
+	input.value.addEventListener("focus", () => {
+		if (inputValue.value.length === 10 || inputValue.value.length === 12) {
+			isShow.value = true;
+		}
+	});
 });
 </script>
 

@@ -4,8 +4,8 @@ import App from "./App.vue";
 import UI from "./components/UI";
 import router from "./router";
 import { createStore } from "vuex";
-import { CompanyType } from "./components/UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import { createYmaps } from "vue-yandex-maps";
+import { LegalDataType, LegalPersonType } from "./types/DataFromForm";
 
 const app = createApp(App);
 
@@ -16,19 +16,19 @@ UI.forEach((component) => {
 const store = createStore({
 	state: {
 		companyNumber: 1,
-		companiesForInn: [],
-		banks: [],
+		formLegalData: [] as LegalDataType[],
+		formLegalPerson: [] as LegalPersonType[],
 		addresses: [],
 	},
 	mutations: {
 		setCompanyNumber(state: any, value: number) {
 			state.companyNumber = value;
 		},
-		setCompanyForInn(state: any, value: CompanyType[]) {
-			state.companiesForInn = value;
+		setFormLegalData(state: any, value: LegalDataType[]) {
+			state.formLegalData = value;
 		},
-		setBanks(state: any, value: CompanyType[]) {
-			state.bank = value;
+		setFormLegalPerson(state: any, value: LegalPersonType[]) {
+			state.formLegalPerson = value;
 		},
 		setAddresses(state: any, value: string[]) {
 			state.addresses = value;

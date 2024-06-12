@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { CompanyType, SearchCompanyEnum } from "./CustomInputWithDropdown.vue";
+import { CompanyType, SearchCompanyEnum } from "../../../types/CustomInputWithDropdownTypes";
 
 export default defineComponent({
 	setup() {

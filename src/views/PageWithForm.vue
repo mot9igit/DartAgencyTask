@@ -72,10 +72,12 @@
 						:key="index"
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
-						:companyForInn="companiesForInn[index]"
-						:bank="banks[index]"
+						:legalFormData="copyIndex === -1 ? legalFormData[index] : legalFormData[copyIndex]"
+						:legalFormPerson="personCopyIndex === -1 ? legalFormPerson[index] : legalFormPerson[personCopyIndex]"
 						@setCopyIndex="setCopyIndex"
-						@refreshData="refreshData"
+						@setPersonCopyIndex="setPersonCopyIndex"
+						@refreshLegalData="refreshLegalData"
+						@refreshLegalPerson="refreshLegalPerson"
 						v-for="(company, index) in companies"
 					/>
 
@@ -137,8 +139,8 @@ import { Ref, defineComponent, ref } from "vue";
 import { companiesInfo } from "../data/CompaniesInfo";
 import { SelectCompanyType } from "../types/SelectCompanyType";
 import AddCompany from "../components/AddCompany.vue";
-import { CompanyType } from "../components/UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import { useStore } from "vuex";
+import { LegalDataType, LegalPersonType } from "../types/DataFromForm";
 
 export default defineComponent({
 	setup() {
@@ -149,8 +151,8 @@ export default defineComponent({
 
 		const store = useStore();
 
-		const companiesForInn: Ref<CompanyType[]> = ref([]);
-		const banks: Ref<CompanyType[]> = ref([]);
+		const legalFormData: Ref<LegalDataType> = ref({} as LegalDataType);
+		const legalFormPerson: Ref<LegalPersonType> = ref({} as LegalPersonType);
 
 		return {
 			companiesInfo,
@@ -159,8 +161,8 @@ export default defineComponent({
 			copyIndex,
 			personCopyIndex,
 			store,
-			companiesForInn,
-			banks,
+			legalFormData,
+			legalFormPerson,
 		};
 	},
 	components: {
@@ -171,7 +173,7 @@ export default defineComponent({
 			this.company = company;
 		},
 		addCompany() {
-			this.companies.push(AddCompany);
+			this.companies.push(AddCompany);			
 		},
 		setCopyIndex(index: number) {
 			this.copyIndex = index;
@@ -179,10 +181,12 @@ export default defineComponent({
 		setPersonCopyIndex(index: number) {
 			this.personCopyIndex = index;
 		},
-		refreshData() {
-			this.companiesForInn = this.store.state.companiesForInn;
-			this.banks = this.store.state.banks;
-		}
+		refreshLegalData() {
+			this.legalFormData = this.store.state.formLegalData;
+		},
+		refreshLegalPerson() {
+			this.legalFormPerson = this.store.state.formLegalPerson;
+		},
 	},
 });
 </script>

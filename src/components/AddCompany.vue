@@ -122,90 +122,135 @@
 						<div class="container__border hidden-desktop-s"></div>
 
 						<CustomInputWithDropdown
+							ref="innInput"
 							:id="'innSelect' + index"
 							placeholder="ИНН"
 							:required="true"
-							:value="checkValue(companyForInn?.data?.inn || '')"
+							:value="legalFormData?.inn"
 							class="form__input"
 							:companyId="index"
-							@refreshCompanyForInn="refreshCompanyForInn"
+							@refreshLegalData="refreshLegalFormData"
 						/>
 						<CustomInput
+							ref="kppInput"
 							placeholder="КПП"
 							:disabled="true"
-							:value="checkValue(companyForInn?.data?.kpp || '')"
+							:value="legalFormData?.kpp"
 							class="form__input"
 						/>
 						<CustomInput
+							ref="ogrnInput"
 							placeholder="ОГРН"
 							:disabled="true"
-							:value="checkValue(companyForInn?.data?.ogrn || '')"
+							:value="legalFormData?.ogrn"
 							class="form__input"
 						/>
 						<CustomInput
+							ref="legalEntityNameInput"
 							placeholder="Название юридического лица"
 							:disabled="true"
-							:value="checkValue(companyForInn?.value)"
+							:value="legalFormData?.legal_entity_name"
 							class="form__input"
 						/>
 						<TextSelect
+							ref="taxSystemSelect"
 							:id="'taxSelect' + index"
 							placeholder="Система налогообложения"
+							:value="legalFormData?.tax_system"
 							:data="dataForTaxSystem"
 							class="form__input"
 						/>
 						<CustomInput
+							ref="legalAddressInput"
 							placeholder="Юридический Адрес"
-							:value="checkValue(companyForInn?.data?.address?.value)"
+							:value="legalFormData?.legal_address"
 							:disabled="true"
 							class="form__input"
 						/>
-						<AddressSelect placeholder="Фактический адрес" :required="true" class="form__input" />
+						<AddressSelect
+							ref="actualAddressInput"
+							placeholder="Фактический адрес"
+							:value="legalFormData?.actual_address"
+							:required="true"
+							class="form__input"
+						/>
 						<TextSelect
+							ref="ndsSelect"
 							id="ndsSelect"
 							placeholder="НДС"
+							:value="legalFormData?.nds"
 							:required="true"
 							:data="dataForInn"
 							class="form__input"
 						/>
 						<CustomInputWithDropdown
+							ref="bicInput"
 							:id="'innSelect' + index"
 							placeholder="БИК"
 							:required="true"
-							:value="checkValue(bank?.data?.bic || '')"
+							:value="legalFormData?.bic"
 							:type="enumForTaxSystem"
 							class="form__input"
 							:companyId="index"
-							@refreshBank="refreshBank"
+							@refreshLegalData="refreshLegalFormData"
 						/>
 						<CustomInput
+							ref="bankInput"
 							placeholder="Банк"
 							:disabled="true"
-							:value="checkValue(bank?.value)"
+							:value="legalFormData?.bank"
 							class="form__input"
 						/>
 						<CustomInput
+							ref="correspondentAccountInput"
 							placeholder="К/с"
 							:disabled="true"
-							:value="checkValue(bank?.data?.correspondent_account || '')"
+							:value="legalFormData?.correspondent_account"
 							class="form__input"
 						/>
-						<CustomInput placeholder="Р/с" :required="true" class="form__input" />
-					</div>
-					<div class="container__input-container ur-store-data__input-container">
 						<CustomInput
-							:id="`telephoneInput${index}`"
-							ref="telephoneInput"
-							placeholder="Телефон/факс"
-							type="tel"
+							ref="paymentAccountInput"
+							placeholder="Р/с"
+							:value="legalFormData?.payment_account"
 							:required="true"
 							class="form__input"
 						/>
-						<CustomInput placeholder="Email" :required="true" class="form__input" />
-						<CustomInput placeholder="ФИО подписанта" :required="true" class="form__input" />
-						<CustomInput placeholder="Должность подписанта" :required="true" class="form__input" />
+					</div>
+					<div class="container__input-container ur-store-data__input-container">
 						<CustomInput
+							ref="telephoneInput"
+							:id="`telephoneInput${index}`"
+							placeholder="Телефон/факс"
+							type="tel"
+							:value="legalFormData?.telephone"
+							:required="true"
+							class="form__input"
+						/>
+						<CustomInput
+							ref="emailInput"
+							placeholder="Email"
+							:value="legalFormData?.email"
+							:required="true"
+							class="form__input"
+						/>
+						<CustomInput
+							ref="fioInput"
+							placeholder="ФИО подписанта"
+							:value="legalFormData?.fio"
+							:required="true"
+							class="form__input"
+						/>
+						<CustomInput
+							ref="postInput"
+							placeholder="Должность подписанта"
+							:value="legalFormData?.post"
+							:required="true"
+							class="form__input"
+						/>
+						<CustomInput
+							ref="actionBasisInput"
 							placeholder="Основание действий подписанта"
+							:value="legalFormData?.action_basis"
 							:required="true"
 							class="form__input"
 						/>
@@ -228,7 +273,7 @@
 					</p>
 					<CustomCheckbox
 						v-if="personCopyIndex === -1 || personCopyIndex === index"
-						@change="setPersonCopy"
+						@change="setPersonCopyIndex"
 						:id="'lprDataCopy' + index"
 						label="Копировать данные лица ответственного за подключение для остальных магазинов"
 						class="form__checkbox"
@@ -236,16 +281,34 @@
 				</div>
 				<div class="container__data">
 					<div class="container__input-container">
-						<CustomInput placeholder="Должность" :required="true" class="form__input" />
-						<CustomInput placeholder="ФИО" class="form__input" />
 						<CustomInput
+							ref="personPostInput"
+							placeholder="Должность"
+							:value="legalFormPerson?.post"
+							:required="true"
+							class="form__input"
+						/>
+						<CustomInput
+							ref="personFioInput"
+							placeholder="ФИО"
+							:value="legalFormPerson?.fio"
+							class="form__input"
+						/>
+						<CustomInput
+							ref="personTelephoneInput"
 							:id="`personTelephoneInput${index}`"
 							type="tel"
 							placeholder="Телефон"
-							ref="personTelephoneInput"
+							:value="legalFormPerson?.telephone"
 							class="form__input"
 						/>
-						<CustomInput placeholder="Email" :required="true" class="form__input" />
+						<CustomInput
+							ref="personEmailInput"
+							placeholder="Email"
+							:value="legalFormPerson?.email"
+							:required="true"
+							class="form__input"
+						/>
 					</div>
 				</div>
 			</section>
@@ -256,15 +319,13 @@
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
 import { SelectCompanyType } from "../types/SelectCompanyType";
-import {
-	CompanyType,
-	SearchCompanyEnum,
-} from "./UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
 import { useStore } from "vuex";
 import Map from "./Map.vue";
 import axios, { AxiosResponse } from "axios";
 import { DataType } from "./UI/TextSelect/TextSelect.vue";
 import IMask from "imask";
+import { LegalDataType, LegalPersonType } from "../types/DataFromForm";
+import { SearchCompanyEnum } from "../types/CustomInputWithDropdownTypes";
 
 export type CoordinatesType = {
 	response: {
@@ -285,15 +346,9 @@ export type CoordinatesType = {
 export default defineComponent({
 	setup() {
 		const store = useStore();
-		let companyForInn: Ref<CompanyType> = ref({} as CompanyType);
-		let bank: Ref<CompanyType> = ref({} as CompanyType);
 		let address: Ref<string> = ref("");
 		let isShowMap: Ref<boolean> = ref(false);
 		let coordinates: Ref<CoordinatesType> = ref({} as CoordinatesType);
-
-		// Данные формы
-		const telephoneInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
-		const personTelephoneInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
 
 		// Карта
 		const mapRef: Ref<InstanceType<typeof Map> | null> = ref(null);
@@ -324,13 +379,9 @@ export default defineComponent({
 
 		return {
 			store,
-			companyForInn,
-			bank,
 			address,
 			isShowMap,
 			coordinates,
-			telephoneInput,
-			personTelephoneInput,
 			mapRef,
 			invokeChild,
 			dataForInn,
@@ -358,44 +409,45 @@ export default defineComponent({
 			type: Number,
 			required: false,
 		},
-		companyForInn: {
-			type: Object as () => CompanyType,
+		legalFormData: {
+			type: Object as () => LegalDataType,
 			required: true,
 		},
-		bank: {
-			type: Object as () => CompanyType,
+		legalFormPerson: {
+			type: Object as () => LegalPersonType,
 			required: true,
 		}
 	},
 	methods: {
-		checkValue(value: string) {
-			return value == null || value == "" ? "" : value;
+		checkValue(value: string | undefined): string {
+			return value ? value : "";
 		},
-		refreshCompanyForInn() {
-			this.companyForInn = this.store.state.companiesForInn[this.index];
-		},
-		refreshBank() {
-			this.bank = this.store.state.banks[this.index];
-		},
-		setCopyIndex(e: InputEvent) {
+		setCopyIndex(e: InputEvent): void {
 			if ((e.target as HTMLInputElement).checked) {
 				this.$emit("setCopyIndex", this.index);
 			} else {
 				this.$emit("setCopyIndex", -1);
 			}
-			this.$emit("refreshData");
+			this.refreshLegalFormData();
 		},
-		setPersonCopy(e: InputEvent) {
+		setPersonCopyIndex(e: InputEvent): void {
 			if ((e.target as HTMLInputElement).checked) {
 				this.$emit("setPersonCopyIndex", this.index);
 			} else {
 				this.$emit("setPersonCopyIndex", -1);
 			}
+			this.refreshLegalFormPerson();
 		},
-		refreshAddress() {
+		refreshAddress(): void {
 			this.address = this.store.state.addresses[this.index];
 		},
-		async setCoordinates() {
+		refreshLegalFormData(): void {
+			this.$emit("refreshLegalData");
+		},
+		refreshLegalFormPerson(): void {
+			this.$emit("refreshLegalPerson");
+		},
+		async setCoordinates(): Promise<void> {
 			const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
 				params: {
 					apikey: "9cc9371c-b0ef-422b-b0be-2b1d49e32386",
@@ -417,11 +469,6 @@ export default defineComponent({
 		IMask(document.getElementById("personTelephoneInput" + this.index) as HTMLInputElement, {
 			mask: "+{7} (000) 000-00-00",
 		});
-
-		if (this.copyIndex != -1) {
-			this.companyForInn = this.store.state.companiesForInn[this.copyIndex];
-			this.bank = this.store.state.banks[this.copyIndex];
-		}
 	},
 });
 </script>

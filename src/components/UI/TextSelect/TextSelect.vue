@@ -6,6 +6,7 @@
 			:placeholder="placeholder"
 			:id="id"
 			:disabled="disabled"
+			:value="value"
 			@click.prevent
 		/>
 		<img
@@ -51,6 +52,10 @@ export default defineComponent({
 			required: true,
 		},
 		placeholder: {
+			type: String,
+			required: false,
+		},
+		value: {
 			type: String,
 			required: false,
 		},
