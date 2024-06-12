@@ -143,6 +143,7 @@ import { SelectCompanyType } from "../types/SelectCompanyType";
 import AddCompany from "../components/AddCompany.vue";
 import { useStore } from "vuex";
 import { LegalDataType, LegalPersonType, StoreDataType } from "../types/DataFromForm";
+import axios, { AxiosResponse } from "axios";
 
 export default defineComponent({
 	setup() {
@@ -173,15 +174,30 @@ export default defineComponent({
 		AddCompany,
 	},
 	methods: {
-		onSubmit() {
+		async onSubmit() {
 			// Получение данных
 			const formStoreData: StoreDataType = this.store.state.formStoreData;
 			const formLegalData: LegalDataType = this.store.state.formLegalData;
 			const formLegalPerson: LegalPersonType = this.store.state.formLegalPerson;
 
-			console.log(formStoreData, formLegalData, formLegalPerson);
+			// Отправка данных
+			const response: AxiosResponse = await axios.post(
+				"https://jsonplaceholder.typicode.com/posts",
+				{
+					stores: formStoreData,
+					legalData: formLegalData,
+					legalPerson: formLegalPerson,
+				},
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 
-			// this.$router.push('/edo/yes');
+			if(response.status !== 200) return;
+
+			this.$router.push("/edo/yes");
 		},
 		setCompany(company: SelectCompanyType) {
 			this.company = company;
