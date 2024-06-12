@@ -119,9 +119,9 @@ export default defineComponent({
 		handleMouseUp(event: MouseEvent) {
 			const coordsAfterSlide = [event.clientX, event.clientY];
 
-			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0]) {
+			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
 				this.nextCard();
-			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0]) {
+			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
 				this.prevCard();
 			}
 		},
@@ -131,9 +131,9 @@ export default defineComponent({
 		handleTouchEnd(event: TouchEvent) {
 			const coordsAfterSlide = [event.changedTouches[0].clientX, event.changedTouches[0].clientY];
 
-			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0]) {
+			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
 				this.nextCard();
-			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0]) {
+			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
 				this.prevCard();
 			}
 		}

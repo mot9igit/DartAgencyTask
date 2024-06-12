@@ -25,7 +25,7 @@ export default defineComponent({
 	--height: 54px;
 
 	font: {
-		size: 22px;
+		size: 20px;
 		weight: 700;
 	}
 

@@ -37,7 +37,7 @@ export default defineComponent({
 		},
 	},
 	methods: {
-		setCompanyNumber() {			
+		setCompanyNumber() {
 			this.$emit("setCompanyNumber", this.card);
 		},
 	},
@@ -173,6 +173,11 @@ export default defineComponent({
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+		pointer-events: none;
 	}
 
 	&__title {
