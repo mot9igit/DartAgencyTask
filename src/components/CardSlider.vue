@@ -192,12 +192,14 @@ export default defineComponent({
 		}
 
 		&--last,
+		&--active,
 		&--next {
 			pointer-events: none;
 		}
 
 		&--last {
 			left: 20%;
+			z-index: 98;
 
 			@include tablet-mobile-average {
 				left: 100%;
@@ -243,6 +245,7 @@ export default defineComponent({
 
 		&--next {
 			left: 80%;
+			z-index: 99;
 
 			@include tablet-mobile-average {
 				left: 100%;
