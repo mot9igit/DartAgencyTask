@@ -6,11 +6,10 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
-			:value="inputValue"
+			:value="value"
+			v-model="inputValue"
 			ref="input"
-			@input="(e: any) => {
-				props.onChange(e);
-			}"
+			@input="props.onChange"
 		/>
 		<label :for="id" class="input__label"
 			>{{ placeholder }} <span class="input__span"> – введите корректное значение</span></label
@@ -36,6 +35,7 @@ import axios, { AxiosResponse } from "axios";
 import { Ref, defineComponent, onMounted, ref, toRef } from "vue";
 import AddressSelectItem from "./AddressSelectItem.vue";
 import { AddressSelectTypesEnum } from "../../../types/AddressSelectTypes";
+import { useStore } from "vuex";
 
 export type AddressType = {
 	value: string;
@@ -79,6 +79,8 @@ const props = defineProps({
 
 const emit = defineEmits(["setCoordinates", "updateStoreData", "refreshStoreData"]);
 
+const store = useStore();
+
 const inputValue: Ref<string> = toRef(props, "value");
 
 let isShow: Ref<boolean> = ref(false);
@@ -88,11 +90,11 @@ const addresses: Ref<AddressType[]> = ref([]);
 
 const itemHandleClick = (address: AddressType) => {
 	isShow.value = false;
-	inputValue.value = address.value;
 	input.value.blur();
-	emit("refreshStoreData");
 
 	if (props.type === AddressSelectTypesEnum.MAP) {
+		emit("updateStoreData", "address", address.value);
+		emit("refreshStoreData");		
 		emit("setCoordinates");
 	}
 };
