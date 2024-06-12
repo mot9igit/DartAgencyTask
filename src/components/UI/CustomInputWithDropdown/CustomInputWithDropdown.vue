@@ -8,6 +8,7 @@
 			:required="required"
 			v-model="inputValue"
 			ref="input"
+			@input="onChange"
 		/>
 		<label :for="id" class="input__label"
 			>{{ placeholder }} <span class="input__span"> – введите корректное значение</span></label
@@ -66,6 +67,10 @@ const props = defineProps({
 		type: Number,
 		default: 0,
 	},
+	onChange: {
+		type: Object as () => () => void,
+		default: () => {},
+	}
 });
 
 const emit = defineEmits(["refreshLegalData"]);
@@ -157,11 +162,6 @@ onMounted(() => {
 				setCompanies();
 				isShow.value = true;
 			}
-		}
-		if (value.length === 0) {
-			const newCompanies: LegalDataType[] = store.state.formLegalData;
-			newCompanies[props.companyId] = {} as LegalDataType;
-			refreshCompanies(newCompanies);
 		}
 	});
 

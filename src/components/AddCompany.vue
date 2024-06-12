@@ -130,27 +130,28 @@
 							class="form__input"
 							:companyId="index"
 							@refreshLegalData="refreshLegalFormData"
+							:onChange="(e: any) => updateLegalData('inn', e.target.value)"
 						/>
 						<CustomInput
 							ref="kppInput"
 							placeholder="КПП"
-							:disabled="true"
 							:value="legalFormData?.kpp"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('kpp', e.target.value)"
 						/>
 						<CustomInput
 							ref="ogrnInput"
 							placeholder="ОГРН"
-							:disabled="true"
 							:value="legalFormData?.ogrn"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('ogrn', e.target.value)"
 						/>
 						<CustomInput
 							ref="legalEntityNameInput"
 							placeholder="Название юридического лица"
-							:disabled="true"
 							:value="legalFormData?.legal_entity_name"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('legal_entity_name', e.target.value)"
 						/>
 						<TextSelect
 							ref="taxSystemSelect"
@@ -159,13 +160,15 @@
 							:value="legalFormData?.tax_system"
 							:data="dataForTaxSystem"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('tax_system', e.name)"
 						/>
-						<CustomInput
+						<AddressSelect
 							ref="legalAddressInput"
 							placeholder="Юридический Адрес"
 							:value="legalFormData?.legal_address"
-							:disabled="true"
+							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('legal_address', e.target.value)"
 						/>
 						<AddressSelect
 							ref="actualAddressInput"
@@ -173,6 +176,7 @@
 							:value="legalFormData?.actual_address"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('actual_address', e.target.value)"
 						/>
 						<TextSelect
 							ref="ndsSelect"
@@ -182,6 +186,7 @@
 							:required="true"
 							:data="dataForInn"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('nds', e.name)"
 						/>
 						<CustomInputWithDropdown
 							ref="bicInput"
@@ -193,20 +198,21 @@
 							class="form__input"
 							:companyId="index"
 							@refreshLegalData="refreshLegalFormData"
+							:onChange="(e: any) => updateLegalData('bic', e.target.value)"
 						/>
 						<CustomInput
 							ref="bankInput"
 							placeholder="Банк"
-							:disabled="true"
 							:value="legalFormData?.bank"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('bank', e.target.value)"
 						/>
 						<CustomInput
 							ref="correspondentAccountInput"
 							placeholder="К/с"
-							:disabled="true"
 							:value="legalFormData?.correspondent_account"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('correspondent_account', e.target.value)"
 						/>
 						<CustomInput
 							ref="paymentAccountInput"
@@ -214,6 +220,7 @@
 							:value="legalFormData?.payment_account"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('payment_account', e.target.value)"
 						/>
 					</div>
 					<div class="container__input-container ur-store-data__input-container">
@@ -225,6 +232,7 @@
 							:value="legalFormData?.telephone"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('telephone', e.target.value)"
 						/>
 						<CustomInput
 							ref="emailInput"
@@ -232,6 +240,7 @@
 							:value="legalFormData?.email"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('email', e.target.value)"
 						/>
 						<CustomInput
 							ref="fioInput"
@@ -239,6 +248,7 @@
 							:value="legalFormData?.fio"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('fio', e.target.value)"
 						/>
 						<CustomInput
 							ref="postInput"
@@ -246,6 +256,7 @@
 							:value="legalFormData?.post"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('post', e.target.value)"
 						/>
 						<CustomInput
 							ref="actionBasisInput"
@@ -253,6 +264,7 @@
 							:value="legalFormData?.action_basis"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalData('action_basis', e.target.value)"
 						/>
 					</div>
 				</div>
@@ -287,12 +299,14 @@
 							:value="legalFormPerson?.post"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalPerson('post', e.target.value)"
 						/>
 						<CustomInput
 							ref="personFioInput"
 							placeholder="ФИО"
 							:value="legalFormPerson?.fio"
 							class="form__input"
+							:onChange="(e: any) => updateLegalPerson('fio', e.target.value)"
 						/>
 						<CustomInput
 							ref="personTelephoneInput"
@@ -301,6 +315,7 @@
 							placeholder="Телефон"
 							:value="legalFormPerson?.telephone"
 							class="form__input"
+							:onChange="(e: any) => updateLegalPerson('telephone', e.target.value)"
 						/>
 						<CustomInput
 							ref="personEmailInput"
@@ -308,6 +323,7 @@
 							:value="legalFormPerson?.email"
 							:required="true"
 							class="form__input"
+							:onChange="(e: any) => updateLegalPerson('email', e.target.value)"
 						/>
 					</div>
 				</div>
@@ -416,7 +432,7 @@ export default defineComponent({
 		legalFormPerson: {
 			type: Object as () => LegalPersonType,
 			required: true,
-		}
+		},
 	},
 	methods: {
 		checkValue(value: string | undefined): string {
@@ -446,6 +462,24 @@ export default defineComponent({
 		},
 		refreshLegalFormPerson(): void {
 			this.$emit("refreshLegalPerson");
+		},
+		updateLegalData(parameter: string, value: string): void {
+			const formLegalData: LegalDataType = this.store.state.formLegalData;	
+			if(!formLegalData[this.index]) {
+				formLegalData[this.index] = {} as LegalDataType;
+			}		
+			formLegalData[this.index][parameter] = value;
+			this.store.commit("setFormLegalData", formLegalData);
+			this.refreshLegalFormData();
+		},
+		updateLegalPerson(parameter: string, value: string): void {
+			const formLegalPerson: LegalPersonType[] = this.store.state.formLegalPerson;
+			if(!formLegalPerson[this.index]) {
+				formLegalPerson[this.index] = {} as LegalPersonType;
+			}
+			formLegalPerson[this.index][parameter] = value;
+			this.store.commit("setFormLegalPerson", formLegalPerson);
+			this.refreshLegalFormPerson();
 		},
 		async setCoordinates(): Promise<void> {
 			const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {

@@ -7,6 +7,7 @@
 			:id="id"
 			:disabled="disabled"
 			:value="value"
+			@input="onChange"
 			@click.prevent
 		/>
 		<img
@@ -66,6 +67,10 @@ export default defineComponent({
 		data: {
 			type: Array as () => DataType[],
             required: true,
+		},
+		onChange: {
+			type: Object as () => () => void,
+			required: false,
 		}
 	},
 	methods: {

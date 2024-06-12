@@ -8,6 +8,7 @@
 			:disabled="disabled"ц
 			:required="required"
 			:value="value"
+			@input="onChange"
 		/>
 		<label :for="id" class="input__label"
 			>{{ placeholder }} <span class="input__span"> – введите корректное значение</span></label
@@ -49,6 +50,10 @@ export default defineComponent({
 			type: String,
 			default: "",
 		},
+		onChange: {
+			type: Object as () => () => void,
+			default: () => {},
+		}
 	}
 });
 </script>

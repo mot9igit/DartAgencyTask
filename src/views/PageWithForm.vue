@@ -208,8 +208,6 @@ export default defineComponent({
 		flex-direction: column;
 		gap: 88px;
 
-		// background: url("/img/background/bg-bright.png") no-repeat center center / cover;
-
 		height: 580px;
 		width: 100%;
 
