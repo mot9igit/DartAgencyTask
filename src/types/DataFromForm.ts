@@ -1,3 +1,9 @@
+export type StoreDataType = {
+    name: string;
+    address: string;
+    isStoreMode: boolean;
+}
+
 export type LegalDataType = {
     inn: string;
     kpp: string;

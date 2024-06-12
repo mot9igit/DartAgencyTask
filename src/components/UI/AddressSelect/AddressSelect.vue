@@ -2,7 +2,6 @@
 	<div class="input__container">
 		<input
 			:id="id"
-			:type="type"
 			class="input"
 			:placeholder="placeholder"
 			:disabled="disabled"
@@ -28,6 +27,7 @@ import axios, { AxiosResponse } from "axios";
 import { Ref, defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 import AddressSelectItem from "./AddressSelectItem.vue";
+import { AddressSelectTypesEnum } from "../../../types/AddressSelectTypes";
 
 export type AddressType = {
 	value: string;
@@ -61,8 +61,8 @@ export default defineComponent({
 			required: false,
 		},
 		type: {
-			type: String,
-			default: "text",
+			type: Object as () => AddressSelectTypesEnum,
+			default: AddressSelectTypesEnum.TEXT,
 		},
 		placeholder: {
 			type: String,
@@ -91,12 +91,14 @@ export default defineComponent({
 			this.inputValue = address.value;
 			this.input.blur();
 
-			const newAddresses: string[] = this.store.state.addresses;
-			newAddresses[this.companyId] = address.value;
+			if (this.type === AddressSelectTypesEnum.MAP) {
+				const newAddresses: string[] = this.store.state.addresses;
+				newAddresses[this.companyId] = address.value;
 
-			this.store.commit("setAddresses", newAddresses);
-			this.$emit("refreshAddress");
-			this.$emit("setCoordinates");
+				this.store.commit("setAddresses", newAddresses);
+				this.$emit("refreshAddress");
+				this.$emit("setCoordinates");
+			}
 		},
 		async setAddresses() {
 			const response: AxiosResponse = await axios.post(
@@ -117,9 +119,11 @@ export default defineComponent({
 		},
 	},
 	mounted() {
-		setInterval(() => {
-			this.inputValue = this.store.state.addresses[this.companyId];
-		}, 1000);
+		if (this.type === AddressSelectTypesEnum.MAP) {
+			setInterval(() => {
+				this.inputValue = this.store.state.addresses[this.companyId];
+			}, 1000);
+		}
 
 		window.addEventListener("click", (e) => {
 			if (e.target === this.input) return;
@@ -134,18 +138,20 @@ export default defineComponent({
 			this.setAddresses();
 			this.isShow = true;
 
-			const newAddresses: string[] = this.store.state.addresses;
-			newAddresses[this.companyId] = this.inputValue;
-
-			this.store.commit("setAddresses", newAddresses);
-			this.$emit("refreshAddress");
-
-			if (this.inputValue.length === 0) {
+			if (this.type === AddressSelectTypesEnum.MAP) {
 				const newAddresses: string[] = this.store.state.addresses;
-				newAddresses[this.companyId] = "";
+				newAddresses[this.companyId] = this.inputValue;
 
 				this.store.commit("setAddresses", newAddresses);
 				this.$emit("refreshAddress");
+
+				if (this.inputValue.length === 0) {
+					const newAddresses: string[] = this.store.state.addresses;
+					newAddresses[this.companyId] = "";
+
+					this.store.commit("setAddresses", newAddresses);
+					this.$emit("refreshAddress");
+				}
 			}
 		});
 

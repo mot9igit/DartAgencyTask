@@ -140,7 +140,7 @@ import { companiesInfo } from "../data/CompaniesInfo";
 import { SelectCompanyType } from "../types/SelectCompanyType";
 import AddCompany from "../components/AddCompany.vue";
 import { useStore } from "vuex";
-import { LegalDataType, LegalPersonType } from "../types/DataFromForm";
+import { LegalDataType, LegalPersonType, StoreDataType } from "../types/DataFromForm";
 
 export default defineComponent({
 	setup() {
@@ -151,6 +151,7 @@ export default defineComponent({
 
 		const store = useStore();
 
+		const storeFormData: Ref<StoreDataType> = ref({} as StoreDataType);
 		const legalFormData: Ref<LegalDataType> = ref({} as LegalDataType);
 		const legalFormPerson: Ref<LegalPersonType> = ref({} as LegalPersonType);
 
@@ -161,6 +162,7 @@ export default defineComponent({
 			copyIndex,
 			personCopyIndex,
 			store,
+			storeFormData,
 			legalFormData,
 			legalFormPerson,
 		};
@@ -180,6 +182,9 @@ export default defineComponent({
 		},
 		setPersonCopyIndex(index: number) {
 			this.personCopyIndex = index;
+		},
+		refreshLegalFormData() {
+			this.legalFormData = this.store.state.formLegalData;
 		},
 		refreshLegalData() {
 			this.legalFormData = this.store.state.formLegalData;

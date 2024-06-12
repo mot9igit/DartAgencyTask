@@ -26,11 +26,14 @@
 							placeholder="Название магазина"
 							:value="company.name"
 							class="form__input"
+							:onChange="(e: any) => updateStoreData('name', e.target.value)"
 						/>
 						<AddressSelect
 							placeholder="Адрес магазина"
 							:value="address"
 							:companyId="index"
+							:type="addressSelectTypeForMap"
+							:onChange="(e: any) => updateStoreData('address', e.target.value)"
 							@refreshAddress="refreshAddress"
 							@setCoordinates="setCoordinates"
 							class="form__input"
@@ -57,7 +60,10 @@
 						:id="'storeMode' + index"
 						label="Работа в режиме магазина*"
 						class="form__checkbox store-data__checkbox"
-						@onChange="setCopyIndex"
+						@onChange="(e: any) => {
+							setCopyIndex(e);
+							updateStoreData('isStoreMode', e.target.checked);
+						}"
 					/>
 					<span class="form__span store-data__span"
 						>* На вашем складе розничный покупатель может получить продукцию</span
@@ -340,8 +346,9 @@ import Map from "./Map.vue";
 import axios, { AxiosResponse } from "axios";
 import { DataType } from "./UI/TextSelect/TextSelect.vue";
 import IMask from "imask";
-import { LegalDataType, LegalPersonType } from "../types/DataFromForm";
+import { LegalDataType, LegalPersonType, StoreDataType } from "../types/DataFromForm";
 import { SearchCompanyEnum } from "../types/CustomInputWithDropdownTypes";
+import { AddressSelectTypesEnum } from "../types/AddressSelectTypes";
 
 export type CoordinatesType = {
 	response: {
@@ -368,6 +375,7 @@ export default defineComponent({
 
 		// Карта
 		const mapRef: Ref<InstanceType<typeof Map> | null> = ref(null);
+		const addressSelectTypeForMap: AddressSelectTypesEnum = AddressSelectTypesEnum.MAP;
 
 		const invokeChild = (coordinates: CoordinatesType) => {
 			mapRef.value?.updateCoordinates(coordinates);
@@ -399,6 +407,7 @@ export default defineComponent({
 			isShowMap,
 			coordinates,
 			mapRef,
+			addressSelectTypeForMap,
 			invokeChild,
 			dataForInn,
 			dataForTaxSystem,
@@ -462,6 +471,14 @@ export default defineComponent({
 		},
 		refreshLegalFormPerson(): void {
 			this.$emit("refreshLegalPerson");
+		},
+		updateStoreData(parameter: string, value: string): void {
+			const formStoreData: StoreDataType = this.store.state.formStoreData;	
+			if(!formStoreData[this.index]) {
+				formStoreData[this.index] = {} as StoreDataType;
+			}		
+			formStoreData[this.index][parameter] = value;
+			this.store.commit("setFormStoreData", formStoreData);			
 		},
 		updateLegalData(parameter: string, value: string): void {
 			const formLegalData: LegalDataType = this.store.state.formLegalData;	
