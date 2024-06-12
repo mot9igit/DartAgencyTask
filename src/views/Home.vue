@@ -55,7 +55,7 @@ export default defineComponent({
 	},
 	methods: {
 		setCompanyNumber(value: number) {
-			this.store.commit('setCompanyNumber', value);
+			this.store.commit('setCompanyNumber', +value);
 		},
 	}
 });

@@ -42,6 +42,7 @@
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
 import { RouterLink } from "vue-router";
+import { useStore } from "vuex";
 
 enum CardSliderState {
 	Last,
@@ -51,6 +52,8 @@ enum CardSliderState {
 
 export default defineComponent({
 	setup() {
+		const store = useStore();
+
 		const sliderCardsStates: Ref<Record<string, CardSliderState>> = ref({
 			"1": CardSliderState.Last,
 			"2": CardSliderState.Active,
@@ -72,6 +75,7 @@ export default defineComponent({
 		const coordsBeforeSlide: number[] = [0, 0];
 
 		return {
+			store,
 			sliderCardsStates,
 			getCardStyles,
 			coordsBeforeSlide,
@@ -79,7 +83,7 @@ export default defineComponent({
 	},
 	methods: {
 		setCompanyNumber(value: number) {
-			this.$emit("setCompanyNumber", value);
+			this.store.commit('setCompanyNumber', +value);
 		},
 		nextCard() {
 			this.sliderCardsStates[1] = this.setNextState(this.sliderCardsStates[1]);
