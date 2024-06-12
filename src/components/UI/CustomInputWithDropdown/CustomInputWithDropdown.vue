@@ -6,8 +6,7 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
-			:value="value"
-			v-model="inputValue"
+			:value="inputValue"
 			ref="input"
 			@input="onChange"
 		/>

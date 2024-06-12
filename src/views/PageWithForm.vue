@@ -202,7 +202,6 @@ export default defineComponent({
 		},
 		refreshStoreData() {
 			this.storeFormData = this.store.state.formStoreData;
-			console.log(this.storeFormData);
 		},
 		refreshLegalData() {
 			this.legalFormData = this.store.state.formLegalData;

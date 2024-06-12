@@ -31,13 +31,15 @@
 						/>
 						<AddressSelect
 							placeholder="Адрес магазина"
+							class="form__input"
 							:value="storeFormData?.address"
 							:companyId="index"
 							:type="addressSelectTypeForMap"
 							:required="true"
 							:onChange="(e: any) => updateStoreData('address', e.target.value)"
 							@setCoordinates="setCoordinates"
-							class="form__input"
+							@updateStoreData="updateStoreData"
+							@refreshStoreData="refreshStoreFormData"
 						/>
 					</div>
 					<div class="map form__map">

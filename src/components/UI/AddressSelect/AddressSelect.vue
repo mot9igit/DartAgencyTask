@@ -6,10 +6,11 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
-			:value="value"
-			v-model="inputValue"
+			:value="inputValue"
 			ref="input"
-			@input="onСhange"
+			@input="(e: any) => {
+				props.onChange(e);
+			}"
 		/>
 		<label :for="id" class="input__label"
 			>{{ placeholder }} <span class="input__span"> – введите корректное значение</span></label
@@ -41,7 +42,6 @@ export type AddressType = {
 	unrestricted_value: string;
 };
 
-
 const props = defineProps({
 	id: {
 		type: String,
@@ -71,13 +71,13 @@ const props = defineProps({
 		type: Number,
 		required: true,
 	},
-	onСhange: {
-		type: Object as () => () => void,
+	onChange: {
+		type: Object as () => (e) => void,
 		default: () => {},
 	},
 });
 
-const emit = defineEmits(["setCoordinates"]);
+const emit = defineEmits(["setCoordinates", "updateStoreData", "refreshStoreData"]);
 
 const inputValue: Ref<string> = toRef(props, "value");
 
@@ -90,8 +90,11 @@ const itemHandleClick = (address: AddressType) => {
 	isShow.value = false;
 	inputValue.value = address.value;
 	input.value.blur();
+	emit("refreshStoreData");
 
-	emit("setCoordinates");
+	if (props.type === AddressSelectTypesEnum.MAP) {
+		emit("setCoordinates");
+	}
 };
 
 const setAddresses = async () => {
@@ -126,6 +129,7 @@ onMounted(() => {
 	input.value.addEventListener("input", () => {
 		setAddresses();
 		isShow.value = true;
+		emit("refreshStoreData");
 	});
 
 	input.value.addEventListener("focus", () => {
