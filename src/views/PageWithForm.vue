@@ -57,7 +57,7 @@
 				</div>
 			</section>
 
-			<form class="form main__form" id="form">
+			<form class="form main__form" id="form" @submit.prevent="onSubmit">
 				<header class="form__header">
 					<h3 class="form__title">Форма для подключения</h3>
 					<p class="form__text">
@@ -72,12 +72,14 @@
 						:key="index"
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
+						:storeFormData="storeFormData[index]"
 						:legalFormData="copyIndex === -1 ? legalFormData[index] : legalFormData[copyIndex]"
 						:legalFormPerson="
 							personCopyIndex === -1 ? legalFormPerson[index] : legalFormPerson[personCopyIndex]
 						"
 						@setCopyIndex="setCopyIndex"
 						@setPersonCopyIndex="setPersonCopyIndex"
+						@refreshStoreData="refreshStoreData"
 						@refreshLegalData="refreshLegalData"
 						@refreshLegalPerson="refreshLegalPerson"
 						v-for="(company, index) in companies"
@@ -114,7 +116,6 @@
 						theme="red"
 						type="submit"
 						class="form__button form__button--submit"
-						@click="$router.push('/edo/yes')"
 						>Отправить</CustomButton
 					>
 				</main>
@@ -147,7 +148,6 @@ import { SelectCompanyType } from "../types/SelectCompanyType";
 import AddCompany from "../components/AddCompany.vue";
 import { useStore } from "vuex";
 import { LegalDataType, LegalPersonType, StoreDataType } from "../types/DataFromForm";
-import { RouterLink } from "vue-router";
 
 export default defineComponent({
 	setup() {
@@ -178,6 +178,16 @@ export default defineComponent({
 		AddCompany,
 	},
 	methods: {
+		onSubmit() {
+			// Получение данных
+			const formStoreData: StoreDataType = this.store.state.formStoreData;
+			const formLegalData: LegalDataType = this.store.state.formLegalData;
+			const formLegalPerson: LegalPersonType = this.store.state.formLegalPerson;
+
+			console.log(formStoreData, formLegalData, formLegalPerson);
+
+			// this.$router.push('/edo/yes');
+		},
 		setCompany(company: SelectCompanyType) {
 			this.company = company;
 		},
@@ -190,8 +200,9 @@ export default defineComponent({
 		setPersonCopyIndex(index: number) {
 			this.personCopyIndex = index;
 		},
-		refreshLegalFormData() {
-			this.legalFormData = this.store.state.formLegalData;
+		refreshStoreData() {
+			this.storeFormData = this.store.state.formStoreData;
+			console.log(this.storeFormData);
 		},
 		refreshLegalData() {
 			this.legalFormData = this.store.state.formLegalData;

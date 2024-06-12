@@ -6,8 +6,10 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
+			:value="value"
 			v-model="inputValue"
 			ref="input"
+			@input="onСhange"
 		/>
 		<label :for="id" class="input__label"
 			>{{ placeholder }} <span class="input__span"> – введите корректное значение</span></label
@@ -23,9 +25,14 @@
 </template>
 
 <script lang="ts">
+export default defineComponent({
+	name: "AddressSelect",
+});
+</script>
+
+<script lang="ts" setup>
 import axios, { AxiosResponse } from "axios";
-import { Ref, defineComponent, ref } from "vue";
-import { useStore } from "vuex";
+import { Ref, defineComponent, onMounted, ref, toRef } from "vue";
 import AddressSelectItem from "./AddressSelectItem.vue";
 import { AddressSelectTypesEnum } from "../../../types/AddressSelectTypes";
 
@@ -34,133 +41,98 @@ export type AddressType = {
 	unrestricted_value: string;
 };
 
-export default defineComponent({
-	setup() {
-		const store = useStore();
-		let isShow: Ref<boolean> = ref(false);
-		let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
-		let inputValue: Ref<string> = ref("");
 
-		const addresses: Ref<AddressType[]> = ref([]);
+const props = defineProps({
+	id: {
+		type: String,
+		required: false,
+	},
+	type: {
+		type: Object as () => AddressSelectTypesEnum,
+		default: AddressSelectTypesEnum.TEXT,
+	},
+	placeholder: {
+		type: String,
+		default: "",
+	},
+	disabled: {
+		type: Boolean,
+		default: false,
+	},
+	required: {
+		type: Boolean,
+		default: false,
+	},
+	value: {
+		type: String,
+		default: "",
+	},
+	companyId: {
+		type: Number,
+		required: true,
+	},
+	onСhange: {
+		type: Object as () => () => void,
+		default: () => {},
+	},
+});
 
-		return {
-			isShow,
-			input,
-			addresses,
-			store,
-			inputValue,
-		};
-	},
-	name: "AddressSelect",
-	components: {
-		AddressSelectItem,
-	},
-	props: {
-		id: {
-			type: String,
-			required: false,
-		},
-		type: {
-			type: Object as () => AddressSelectTypesEnum,
-			default: AddressSelectTypesEnum.TEXT,
-		},
-		placeholder: {
-			type: String,
-			default: "",
-		},
-		disabled: {
-			type: Boolean,
-			default: false,
-		},
-		required: {
-			type: Boolean,
-			default: false,
-		},
-		value: {
-			type: String,
-			required: false,
-		},
-		companyId: {
-			type: Number,
-			required: true,
-		},
-	},
-	methods: {
-		itemHandleClick(address: AddressType) {
-			this.isShow = false;
-			this.inputValue = address.value;
-			this.input.blur();
+const emit = defineEmits(["setCoordinates"]);
 
-			if (this.type === AddressSelectTypesEnum.MAP) {
-				const newAddresses: string[] = this.store.state.addresses;
-				newAddresses[this.companyId] = address.value;
+const inputValue: Ref<string> = toRef(props, "value");
 
-				this.store.commit("setAddresses", newAddresses);
-				this.$emit("refreshAddress");
-				this.$emit("setCoordinates");
-			}
+let isShow: Ref<boolean> = ref(false);
+let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+
+const addresses: Ref<AddressType[]> = ref([]);
+
+const itemHandleClick = (address: AddressType) => {
+	isShow.value = false;
+	inputValue.value = address.value;
+	input.value.blur();
+
+	emit("setCoordinates");
+};
+
+const setAddresses = async () => {
+	const response: AxiosResponse = await axios.post(
+		"http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address",
+		{
+			query: inputValue.value,
 		},
-		async setAddresses() {
-			const response: AxiosResponse = await axios.post(
-				"http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address",
-				{
-					query: this.inputValue,
-				},
-				{
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						Authorization: "Token 34e9caeb5d40781585d9b5cb3b156199fbaca4e2",
-					},
-				}
-			);
-			if (response.status !== 200) return;
-			this.addresses = response.data.suggestions as AddressType[];
-		},
-	},
-	mounted() {
-		if (this.type === AddressSelectTypesEnum.MAP) {
-			setInterval(() => {
-				this.inputValue = this.store.state.addresses[this.companyId];
-			}, 1000);
+		{
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+				Authorization: "Token 34e9caeb5d40781585d9b5cb3b156199fbaca4e2",
+			},
 		}
+	);
+	if (response.status !== 200) return;
 
-		window.addEventListener("click", (e) => {
-			if (e.target === this.input) return;
-			else if (e.target === this.input) e.stopPropagation();
-			else {
-				this.isShow = false;
-				if (this.input) this.input.blur();
-			}
-		});
+	addresses.value = response.data.suggestions as AddressType[];
+};
 
-		this.input.addEventListener("input", () => {
-			this.setAddresses();
-			this.isShow = true;
+onMounted(() => {
+	window.addEventListener("click", (e) => {
+		if (e.target === input.value) return;
+		else if (e.target === input.value) e.stopPropagation();
+		else {
+			isShow.value = false;
+			if (input.value) input.value.blur();
+		}
+	});
 
-			if (this.type === AddressSelectTypesEnum.MAP) {
-				const newAddresses: string[] = this.store.state.addresses;
-				newAddresses[this.companyId] = this.inputValue;
+	input.value.addEventListener("input", () => {
+		setAddresses();
+		isShow.value = true;
+	});
 
-				this.store.commit("setAddresses", newAddresses);
-				this.$emit("refreshAddress");
-
-				if (this.inputValue.length === 0) {
-					const newAddresses: string[] = this.store.state.addresses;
-					newAddresses[this.companyId] = "";
-
-					this.store.commit("setAddresses", newAddresses);
-					this.$emit("refreshAddress");
-				}
-			}
-		});
-
-		this.input.addEventListener("focus", () => {
-			if (this.inputValue.length === 10 || this.inputValue.length === 12) {
-				this.isShow = true;
-			}
-		});
-	},
+	input.value.addEventListener("focus", () => {
+		if (inputValue.value.length === 10 || inputValue.value.length === 12) {
+			isShow.value = true;
+		}
+	});
 });
 </script>
 
@@ -216,13 +188,6 @@ export default defineComponent({
 			display: block;
 		}
 	}
-
-	// &:user-valid {
-	// 	& + .input__label > .input__span,
-	// 	& + .input__label + .input__error-icon {
-	// 		display: none;
-	// 	}
-	// }
 
 	&:not(:user-invalid) {
 		& + .input__label > .input__span,

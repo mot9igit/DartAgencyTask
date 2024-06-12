@@ -24,17 +24,18 @@
 					<div class="container__input-container store-data__input-container">
 						<CustomInput
 							placeholder="Название магазина"
-							:value="company.name"
+							:value="storeFormData?.name"
+							:required="true"
 							class="form__input"
 							:onChange="(e: any) => updateStoreData('name', e.target.value)"
 						/>
 						<AddressSelect
 							placeholder="Адрес магазина"
-							:value="address"
+							:value="storeFormData?.address"
 							:companyId="index"
 							:type="addressSelectTypeForMap"
+							:required="true"
 							:onChange="(e: any) => updateStoreData('address', e.target.value)"
-							@refreshAddress="refreshAddress"
 							@setCoordinates="setCoordinates"
 							class="form__input"
 						/>
@@ -47,7 +48,8 @@
 							class="map__img"
 							:companyIndex="index"
 							:coordinates="coordinates"
-							@refreshAddress="refreshAddress"
+							@updateStoreData="updateStoreData"
+							@refreshStoreData="refreshStoreFormData"
 						/>
 						<CustomButton
 							theme="black"
@@ -369,7 +371,6 @@ export type CoordinatesType = {
 export default defineComponent({
 	setup() {
 		const store = useStore();
-		let address: Ref<string> = ref("");
 		let isShowMap: Ref<boolean> = ref(false);
 		let coordinates: Ref<CoordinatesType> = ref({} as CoordinatesType);
 
@@ -403,7 +404,6 @@ export default defineComponent({
 
 		return {
 			store,
-			address,
 			isShowMap,
 			coordinates,
 			mapRef,
@@ -434,6 +434,10 @@ export default defineComponent({
 			type: Number,
 			required: false,
 		},
+		storeFormData: {
+			type: Object as () => StoreDataType,
+            required: true,
+		},
 		legalFormData: {
 			type: Object as () => LegalDataType,
 			required: true,
@@ -463,8 +467,8 @@ export default defineComponent({
 			}
 			this.refreshLegalFormPerson();
 		},
-		refreshAddress(): void {
-			this.address = this.store.state.addresses[this.index];
+		refreshStoreFormData(): void {
+			this.$emit("refreshStoreData");
 		},
 		refreshLegalFormData(): void {
 			this.$emit("refreshLegalData");
@@ -472,19 +476,20 @@ export default defineComponent({
 		refreshLegalFormPerson(): void {
 			this.$emit("refreshLegalPerson");
 		},
-		updateStoreData(parameter: string, value: string): void {
-			const formStoreData: StoreDataType = this.store.state.formStoreData;	
+		updateStoreData(parameter: string, value: string): void {			
+			const formStoreData: StoreDataType[] = this.store.state.formStoreData;
 			if(!formStoreData[this.index]) {
 				formStoreData[this.index] = {} as StoreDataType;
-			}		
+			}
 			formStoreData[this.index][parameter] = value;
-			this.store.commit("setFormStoreData", formStoreData);			
+			this.store.commit("setFormStoreData", formStoreData);
+			this.refreshStoreFormData();
 		},
 		updateLegalData(parameter: string, value: string): void {
-			const formLegalData: LegalDataType = this.store.state.formLegalData;	
+			const formLegalData: LegalDataType[] = this.store.state.formLegalData;	
 			if(!formLegalData[this.index]) {
 				formLegalData[this.index] = {} as LegalDataType;
-			}		
+			}
 			formLegalData[this.index][parameter] = value;
 			this.store.commit("setFormLegalData", formLegalData);
 			this.refreshLegalFormData();
@@ -502,7 +507,7 @@ export default defineComponent({
 			const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
 				params: {
 					apikey: "9cc9371c-b0ef-422b-b0be-2b1d49e32386",
-					geocode: this.address,
+					geocode: this.storeFormData.address,
 					format: "json",
 				},
 			});

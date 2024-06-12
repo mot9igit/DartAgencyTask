@@ -53,7 +53,7 @@ const props = defineProps({
 	coordinates: Object as () => CoordinatesType,
 });
 
-const emit = defineEmits(["refreshAddress"]);
+const emit = defineEmits(["updateStoreData", "refreshStoreData"]);
 
 const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
 
@@ -92,7 +92,6 @@ defineExpose({
 	updateCoordinates,
 });
 
-// TODO При обратном геокодировании адрес не записывается в маркер
 
 const refreshGeo = async () => {
 	const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
@@ -112,11 +111,7 @@ const refreshGeo = async () => {
 	address.value =
 		response.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text;
 
-	const newAddresses = store.state.addresses;
-	newAddresses[props.companyIndex] = address.value;
-	store.commit("setAddresses", newAddresses);
-
-	emit("refreshAddress");
+	emit("refreshStoreData");
 };
 
 const debounce = (func, delay) => {

@@ -84,7 +84,6 @@ let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
 
 const companies: Ref<CompanyType[]> = ref([]);
 
-
 const itemHandleClick = (company: CompanyType) => {
 	isShow.value = false;
 	inputValue.value = props.type === SearchCompanyEnum.INN ? company.data?.inn! : company.data?.bic!;
