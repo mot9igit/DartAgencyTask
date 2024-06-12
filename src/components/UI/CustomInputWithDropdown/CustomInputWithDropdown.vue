@@ -215,6 +215,11 @@ export default defineComponent({
 		},
 	},
 	mounted() {
+		setTimeout(() => {
+			this.inputValue = this.value;
+			console.log(this.inputValue, this.value);
+		}, 100);
+
 		window.addEventListener("click", (e) => {
 			if (e.target === this.input) return;
 			else if (e.target === this.input) e.stopPropagation();

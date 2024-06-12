@@ -193,7 +193,13 @@
 						<CustomInput placeholder="Р/с" :required="true" class="form__input" />
 					</div>
 					<div class="container__input-container ur-store-data__input-container">
-						<CustomInput placeholder="Телефон/факс" :required="true" class="form__input" />
+						<CustomInput
+							ref="telephoneInput"
+							placeholder="Телефон/факс"
+							type="tel"
+							:required="true"
+							class="form__input"
+						/>
 						<CustomInput placeholder="Email" :required="true" class="form__input" />
 						<CustomInput placeholder="ФИО подписанта" :required="true" class="form__input" />
 						<CustomInput placeholder="Должность подписанта" :required="true" class="form__input" />
@@ -251,6 +257,7 @@ import { useStore } from "vuex";
 import Map from "./Map.vue";
 import axios, { AxiosResponse } from "axios";
 import { DataType } from "./UI/TextSelect/TextSelect.vue";
+import IMask, { InputMask } from "imask";
 
 export type CoordinatesType = {
 	response: {
@@ -276,13 +283,19 @@ export default defineComponent({
 		let address: Ref<string> = ref("");
 		let isShowMap: Ref<boolean> = ref(false);
 		let coordinates: Ref<CoordinatesType> = ref({} as CoordinatesType);
+			
+		// Данные формы
+		const telephoneInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
 
+		// Карта
 		const mapRef: Ref<InstanceType<typeof Map> | null> = ref(null);
 
 		const invokeChild = (coordinates: CoordinatesType) => {
 			mapRef.value?.updateCoordinates(coordinates);
 		};
 
+
+		// Данные для select-ов
 		const dataForInn: DataType[] = [
 			{
 				name: "Без НДС",
@@ -309,6 +322,7 @@ export default defineComponent({
 			address,
 			isShowMap,
 			coordinates,
+			telephoneInput,
 			mapRef,
 			invokeChild,
 			dataForInn,
@@ -382,6 +396,7 @@ export default defineComponent({
 	mounted() {
 		if (this.copyIndex != -1) {
 			this.companyForInn = this.store.state.companiesForInn[this.copyIndex];
+			this.bank = this.store.state.banks[this.copyIndex];
 		}
 	},
 });
