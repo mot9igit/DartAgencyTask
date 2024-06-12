@@ -73,10 +73,8 @@
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
 						:storeFormData="storeFormData[index]"
-						:legalFormData="copyIndex === -1 ? legalFormData[index] : legalFormData[copyIndex]"
-						:legalFormPerson="
-							personCopyIndex === -1 ? legalFormPerson[index] : legalFormPerson[personCopyIndex]
-						"
+						:legalFormData="legalFormData[index]"
+						:legalFormPerson="legalFormPerson[index]"
 						@setCopyIndex="setCopyIndex"
 						@setPersonCopyIndex="setPersonCopyIndex"
 						@refreshStoreData="refreshStoreData"
@@ -112,10 +110,7 @@
 						<hr class="form__line" />
 					</div>
 
-					<CustomButton
-						theme="red"
-						type="submit"
-						class="form__button form__button--submit"
+					<CustomButton theme="red" type="submit" class="form__button form__button--submit"
 						>Отправить</CustomButton
 					>
 				</main>
@@ -192,6 +187,18 @@ export default defineComponent({
 			this.company = company;
 		},
 		addCompany() {
+			if (this.copyIndex !== -1) {
+				const formLegalData: LegalDataType[] = this.store.state.formLegalData;
+				formLegalData.push({ ...formLegalData[this.copyIndex] });
+				this.store.commit("setFormLegalData", formLegalData);
+			}
+
+			if (this.personCopyIndex !== -1) {
+				const formLegalPerson: LegalPersonType[] = this.store.state.formLegalPerson;
+				formLegalPerson.push({ ...formLegalPerson[this.personCopyIndex] });
+				this.store.commit("setFormLegalPerson", formLegalPerson);
+			}
+
 			this.companies.push(AddCompany);
 		},
 		setCopyIndex(index: number) {

@@ -1,6 +1,7 @@
 <template>
 	<div class="input__container">
 		<input
+			ref="input"
 			:id="id"
 			:type="type"
 			class="input"
@@ -18,11 +19,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Ref, defineComponent, ref } from "vue";
 
 export default defineComponent({
 	setup() {
-		return {}
+		const input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+
+		return {
+			input
+		}
 	},
 	name: "CustomInput",
 	props: {
@@ -110,13 +115,6 @@ export default defineComponent({
 			display: block;
 		}
 	}
-
-	// &:user-valid {
-	// 	& + .input__label > .input__span,
-	// 	& + .input__label + .input__error-icon {
-	// 		display: none;
-	// 	}
-	// }
 
 	&:not(:user-invalid) {
 		& + .input__label > .input__span,
