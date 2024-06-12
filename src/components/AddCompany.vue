@@ -36,6 +36,7 @@
 							:companyId="index"
 							:type="addressSelectTypeForMap"
 							:required="true"
+							property="address"
 							:onChange="(e: any) => updateStoreData('address', e.target.value)"
 							@setCoordinates="setCoordinates"
 							@updateStoreData="updateStoreData"
@@ -179,6 +180,9 @@
 							:required="false"
 							class="form__input"
 							:onChange="(e: any) => updateLegalData('legal_address', e.target.value)"
+							property="legal_address"
+							@updateLegalData="updateLegalData"
+							@refreshLegalData="refreshLegalFormData"
 						/>
 						<AddressSelect
 							ref="actualAddressInput"
@@ -187,6 +191,9 @@
 							:required="false"
 							class="form__input"
 							:onChange="(e: any) => updateLegalData('actual_address', e.target.value)"
+							property="actual_address"
+							@updateLegalData="updateLegalData"
+							@refreshLegalData="refreshLegalFormData"
 						/>
 						<TextSelect
 							ref="ndsSelect"
@@ -438,7 +445,7 @@ export default defineComponent({
 		},
 		storeFormData: {
 			type: Object as () => StoreDataType,
-            required: true,
+			required: true,
 		},
 		legalFormData: {
 			type: Object as () => LegalDataType,
@@ -478,9 +485,9 @@ export default defineComponent({
 		refreshLegalFormPerson(): void {
 			this.$emit("refreshLegalPerson");
 		},
-		updateStoreData(parameter: string, value: string): void {			
+		updateStoreData(parameter: string, value: string): void {
 			const formStoreData: StoreDataType[] = this.store.state.formStoreData;
-			if(!formStoreData[this.index]) {
+			if (!formStoreData[this.index]) {
 				formStoreData[this.index] = {} as StoreDataType;
 			}
 			formStoreData[this.index][parameter] = value;
@@ -488,8 +495,8 @@ export default defineComponent({
 			this.refreshStoreFormData();
 		},
 		updateLegalData(parameter: string, value: string): void {
-			const formLegalData: LegalDataType[] = this.store.state.formLegalData;	
-			if(!formLegalData[this.index]) {
+			const formLegalData: LegalDataType[] = this.store.state.formLegalData;
+			if (!formLegalData[this.index]) {
 				formLegalData[this.index] = {} as LegalDataType;
 			}
 			formLegalData[this.index][parameter] = value;
@@ -498,7 +505,7 @@ export default defineComponent({
 		},
 		updateLegalPerson(parameter: string, value: string): void {
 			const formLegalPerson: LegalPersonType[] = this.store.state.formLegalPerson;
-			if(!formLegalPerson[this.index]) {
+			if (!formLegalPerson[this.index]) {
 				formLegalPerson[this.index] = {} as LegalPersonType;
 			}
 			formLegalPerson[this.index][parameter] = value;

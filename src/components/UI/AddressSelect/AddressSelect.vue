@@ -49,7 +49,7 @@ const props = defineProps({
 	},
 	type: {
 		type: Object as () => AddressSelectTypesEnum,
-		default: AddressSelectTypesEnum.TEXT,
+		default: AddressSelectTypesEnum.DATA,
 	},
 	placeholder: {
 		type: String,
@@ -71,13 +71,23 @@ const props = defineProps({
 		type: Number,
 		required: true,
 	},
+	property: {
+		type: String,
+		required: true,
+	},
 	onChange: {
 		type: Object as () => (e) => void,
 		default: () => {},
 	},
 });
 
-const emit = defineEmits(["setCoordinates", "updateStoreData", "refreshStoreData"]);
+const emit = defineEmits([
+	"setCoordinates",
+	"updateStoreData",
+	"updateLegalData",
+	"refreshStoreData",
+	"refreshLegalData",
+]);
 
 const store = useStore();
 
@@ -93,9 +103,14 @@ const itemHandleClick = (address: AddressType) => {
 	input.value.blur();
 
 	if (props.type === AddressSelectTypesEnum.MAP) {
-		emit("updateStoreData", "address", address.value);
-		emit("refreshStoreData");		
+		emit("updateStoreData", props.property, address.value);
+		emit("refreshStoreData");
 		emit("setCoordinates");
+	}
+
+	if (props.type === AddressSelectTypesEnum.DATA) {
+		emit("updateLegalData", props.property, address.value);
+		emit("refreshStoreData");
 	}
 };
 
