@@ -56,6 +56,8 @@ export default defineComponent({
 @import "../../styles/mixins";
 
 .card-wrapper {
+	--can-scale: true;
+
 	--card-height: 573px;
 	--title-height: 54px;
 
@@ -89,9 +91,11 @@ export default defineComponent({
 	&:hover,
 	&:active,
 	&:focus {
-		scale: 1.165;
+		@if(var(--can-scale) == true) {
+			scale: 1.165;
+		}
 
-		z-index: 10;
+		z-index: 100;
 
 		.card {
 			filter: none;

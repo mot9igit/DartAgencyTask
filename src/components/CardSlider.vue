@@ -9,30 +9,30 @@
 		<ArrowButton direction="left" class="slider__arrow slider__arrow--left" @click="prevCard" />
 
 		<div class="slider__card-container card-container">
-			<RouterLink to="/company-select">
+			<button @click="$router.push('/company-select')">
 				<PersonCard
 					card="3"
 					:class="`slider__card slider__card--${getCardStyles('3')}`"
 					id="sliderCard3"
 					@setCompanyNumber="setCompanyNumber"
 				/>
-			</RouterLink>
-			<RouterLink to="/company-select">
+			</button>
+			<button @click="$router.push('/company-select')">
 				<PersonCard
 					card="2"
 					:class="`slider__card slider__card--${getCardStyles('2')}`"
 					id="sliderCard2"
 					@setCompanyNumber="setCompanyNumber"
 				/>
-			</RouterLink>
-			<RouterLink to="/company-select">
+			</button>
+			<button @click="$router.push('/company-select')">
 				<PersonCard
 					card="1"
 					:class="`slider__card slider__card--${getCardStyles('1')}`"
 					id="sliderCard1"
 					@setCompanyNumber="setCompanyNumber"
 				/>
-			</RouterLink>
+			</button>
 		</div>
 
 		<ArrowButton direction="right" class="slider__arrow slider__arrow--right" @click="nextCard" />
@@ -41,7 +41,6 @@
 
 <script lang="ts">
 import { Ref, defineComponent, ref } from "vue";
-import { RouterLink } from "vue-router";
 import { useStore } from "vuex";
 
 enum CardSliderState {
@@ -83,7 +82,7 @@ export default defineComponent({
 	},
 	methods: {
 		setCompanyNumber(value: number) {
-			this.store.commit('setCompanyNumber', +value);
+			this.store.commit("setCompanyNumber", +value);
 		},
 		nextCard() {
 			this.sliderCardsStates[1] = this.setNextState(this.sliderCardsStates[1]);
@@ -114,14 +113,20 @@ export default defineComponent({
 				: CardSliderState.Last;
 		},
 		handleMouseDown(event: MouseEvent) {
-			this.coordsBeforeSlide = [event.clientX, event.clientY];
+			this.coordsBeforeSlide = [event.clientX, event.clientY];		
 		},
 		handleMouseUp(event: MouseEvent) {
 			const coordsAfterSlide = [event.clientX, event.clientY];
 
-			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
+			if (
+				coordsAfterSlide[0] < this.coordsBeforeSlide[0] &&
+				Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50
+			) {
 				this.nextCard();
-			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
+			} else if (
+				coordsAfterSlide[0] > this.coordsBeforeSlide[0] &&
+				Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50
+			) {
 				this.prevCard();
 			}
 		},
@@ -131,12 +136,18 @@ export default defineComponent({
 		handleTouchEnd(event: TouchEvent) {
 			const coordsAfterSlide = [event.changedTouches[0].clientX, event.changedTouches[0].clientY];
 
-			if (coordsAfterSlide[0] < this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
+			if (
+				coordsAfterSlide[0] < this.coordsBeforeSlide[0] &&
+				Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50
+			) {
 				this.nextCard();
-			} else if (coordsAfterSlide[0] > this.coordsBeforeSlide[0] && Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50) {
+			} else if (
+				coordsAfterSlide[0] > this.coordsBeforeSlide[0] &&
+				Math.abs(coordsAfterSlide[0] - this.coordsBeforeSlide[0]) > 50
+			) {
 				this.prevCard();
 			}
-		}
+		},
 	},
 	computed: {
 		getCompanyNumber() {
@@ -192,7 +203,6 @@ export default defineComponent({
 		}
 
 		&--last,
-		&--active,
 		&--next {
 			pointer-events: none;
 		}
@@ -215,13 +225,16 @@ export default defineComponent({
 			z-index: 100;
 
 			@include tablet {
-				width: clamp(238px, #{calc(252 * 100 / 768)}vw, 252px);
-				height: clamp(379px, #{calc(463 * 100 / 768)}vw, 463px);
+				width: clamp(238px, #{calc(339 * 100 / 768)}vw, 339px);
+				height: clamp(379px, #{calc(600 * 100 / 768)}vw, 600px);
 			}
 
 			@include mobile {
 				width: 238px;
 				height: 379px;
+			}
+
+			.card-wrapper {
 			}
 
 			.card {
