@@ -111,6 +111,7 @@ const refreshGeo = async () => {
 	address.value =
 		response.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text;
 
+	emit("updateStoreData", "address", address.value);
 	emit("refreshStoreData");
 };
 

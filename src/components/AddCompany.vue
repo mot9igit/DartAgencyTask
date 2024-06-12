@@ -174,7 +174,7 @@
 							ref="legalAddressInput"
 							placeholder="Юридический Адрес"
 							:value="legalFormData?.legal_address"
-							:required="true"
+							:required="false"
 							class="form__input"
 							:onChange="(e: any) => updateLegalData('legal_address', e.target.value)"
 						/>
@@ -182,7 +182,7 @@
 							ref="actualAddressInput"
 							placeholder="Фактический адрес"
 							:value="legalFormData?.actual_address"
-							:required="true"
+							:required="false"
 							class="form__input"
 							:onChange="(e: any) => updateLegalData('actual_address', e.target.value)"
 						/>
