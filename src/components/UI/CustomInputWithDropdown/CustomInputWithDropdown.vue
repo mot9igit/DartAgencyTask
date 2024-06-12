@@ -267,7 +267,7 @@ export default defineComponent({
 	$height: 47;
 
 	background-color: var(--color-light-black);
-	color: var(--color-white);
+	color: var(--color-dark-alt-gray);
 
 	border: var(--border);
 	border-radius: var(--border-radius);
@@ -287,6 +287,7 @@ export default defineComponent({
 
 	&:focus {
 		border-color: var(--color-white);
+		color: var(--color-white);
 	}
 
 	&:not(:focus) {

@@ -117,7 +117,7 @@ export default defineComponent({
 
 	&__input {
 		background-color: var(--color-light-black);
-		color: var(--color-white);
+		color: var(--color-dark-alt-gray);
 
 		border: var(--border);
 		border-radius: var(--border-radius);
