@@ -6,6 +6,7 @@
 			:placeholder="placeholder"
 			:disabled="disabled"
 			:required="required"
+			:value="value"
 			v-model="inputValue"
 			ref="input"
 			@input="onChange"
@@ -31,7 +32,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import axios, { AxiosResponse } from "axios";
-import { Ref, defineComponent, onMounted, ref } from "vue";
+import { Ref, defineComponent, onMounted, ref, toRef } from "vue";
 import CompanyItem from "./CompanyItem.vue";
 import { useStore } from "vuex";
 import { LegalDataType } from "../../../types/DataFromForm";
@@ -73,12 +74,13 @@ const props = defineProps({
 	}
 });
 
+const inputValue: Ref<string> = toRef(props, "value");
+
 const emit = defineEmits(["refreshLegalData"]);
 
 const store = useStore();
 let isShow: Ref<boolean> = ref(false);
 let input: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
-let inputValue: Ref<string> = ref(props.value);
 
 const companies: Ref<CompanyType[]> = ref([]);
 
@@ -149,16 +151,14 @@ onMounted(() => {
 	});
 
 	input.value.addEventListener("input", () => {
-		const value: string = input.value.value;
-
 		if (props.type == SearchCompanyEnum.INN) {
-			if (value.length === 10 || value.length === 12) {
+			if (inputValue.value.length === 10 || inputValue.value.length === 12) {
 				setCompanies();
 				isShow.value = true;
 			}
 		}
 		if (props.type == SearchCompanyEnum.BIC) {
-			if (value.length === 9) {
+			if (inputValue.value.length === 9) {
 				setCompanies();
 				isShow.value = true;
 			}
