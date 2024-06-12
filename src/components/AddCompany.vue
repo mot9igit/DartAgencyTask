@@ -264,7 +264,7 @@ import { useStore } from "vuex";
 import Map from "./Map.vue";
 import axios, { AxiosResponse } from "axios";
 import { DataType } from "./UI/TextSelect/TextSelect.vue";
-import IMask, { InputMask } from "imask";
+import IMask from "imask";
 
 export type CoordinatesType = {
 	response: {
@@ -330,6 +330,7 @@ export default defineComponent({
 			isShowMap,
 			coordinates,
 			telephoneInput,
+			personTelephoneInput,
 			mapRef,
 			invokeChild,
 			dataForInn,
@@ -357,6 +358,14 @@ export default defineComponent({
 			type: Number,
 			required: false,
 		},
+		companyForInn: {
+			type: Object as () => CompanyType,
+			required: true,
+		},
+		bank: {
+			type: Object as () => CompanyType,
+			required: true,
+		}
 	},
 	methods: {
 		checkValue(value: string) {
@@ -374,6 +383,7 @@ export default defineComponent({
 			} else {
 				this.$emit("setCopyIndex", -1);
 			}
+			this.$emit("refreshData");
 		},
 		setPersonCopy(e: InputEvent) {
 			if ((e.target as HTMLInputElement).checked) {

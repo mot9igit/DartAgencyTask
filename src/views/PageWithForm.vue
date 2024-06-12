@@ -72,7 +72,10 @@
 						:key="index"
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
+						:companyForInn="companiesForInn[index]"
+						:bank="banks[index]"
 						@setCopyIndex="setCopyIndex"
+						@refreshData="refreshData"
 						v-for="(company, index) in companies"
 					/>
 
@@ -134,6 +137,8 @@ import { Ref, defineComponent, ref } from "vue";
 import { companiesInfo } from "../data/CompaniesInfo";
 import { SelectCompanyType } from "../types/SelectCompanyType";
 import AddCompany from "../components/AddCompany.vue";
+import { CompanyType } from "../components/UI/CustomInputWithDropdown/CustomInputWithDropdown.vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
 	setup() {
@@ -142,12 +147,20 @@ export default defineComponent({
 		let copyIndex: Ref<number> = ref(-1);
 		let personCopyIndex: Ref<number> = ref(-1);
 
+		const store = useStore();
+
+		const companiesForInn: Ref<CompanyType[]> = ref([]);
+		const banks: Ref<CompanyType[]> = ref([]);
+
 		return {
 			companiesInfo,
 			companies,
 			company,
 			copyIndex,
 			personCopyIndex,
+			store,
+			companiesForInn,
+			banks,
 		};
 	},
 	components: {
@@ -166,6 +179,10 @@ export default defineComponent({
 		setPersonCopyIndex(index: number) {
 			this.personCopyIndex = index;
 		},
+		refreshData() {
+			this.companiesForInn = this.store.state.companiesForInn;
+			this.banks = this.store.state.banks;
+		}
 	},
 });
 </script>
