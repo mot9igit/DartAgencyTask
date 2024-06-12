@@ -14,9 +14,7 @@
 					После того, как ЭДО уже будет у вас, можете заполнять форму подключения
 				</p>
 			</div>
-			<RouterLink to="/edo" class="answer__link">
-				<CustomButton theme="red" class="answer__button">Назад</CustomButton>
-			</RouterLink>
+			<CustomButton theme="red" class="answer__button" @click="$router.go(-1)">Назад</CustomButton>
 		</div>
 	</section>
 </template>
@@ -104,14 +102,6 @@ export default defineComponent({
 		gap: 8px;
 	}
 
-	&__link {
-		margin-top: 40px;
-
-		@include mobile-tablet {
-			margin-top: 0;
-		}
-	}
-
 	&__button {
 		font: {
 			size: 18px;
@@ -119,11 +109,13 @@ export default defineComponent({
 
 		height: 50px;
 		width: 241px;
+		margin-top: 40px;
 
 		@include mobile-tablet {
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 20px * 2);
+			margin-top: 0;
 		}
 	}
 }

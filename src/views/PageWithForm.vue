@@ -73,7 +73,9 @@
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
 						:legalFormData="copyIndex === -1 ? legalFormData[index] : legalFormData[copyIndex]"
-						:legalFormPerson="personCopyIndex === -1 ? legalFormPerson[index] : legalFormPerson[personCopyIndex]"
+						:legalFormPerson="
+							personCopyIndex === -1 ? legalFormPerson[index] : legalFormPerson[personCopyIndex]
+						"
 						@setCopyIndex="setCopyIndex"
 						@setPersonCopyIndex="setPersonCopyIndex"
 						@refreshLegalData="refreshLegalData"
@@ -108,7 +110,11 @@
 						<hr class="form__line" />
 					</div>
 
-					<CustomButton theme="red" type="submit" class="form__button form__button--submit"
+					<CustomButton
+						theme="red"
+						type="submit"
+						class="form__button form__button--submit"
+						@click="$router.push('/edo/yes')"
 						>Отправить</CustomButton
 					>
 				</main>
@@ -141,6 +147,7 @@ import { SelectCompanyType } from "../types/SelectCompanyType";
 import AddCompany from "../components/AddCompany.vue";
 import { useStore } from "vuex";
 import { LegalDataType, LegalPersonType, StoreDataType } from "../types/DataFromForm";
+import { RouterLink } from "vue-router";
 
 export default defineComponent({
 	setup() {
@@ -175,7 +182,7 @@ export default defineComponent({
 			this.company = company;
 		},
 		addCompany() {
-			this.companies.push(AddCompany);			
+			this.companies.push(AddCompany);
 		},
 		setCopyIndex(index: number) {
 			this.copyIndex = index;
@@ -466,8 +473,8 @@ export default defineComponent({
 			}
 
 			&__button {
-				padding-inline: 35px;
 				align-self: flex-end;
+				padding-inline: 35px;
 
 				&--add {
 					margin-top: 40px;

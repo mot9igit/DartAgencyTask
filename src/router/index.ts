@@ -8,6 +8,7 @@ import AnswerWantPut from "../components/Edo/Answers/AnswerWantPut.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import Test from "../views/Test.vue";
 import NotFound from "../views/NotFound.vue";
+import AnswerYes from "../components/Edo/Answers/AnswerYes.vue";
 
 type RouteType = {
 	path: string;
@@ -30,6 +31,11 @@ const routes: RouteType[] = [
 		path: "/edo",
 		name: "Edo",
 		component: Edo,
+	},
+	{
+		path: "/edo/yes",
+		name: "Edo yes",
+        component: AnswerYes,
 	},
 	{
 		path: "/edo/no",

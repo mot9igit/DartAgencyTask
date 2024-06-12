@@ -1,19 +1,22 @@
 <template>
 	<section class="answer">
-		<div class="answer__img"></div>
+		<div class="answer__img">
+			<!-- <img src="/img/background/want-put-edo-bg.png" alt="no edo image" class="answer__img" /> -->
+		</div>
 		<div class="answer__content">
-			<p class="answer__text answer__text--main">
-				Нам очень жаль, но мы уверены, что в будущем сможем поработать с Вами. Ждем вас с ЭДО!
-			</p>
-			<p class="answer__text">С надеждой, команда MachineStore.</p>
-			<CustomButton theme="red" class="answer__button" @click="$router.go(-1)">Я готов завести ЭДО</CustomButton>
+			<p class="answer__text answer__text--main">Заявка уже летит!</p>
+			<div class="answer__text-container">
+				<p class="answer__text">
+					В ближайшее время с вами свяжутся наши специалисты по подключению.
+				</p>
+			</div>
+			<CustomButton theme="red" class="answer__button" @click="$router.go(-1)">Назад</CustomButton>
 		</div>
 	</section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { RouterLink } from "vue-router";
 
 export default defineComponent({
 	setup() {
@@ -38,7 +41,7 @@ export default defineComponent({
 	&__img {
 		@include absolute-center;
 
-		background: url("/img/background/no-edo-bg.png") no-repeat center center / cover;
+		background: url("/img/background/want-put-edo-bg.png") no-repeat center center / cover;
 
 		filter: brightness(74%);
 
@@ -46,7 +49,7 @@ export default defineComponent({
 		height: 100dvh;
 
 		@include desktop-s {
-			background-image: url("/img/background/no-edo-bg-small.png");
+			background-image: url("/img/background/want-put-edo-bg-small.png");
 		}
 	}
 
@@ -82,11 +85,20 @@ export default defineComponent({
 
 		&--main {
 			font: {
-				weight: 700;
+				weight: 600;
 			}
 
 			margin-bottom: 19px;
 		}
+	}
+
+	&__text-container {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	&__link {
 	}
 
 	&__button {
@@ -102,7 +114,7 @@ export default defineComponent({
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 20px * 2);
-			margin: 0;
+			margin-top: 0;
 		}
 	}
 }
