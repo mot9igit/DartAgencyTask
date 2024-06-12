@@ -238,7 +238,13 @@
 					<div class="container__input-container">
 						<CustomInput placeholder="Должность" :required="true" class="form__input" />
 						<CustomInput placeholder="ФИО" class="form__input" />
-						<CustomInput placeholder="Телефон" class="form__input" />
+						<CustomInput
+							:id="`personTelephoneInput${index}`"
+							type="tel"
+							placeholder="Телефон"
+							ref="personTelephoneInput"
+							class="form__input"
+						/>
 						<CustomInput placeholder="Email" :required="true" class="form__input" />
 					</div>
 				</div>
@@ -287,6 +293,7 @@ export default defineComponent({
 
 		// Данные формы
 		const telephoneInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+		const personTelephoneInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
 
 		// Карта
 		const mapRef: Ref<InstanceType<typeof Map> | null> = ref(null);
@@ -396,7 +403,10 @@ export default defineComponent({
 	mounted() {
 		IMask(document.getElementById("telephoneInput" + this.index) as HTMLInputElement, {
 			mask: "+{7} (000) 000-00-00",
-		})
+		});
+		IMask(document.getElementById("personTelephoneInput" + this.index) as HTMLInputElement, {
+			mask: "+{7} (000) 000-00-00",
+		});
 
 		if (this.copyIndex != -1) {
 			this.companyForInn = this.store.state.companiesForInn[this.copyIndex];
