@@ -96,7 +96,7 @@ const onSubmit = async (): Promise<void> => {
 
 	if (response.status !== 200) return;
 
-	// router.push("/edo/want-put");
+	router.push("/edo/want-put");
 };
 
 onMounted(() => {
