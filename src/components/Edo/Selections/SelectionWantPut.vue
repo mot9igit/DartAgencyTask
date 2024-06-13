@@ -1,5 +1,5 @@
 <template>
-	<div class="selection">
+	<form class="selection" @submit.prevent="onSubmit">
 		<h6 class="selection__title">Контур.Диадок</h6>
 		<div class="selection__content">
 			<div class="modal__text-container selection__text-container">
@@ -13,10 +13,32 @@
 				</p>
 			</div>
 
-			<CustomInput placeholder="ИНН" required="true" class="selection__input" />
-			<CustomInput placeholder="Телефон" required="true" class="selection__input" />
-			<CustomInput placeholder="Email" required="true" class="selection__input" />
-			<CustomInput placeholder="ФИО" required="true" class="selection__input" />
+			<CustomInput
+				placeholder="ИНН"
+				required="true"
+				class="selection__input"
+				:onChange="(e: any) => updateEdoData('inn', e.target.value)"
+			/>
+			<CustomInput
+				id="telephoneInput"
+				ref="telephoneInput"
+				placeholder="Телефон"
+				required="true"
+				class="selection__input"
+				:onChange="(e: any) => updateEdoData('telephone', e.target.value)"
+			/>
+			<CustomInput
+				placeholder="Email"
+				required="true"
+				class="selection__input"
+				:onChange="(e: any) => updateEdoData('email', e.target.value)"
+			/>
+			<CustomInput
+				placeholder="ФИО"
+				required="true"
+				class="selection__input"
+				:onChange="(e: any) => updateEdoData('fio', e.target.value)"
+			/>
 
 			<div class="selection__links">
 				<a href="https://www.diadoc.ru/docs/faq/faq-166" class="selection__link">Что такое ЭДО?</a>
@@ -27,30 +49,60 @@
 				>
 			</div>
 
-			<RouterLink to="/edo/want-put" class="selection__button-link">
-				<CustomButton class="selection__button modal__button" @click="close"
-					>Отправить</CustomButton
-				>
-			</RouterLink>
+			<CustomButton class="selection__button modal__button" type="submit">Отправить</CustomButton>
 		</div>
-	</div>
+	</form>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { RouterLink } from "vue-router";
-
 export default defineComponent({
 	name: "SelectionWantPut",
+});
+</script>
 
-	setup() {
-		return {};
-	},
-	methods: {
-		close(): void {
-			this.$emit("close");
+<script lang="ts" setup>
+import { Ref, defineComponent, onMounted, ref } from "vue";
+import { EdoDataType } from "../../../types/DataFromForm";
+import axios, { AxiosResponse } from "axios";
+import { useRouter } from "vue-router";
+import IMask from "imask";
+
+const emit = defineEmits(["close"]);
+const router = useRouter();
+
+const telephoneInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+const edoData: Ref<EdoDataType> = ref({} as EdoDataType);
+
+const close = (): void => {
+	emit("close");
+};
+
+const updateEdoData = (parameter: string, value: string): void => {
+	edoData.value[parameter] = value;
+};
+
+const onSubmit = async (): Promise<void> => {
+	const response: AxiosResponse = await axios.post(
+		"http://localhost:3000/edo",
+		{
+			...edoData.value,
 		},
-	},
+		{
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}
+	);
+
+	if (response.status !== 200) return;
+
+	// router.push("/edo/want-put");
+};
+
+onMounted(() => {
+	IMask(document.getElementById("telephoneInput") as HTMLInputElement, {
+		mask: "+{7} (000) 000-00-00",
+	});
 });
 </script>
 
@@ -90,11 +142,8 @@ export default defineComponent({
 		}
 	}
 
-	&__button-link {
-		margin-top: 40px;
-	}
-
 	&__button {
+		margin-top: 40px;
 		padding-inline: 55px;
 	}
 }
