@@ -1,17 +1,14 @@
 <template>
 	<div class="select">
-		<input id="1" type="radio" value="1" name="edoRadio" class="select__input" @change="setSelection" />
-		<label for="1" class="select__label label">
-			<CustomTextBlock class="label__content">Да</CustomTextBlock>
-		</label>
-		<input id="2" type="radio" value="2" name="edoRadio" class="select__input" @change="setSelection" />
-		<label for="2" class="select__label label">
-			<CustomTextBlock class="label__content">Нет</CustomTextBlock>
-		</label>
-		<input id="3" type="radio" value="3" name="edoRadio" class="select__input" @change="setSelection" />
-		<label for="3" class="select__label label">
-			<CustomTextBlock class="label__content">Нет, но я хочу оставить</CustomTextBlock>
-		</label>
+		<button class="select__button" @click="() => setSelection(1)">
+			<CustomTextBlock class="select__text-block">Да</CustomTextBlock>
+		</button>
+		<button class="select__button" @click="() => setSelection(2)">
+			<CustomTextBlock class="select__text-block">Нет</CustomTextBlock>
+		</button>
+		<button class="select__button" @click="() => setSelection(3)">
+			<CustomTextBlock class="select__text-block">Нет, но я хочу оставить</CustomTextBlock>
+		</button>
 	</div>
 </template>
 
@@ -23,8 +20,8 @@ export default defineComponent({
 		return {};
 	},
 	methods: {
-		setSelection(e: any) {			
-			this.$emit("setSelection", e.target.value);
+		setSelection(value: number) {
+			this.$emit("setSelection", value);
 		},
 	},
 });
@@ -41,10 +38,12 @@ export default defineComponent({
 	border-left: var(--border);
 	border-color: var(--color-white);
 
-	&__input {
-		@include visually-hidden;
+	&__button {
+		background-color: transparent;
+		text-align: left;
 
-		&:checked {
+		&:focus,
+		&:active {
 			& + .label div {
 				@include red-gradient-background;
 
@@ -56,9 +55,6 @@ export default defineComponent({
 				}
 			}
 		}
-	}
-
-	&__label {
 	}
 }
 </style>
