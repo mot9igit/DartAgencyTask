@@ -32,27 +32,27 @@
 
 @mixin adaptive-background {
 	@include desktop-l-above {
-		background: url("/img/background/bg_1920.png") repeat-y center center / contain;
+		background: url("/img/background/bg-large.png") repeat-y center center / cover;
 	}
 
 	@include desktop-l {
-		background: url("/img/background/bg_1920.png") repeat-y center center / contain;
+		background: url("/img/background/bg-large.png") repeat-y center center / cover;
 	}
 
 	@include desktop {
-		background: url("/img/background/bg_1280.png") repeat-y center center / contain;
+		background: url("/img/background/bg-large.png") repeat-y center center / cover;
 	}
 
 	@include desktop-s {
-		background: url("/img/background/bg_1024.png") repeat-y center center / contain;
+		background: url("/img/background/bg-large.png") repeat-y center center / cover;
 	}
 
 	@include tablet {
-		background: url("/img/background/bg_768.png") repeat-y center center / contain;
+		background: url("/img/background/bg-large.png") repeat-y center center / cover;
 	}
 
 	@include mobile {
-		background: url("/img/background/bg_320.png") repeat-y center center / contain;
+		background: url("/img/background/bg-large.png") repeat-y center center / cover;
 	}
 }
 
