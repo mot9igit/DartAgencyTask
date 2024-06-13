@@ -23,9 +23,10 @@
 		</div>
 		<CustomTextBlock>Да</CustomTextBlock>
 		<div class="block" style="justify-content: center">
-			<!-- <PersonCard card=1 /> -->
+			<PersonCard card=1 />
 			<PersonCard card="2" />
-			<!-- <PersonCard card=3 /> -->
+			<PersonCard card=3 />
+			<Fog class="fog" />
 		</div>
 
 		<CardSlider style="margin-block: 100px;" />

@@ -14,6 +14,7 @@ import CustomInputWithDropdown from "./CustomInputWithDropdown/CustomInputWithDr
 import TextSelect from "./TextSelect/TextSelect.vue";
 import MapMarker from "./MapMarker.vue";
 import AddressSelect from "./AddressSelect/AddressSelect.vue";
+import Fog from "./Fog.vue";
 
 export default [
 	ArrowButton,
@@ -32,4 +33,5 @@ export default [
 	TextSelect,
 	MapMarker,
 	AddressSelect,
+	Fog,
 ];

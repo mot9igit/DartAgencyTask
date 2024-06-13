@@ -25,6 +25,8 @@
 				<img src="../assets/logo.svg" alt="logo" class="footer__logo" />
 			</a>
 		</footer>
+
+		<Fog class="home__fog" />
 	</section>
 </template>
 
@@ -36,18 +38,17 @@ import CardSlider from "../components/CardSlider.vue";
 import { RouterLink } from "vue-router";
 import { useStore } from "vuex";
 
-
 export default defineComponent({
 	name: "Home",
-	
+
 	setup() {
 		const store = useStore();
 
 		return {
-			store
-		}
+			store,
+		};
 	},
-	
+
 	components: {
 		PersonCard,
 		CustomTitle,
@@ -55,9 +56,9 @@ export default defineComponent({
 	},
 	methods: {
 		setCompanyNumber(value: number) {
-			this.store.commit('setCompanyNumber', +value);
+			this.store.commit("setCompanyNumber", +value);
 		},
-	}
+	},
 });
 </script>
 
@@ -76,6 +77,9 @@ export default defineComponent({
 
 	height: 100dvh;
 
+	position: relative;
+	overflow: hidden;
+
 	@include desktop-l {
 		padding-block: clamp(40px, #{calc(40 * 100 / 1980)}vw, 40px);
 	}
@@ -83,6 +87,10 @@ export default defineComponent({
 	@include desktop {
 		padding-block: 40px;
 		justify-content: space-between;
+	}
+
+	@include desktop-s {
+		padding-inline: 40px;
 	}
 
 	.header {
@@ -173,6 +181,13 @@ export default defineComponent({
 		@include desktop {
 			margin-top: 0;
 		}
+	}
+
+	&__fog {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		translate: -50% 0;
 	}
 }
 </style>

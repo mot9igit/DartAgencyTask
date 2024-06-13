@@ -113,7 +113,7 @@ export default defineComponent({
 				: CardSliderState.Last;
 		},
 		handleMouseDown(event: MouseEvent) {
-			this.coordsBeforeSlide = [event.clientX, event.clientY];		
+			this.coordsBeforeSlide = [event.clientX, event.clientY];
 		},
 		handleMouseUp(event: MouseEvent) {
 			const coordsAfterSlide = [event.clientX, event.clientY];
@@ -202,6 +202,12 @@ export default defineComponent({
 			height: 224px;
 		}
 
+		&:hover,
+		&:active,
+		&:focus {
+			scale: 1;
+		}
+
 		&--last,
 		&--next {
 			pointer-events: none;
@@ -232,9 +238,6 @@ export default defineComponent({
 			@include mobile {
 				width: 238px;
 				height: 379px;
-			}
-
-			.card-wrapper {
 			}
 
 			.card {
@@ -274,11 +277,13 @@ export default defineComponent({
 		z-index: 110 !important;
 
 		&--left {
-			left: 40px;
+			// left: 40px;
+			left: 0;
 		}
 
 		&--right {
-			right: 40px;
+			// right: 40px;
+			right: 0;
 		}
 	}
 }
