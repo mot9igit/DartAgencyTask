@@ -19,6 +19,7 @@
 		v-if="isModalShow"
 		id="edoModal"
 		:title="getModalTitle"
+		:selection="selection"
 		@setSelection="setSelection"
 		@close="closeModal"
 	>
@@ -157,7 +158,7 @@ export default defineComponent({
 
 	&__img-container {
 		position: relative;
-		height: 95%;
+		// height: 95%;
 
 		@include tablet-mobile-average {
 			height: 310px;

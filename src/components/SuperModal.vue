@@ -1,6 +1,6 @@
 <template>
 	<dialog class="modal" id="edoModal" aria-labelledby="modalTitle" @click="close">
-		<div class="modal__content" @click.stop>
+		<div :class="`modal__content ${selection == 3 && 'overflow-scroll'}`" @click.stop>
 			<header class="modal__header">
 				<h5 class="modal__title" id="modalTitle">{{ title }}</h5>
 				<form method="dialog">
@@ -27,6 +27,10 @@ export default defineComponent({
 			type: String,
 			required: false,
 		},
+		selection: {
+			type: Number,
+			required: false,
+		}
 	},
 	methods: {
 		close(): void {
@@ -90,8 +94,7 @@ export default defineComponent({
 
 		padding: 40px;
 
-		overflow-x: hidden;
-		overflow-y: auto;
+		overflow: hidden;
 
 		.modal__header {
 			display: flex;
@@ -128,6 +131,10 @@ export default defineComponent({
 			line-height: 106%;
 		}
 	}
+}
+
+.overflow-scroll {
+	overflow-y: scroll;
 }
 
 @keyframes bg-animation {
