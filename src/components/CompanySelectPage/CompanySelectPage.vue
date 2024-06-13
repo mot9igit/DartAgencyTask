@@ -97,6 +97,7 @@ export default defineComponent({
 @import "../../styles/mixins";
 
 .section {
+	@include scrollbar;
 	@include flex-center;
 	align-items: flex-end;
 	gap: 24px;
@@ -104,10 +105,13 @@ export default defineComponent({
 	padding-top: 40px;
 	padding-inline: 195px;
 
-	height: 100dvh;
+	min-height: 100dvh;
+	// height: 100dvh;
 	width: 100%;
 
-	overflow: hidden;
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: auto;
 
 	@include desktop-l-above {
 		align-items: center;
@@ -124,6 +128,7 @@ export default defineComponent({
 
 	@include desktop-s {
 		align-items: flex-end;
+		justify-content: center;
 	}
 
 	@include tablet {
@@ -131,9 +136,10 @@ export default defineComponent({
 		align-items: flex-end;
 	}
 
-	// @include mobile-tablet {
-	//     align-items: flex-end;
-	// }
+	@include tablet-mobile-average {
+		align-items: flex-start;
+		justify-content: center;
+	}
 
 	@include mobile {
 		padding-inline: 20px;
@@ -144,23 +150,26 @@ export default defineComponent({
 		align-items: flex-end;
 
 		position: relative;
-		height: 95%;
+		height: 95dvh;
+		max-width: 600px;
+		width: 100%;
+
+		@include desktop { 
+			width: fit-content;
+		}
 
 		@include desktop-s {
-			width: 100%;
+			position: absolute;
+			overflow: hidden;
+			width: 100vw;
+			max-width: 100vw;
 		}
 
 		@include tablet {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-
-			justify-content: flex-end;
-			overflow: hidden;
 		}
 
 		@include mobile-tablet {
-			height: 500px;
+			// height: 500px;
 		}
 	}
 
@@ -176,13 +185,13 @@ export default defineComponent({
 
 		@include desktop {
 			height: 606px;
-			min-width: 350px;
+			min-width: 375px;
 		}
 
 		@include desktop-s {
 			position: absolute;
 			bottom: -120px;
-			right: 0;
+			right: -20px;
 
 			height: 876px;
 		}
@@ -214,21 +223,22 @@ export default defineComponent({
 		}
 
 		@include desktop-s {
-			@include absolute-center;
-			top: clamp(70px, #{calc(272 * 100 / 1024)}vw, 272px);
-			translate: -50% 0;
-
+			padding-top: 40px;
 			padding-inline: clamp(40px, #{calc(121 * 100 / 1024)}vw, 121px);
 			width: 100%;
 		}
 
 		@include tablet {
-			top: clamp(30px, #{calc(70 * 100 / 768)}vw, 70px);
+			padding-top: clamp(30px, #{calc(70 * 100 / 768)}vw, 70px);
 			padding-inline: clamp(20px, #{calc(40 * 100 / 768)}vw, 40px);
 		}
 
+		@include tablet-mobile-average {
+			width: 100%;
+		}
+
 		@include mobile {
-			top: 30px;
+			padding-top: 30px;
 			padding-inline: 20px;
 		}
 
@@ -275,6 +285,10 @@ export default defineComponent({
 			grid-template: auto / repeat(2, 1fr);
 			gap: 24px;
 
+			@include desktop {
+				grid-template: auto / 1fr;
+			}
+
 			@include desktop-s-tablet-average {
 				grid-template: repeat(3, 1fr) / 1fr;
 			}
@@ -285,7 +299,8 @@ export default defineComponent({
 
 			@include tablet-mobile-average {
 				grid-template: 1fr / repeat(3, 1fr);
-				max-width: 100%;
+				// max-width: 100%;
+				width: 100vw;
 				overflow-x: scroll;
 			}
 
