@@ -1,8 +1,6 @@
 <template>
 	<section class="edo">
-		<a href="/">
-			<ArrowButton direction="left" class="edo__arrow" />
-		</a>
+		<ArrowButton direction="left" class="edo__arrow" @click="$router.go(-1)" />
 
 		<div class="edo__img-container img-container">
 			<img :src="company.image" class="edo__img" />
@@ -40,6 +38,7 @@ import SuperModal from "../components/SuperModal.vue";
 import SelectionYes from "../components/Edo/Selections/SelectionYes.vue";
 import SelectionNo from "../components/Edo/Selections/SelectionNo.vue";
 import SelectionWantPut from "../components/Edo/Selections/SelectionWantPut.vue";
+import router from "../router";
 
 export default defineComponent({
 	setup() {
@@ -96,7 +95,7 @@ export default defineComponent({
 	},
 	mounted() {
 		this.getCompany;
-	}
+	},
 });
 </script>
 
@@ -245,7 +244,6 @@ export default defineComponent({
 				margin-bottom: 25px;
 			}
 		}
-
 	}
 
 	.edo__button {
