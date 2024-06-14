@@ -66,6 +66,10 @@ import { EdoDataType } from "../../../types/DataFromForm";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "vue-router";
 import IMask from "imask";
+import { companies } from "../../../data/Companies.ts";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const emit = defineEmits(["close"]);
 const router = useRouter();
@@ -82,21 +86,31 @@ const updateEdoData = (parameter: string, value: string): void => {
 };
 
 const onSubmit = async (): Promise<void> => {
-	const response: AxiosResponse = await axios.post(
-		"./assets/edo.php",
-		{
-			data: edoData.value,
-		},
-		{
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}
-	);
+	const data = {
+		...edoData.value,
+		type_company: companies.find((company) => company.id == store.state.companyNumber).title,
+	};
+	console.log(data);
+	
 
-	if (response.status !== 200) return;
+	// const response: AxiosResponse = await axios.post(
+	// 	"../../../../assets/edo.php",
+	// 	{
+	// 		data: {
+	// 			...edoData.value,
+	// 			type_company: companies.find((company) => company.id == store.state.companyNumber).title,
+	// 		},
+	// 	},
+	// 	{
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 	}
+	// );
 
-	router.push("/edo/want-put");
+	// if (response.status !== 200) return;
+
+	// router.push("/edo/want-put");
 };
 
 onMounted(() => {

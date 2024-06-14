@@ -43,10 +43,9 @@ import {
 	YandexMapListener,
 	YandexMapMarker,
 } from "vue-yandex-maps";
-import { Ref, ref, shallowRef, triggerRef } from "vue";
-import axios, { AxiosResponse } from "axios";
+import { ref, shallowRef, triggerRef } from "vue";
+import axios from "axios";
 import { useStore } from "vuex";
-import { CoordinatesType } from "./AddCompany.vue";
 
 const props = defineProps({
 	companyIndex: Number,
@@ -56,7 +55,7 @@ const props = defineProps({
 const emit = defineEmits(["updateStoreData", "refreshStoreData"]);
 
 const yandexMapCoords = ref([37.617644, 55.755819]);
-const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
+const defaultMarker = shallowRef(null);
 
 let address = ref("Москва");
 const store = useStore();

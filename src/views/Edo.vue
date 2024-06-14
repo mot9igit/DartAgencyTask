@@ -27,8 +27,8 @@
 	</SuperModal>
 </template>
 
-<script lang="ts">
-import { Ref, defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { Ref, computed, defineComponent, onMounted, ref } from "vue";
 
 import { companies } from "../data/Companies";
 import { CompanyType } from "../types/SelectCompanyPageTypes";
@@ -39,63 +39,40 @@ import SelectionYes from "../components/Edo/Selections/SelectionYes.vue";
 import SelectionNo from "../components/Edo/Selections/SelectionNo.vue";
 import SelectionWantPut from "../components/Edo/Selections/SelectionWantPut.vue";
 import router from "../router";
+import { useStore } from "vuex";
 
-export default defineComponent({
-	setup() {
-		const company: Ref<CompanyType> = ref({} as CompanyType);
-		const selection: Ref<number> = ref(0);
+const store = useStore();
 
-		const isModalShow: Ref<boolean> = ref(false);
+const selection: Ref<number> = ref(0);
+const isModalShow: Ref<boolean> = ref(false);
 
-		const modalTitles: Record<number, string> = {
-			1: "Укажите Ваш идентификатор ЭДО",
-			2: "Извините, но пока мы не обслуживаем клиентов, у которых нет ЭДО",
-			3: "ЭДО от СКБ «Контур»",
-		};
+const company: Ref<CompanyType> = ref({} as CompanyType);
 
-		return {
-			company,
-			selection,
-			modalTitles,
-			isModalShow,
-		};
-	},
-	props: {
-		cardNumber: {
-			type: Number,
-			default: 1,
-		},
-	},
-	components: {
-		EdoSelect,
-		SuperModal,
-		SelectionYes,
-		SelectionNo,
-		SelectionWantPut,
-	},
-	methods: {
-		showModal(): void {
-			this.isModalShow = true;
-		},
-		closeModal(): void {
-			this.isModalShow = false;
-		},
-		setSelection(value: number): void {
-			this.selection = value;
-			this.showModal();
-		},
-	},
-	computed: {
-		getCompany(): void {
-			this.company = companies.find((company) => company.id == this.cardNumber) as CompanyType;
-		},
-		getModalTitle(): string {
-			return this.modalTitles[this.selection];
-		},
-	},
-	mounted() {
-		this.getCompany;
-	},
+const modalTitles: Record<number, string> = {
+	1: "Укажите Ваш идентификатор ЭДО",
+	2: "Извините, но пока мы не обслуживаем клиентов, у которых нет ЭДО",
+	3: "ЭДО от СКБ «Контур»",
+};
+
+const showModal = (): void => {
+	isModalShow.value = true;
+};
+
+const closeModal = (): void => {
+	isModalShow.value = false;
+};
+
+const setSelection = (value: number): void => {
+	selection.value = value;
+	showModal();
+};
+
+const getModalTitle = computed((): string => {
+	return modalTitles[selection.value];
+});
+
+onMounted(() => {
+	company.value = companies[store.state.companyNumber - 1];
 });
 </script>
 

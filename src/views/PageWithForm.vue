@@ -209,7 +209,7 @@ export default defineComponent({
 
 			// Отправка данных
 			const response: AxiosResponse = await axios.post(
-				"./assets/form.php",
+				"../../assets/form.php",
 				{
 					data: dataToPost,
 					company: this.company,
