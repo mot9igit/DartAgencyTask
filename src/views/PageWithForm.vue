@@ -67,20 +67,20 @@
 
 				<main class="form__main">
 					<AddCompany
+						v-for="(company, index) in companies"
 						:company="company"
 						:index="index"
 						:key="index"
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
 						:storeFormData="storeFormData[index]"
-						:legalFormData="legalFormData[index]"
-						:legalFormPerson="legalFormPerson[index]"
+						:legalFormData="copyIndex !== -1 ? legalFormData[copyIndex] : legalFormData[index]"
+						:legalFormPerson="personCopyIndex !== -1 ? legalFormPerson[personCopyIndex] : legalFormPerson[index]"
 						@setCopyIndex="setCopyIndex"
 						@setPersonCopyIndex="setPersonCopyIndex"
 						@refreshStoreData="refreshStoreData"
 						@refreshLegalData="refreshLegalData"
 						@refreshLegalPerson="refreshLegalPerson"
-						v-for="(company, index) in companies"
 					/>
 
 					<CustomButton theme="black" class="form__button form__button--add" @click="addCompany"
@@ -195,7 +195,7 @@ export default defineComponent({
 				}
 			);
 
-			if(response.status !== 200) return;
+			if (response.status !== 200) return;
 
 			this.$router.push("/edo/yes");
 		},
@@ -203,18 +203,6 @@ export default defineComponent({
 			this.company = company;
 		},
 		addCompany() {
-			if (this.copyIndex !== -1) {
-				const formLegalData: LegalDataType[] = this.store.state.formLegalData;
-				formLegalData.push({ ...formLegalData[this.copyIndex] });
-				this.store.commit("setFormLegalData", formLegalData);
-			}
-
-			if (this.personCopyIndex !== -1) {
-				const formLegalPerson: LegalPersonType[] = this.store.state.formLegalPerson;
-				formLegalPerson.push({ ...formLegalPerson[this.personCopyIndex] });
-				this.store.commit("setFormLegalPerson", formLegalPerson);
-			}
-
 			this.companies.push(AddCompany);
 		},
 		setCopyIndex(index: number) {
