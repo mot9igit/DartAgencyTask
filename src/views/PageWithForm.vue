@@ -191,8 +191,8 @@ export default defineComponent({
 			const formLegalPerson: LegalPersonType[] = this.store.state.formLegalPerson;
 
 			const companyToPost: SelectCompanyType = this.company;
-			delete companyToPost["id"];
-			delete companyToPost["image"];
+			delete companyToPost?.id;
+			delete companyToPost?.image;
 
 
 			// Формирование данных ждя отправки
@@ -209,7 +209,7 @@ export default defineComponent({
 
 			// Отправка данных
 			const response: AxiosResponse = await axios.post(
-				"https://jsonplaceholder.typicode.com/posts",
+				"./assets/form.php",
 				{
 					data: dataToPost,
 					company: this.company,
@@ -253,7 +253,7 @@ export default defineComponent({
 				if (this.copyIndex !== -1) {
 					this.legalFormData.push(this.legalFormData[this.copyIndex]);
 				} else {
-					this.legalFormData.push({});
+					this.legalFormData.push({} as LegalDataType);
 				}
 			} else {
 				if (indexCopy !== -1) {
@@ -283,7 +283,7 @@ export default defineComponent({
 				if (this.personCopyIndex !== -1) {
 					this.legalFormPerson.push(this.legalFormPerson[this.personCopyIndex]);
 				} else {
-					this.legalFormPerson.push({});
+					this.legalFormPerson.push({} as LegalPersonType);
 				}
 			} else {
 				if (indexCopy !== -1) {

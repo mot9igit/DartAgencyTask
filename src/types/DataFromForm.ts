@@ -41,5 +41,5 @@ export type EdoDataType = {
 export type DataToPost = {
     storeData: StoreDataType;
     legalData: LegalDataType;
-    personData: LegalPersonType;
+    legalPerson: LegalPersonType;
 }

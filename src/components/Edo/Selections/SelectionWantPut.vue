@@ -83,7 +83,7 @@ const updateEdoData = (parameter: string, value: string): void => {
 
 const onSubmit = async (): Promise<void> => {
 	const response: AxiosResponse = await axios.post(
-		"http://localhost:3000/edo",
+		"./assets/edo.php",
 		{
 			data: edoData.value,
 		},
