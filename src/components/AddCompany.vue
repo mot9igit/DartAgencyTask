@@ -196,10 +196,9 @@
 						/>
 						<TextSelect
 							ref="ndsSelect"
-							id="ndsSelect"
+							:id="'ndsSelect' + index"
 							placeholder="НДС"
 							:value="legalFormData?.nds"
-							:required="true"
 							:data="dataForInn"
 							class="form__input"
 							:onChange="(e: any) => updateLegalData('nds', e.name)"
