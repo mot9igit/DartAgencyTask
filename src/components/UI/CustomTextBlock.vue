@@ -17,7 +17,7 @@ export default defineComponent({
 
 .text-block {
 	font: {
-		size: 21px;
+		size: 20px;
 		weight: 600;
 	}
 	line-height: 22px;

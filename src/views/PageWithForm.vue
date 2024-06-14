@@ -223,7 +223,7 @@ export default defineComponent({
 
 			if (response.status !== 200) return;
 
-			// this.$router.push("/edo/yes");
+			this.$router.push("/edo/yes");
 		},
 		setCompany(company: SelectCompanyType) {
 			this.company = company;
@@ -755,11 +755,11 @@ export default defineComponent({
 		padding-top: 80px;
 
 		@include tablet {
-			margin-top: clamp(50px, #{calc(80 * 100 / 768)}vw, 80px);
+			// margin-top: clamp(50px, #{calc(80 * 100 / 768)}vw, 80px);
 		}
 
 		@include mobile {
-			margin-top: 50px;
+			// margin-top: 50px;
 		}
 
 		&__contacts {

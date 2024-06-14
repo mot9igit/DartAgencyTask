@@ -85,7 +85,7 @@ const onSubmit = async (): Promise<void> => {
 	const response: AxiosResponse = await axios.post(
 		"http://localhost:3000/edo",
 		{
-			...edoData.value,
+			data: edoData.value,
 		},
 		{
 			headers: {
