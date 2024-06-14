@@ -157,6 +157,7 @@ export default defineComponent({
 	setup() {
 		const companies: Ref<any[]> = ref([AddCompany]);
 		const company: Ref<SelectCompanyType> = ref({} as SelectCompanyType);
+
 		let copyIndex: Ref<number> = ref(-1);
 		let personCopyIndex: Ref<number> = ref(-1);
 
@@ -212,22 +213,90 @@ export default defineComponent({
 		},
 		addCompany() {
 			this.companies.push(AddCompany);
+
+			// Обновление данных
+			this.refreshLegalData();
+			this.refreshLegalPerson();
 		},
 		setCopyIndex(index: number) {
+			this.refreshLegalData(index);
 			this.copyIndex = index;
 		},
 		setPersonCopyIndex(index: number) {
+			this.refreshLegalPerson(index);
 			this.personCopyIndex = index;
 		},
 		refreshStoreData() {
 			this.storeFormData = this.store.state.formStoreData;
 		},
-		refreshLegalData() {
+		refreshLegalData(indexCopy: number = -1) {
 			this.legalFormData = this.store.state.formLegalData;
+			
+			if (this.legalFormData.length < this.companies.length) {
+				if (this.copyIndex !== -1) {
+					this.legalFormData.push(this.legalFormData[this.copyIndex]);
+				} else {
+					this.legalFormData.push({});
+				}
+			} else {
+				if (indexCopy !== -1) {
+					this.legalFormData = this.legalFormData.map((item: LegalDataType, index: number) => {
+						if (index > indexCopy) {
+							return this.legalFormData[indexCopy];
+						}
+						return item;
+					});
+				} else {
+					this.legalFormData = this.legalFormData.map((item: LegalDataType, index: number) => {
+						if (index > this.copyIndex && this.copyIndex !== -1) {
+							return {} as LegalDataType;
+						}
+						return item;
+					});
+				}
+			}
+
+			this.store.commit("setFormLegalData", this.legalFormData);
+			console.log("Data: ", this.legalFormData, indexCopy, this.copyIndex);
 		},
-		refreshLegalPerson() {
+		refreshLegalPerson(indexCopy: number = -1) {
 			this.legalFormPerson = this.store.state.formLegalPerson;
+
+			if (this.legalFormPerson.length < this.companies.length) {
+				if (this.personCopyIndex !== -1) {
+					this.legalFormPerson.push(this.legalFormPerson[this.personCopyIndex]);
+				} else {
+					this.legalFormPerson.push({});
+				}
+			} else {
+				if (indexCopy !== -1) {
+					this.legalFormPerson = this.legalFormPerson.map(
+						(item: LegalPersonType, index: number) => {
+							if (index > indexCopy) {
+								return this.legalFormPerson[indexCopy];
+							}
+							return item;
+						}
+					);
+				} else {
+					this.legalFormPerson = this.legalFormPerson.map(
+						(item: LegalPersonType, index: number) => {
+							if (index > this.personCopyIndex && this.personCopyIndex !== -1) {
+								return {} as LegalPersonType;
+							}
+							return item;
+						}
+					);
+				}
+			}
+
+			this.store.commit("setFormLegalPerson", this.legalFormPerson);
+			console.log("Person data:", this.legalFormPerson, indexCopy, this.personCopyIndex);
 		},
+	},
+	mounted() {
+		this.refreshLegalData(-1);
+		this.refreshLegalPerson(-1);
 	},
 });
 </script>

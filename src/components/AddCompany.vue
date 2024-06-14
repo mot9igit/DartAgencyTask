@@ -466,7 +466,6 @@ export default defineComponent({
 			} else {
 				this.$emit("setCopyIndex", -1);
 			}
-			this.refreshLegalFormData();
 		},
 		setPersonCopyIndex(e: InputEvent): void {
 			if ((e.target as HTMLInputElement).checked) {
@@ -474,7 +473,6 @@ export default defineComponent({
 			} else {
 				this.$emit("setPersonCopyIndex", -1);
 			}
-			this.refreshLegalFormPerson();
 		},
 		refreshStoreFormData(): void {
 			this.$emit("refreshStoreData");
@@ -483,7 +481,7 @@ export default defineComponent({
 			this.$emit("refreshLegalData");
 		},
 		refreshLegalFormPerson(): void {
-			this.$emit("refreshLegalPerson");
+			this.$emit("refreshLegalPerson");			
 		},
 		updateStoreData(parameter: string, value: string): void {
 			const formStoreData: StoreDataType[] = this.store.state.formStoreData;
