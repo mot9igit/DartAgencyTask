@@ -363,7 +363,7 @@
 					<CustomCheckbox
 						v-if="managerCopyIndex === -1 || managerCopyIndex === index"
 						@change="setManagerCopyIndex"
-						:id="'lprDataCopy' + index"
+						:id="'managerDataCopy' + index"
 						label="Копировать данные лица ответственного заобработку заказов с сайта"
 						class="form__checkbox"
 					/>

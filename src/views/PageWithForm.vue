@@ -234,7 +234,8 @@ export default defineComponent({
 					data: {
 						...dataToPost,
 						identity_edo: this.store.state.identityEdo,
-						type_company: companies.find((company) => company.id == this.company.id)?.title,
+						type_company: companies.find((company) => company.id == this.store.state.companyNumber)
+							?.title,
 					},
 					company: this.company,
 				},
