@@ -59,7 +59,7 @@ const emit = defineEmits(["updateStoreData", "refreshStoreData"]);
 const yandexMapCoords: Ref<number[]> = ref([37.617644, 55.755819]);
 const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
 
-let address: Ref<string> = ref("");
+let address: Ref<string> = ref("Москва");
 const store = useStore();
 let timer: Ref<NodeJS.Timeout> = ref({} as NodeJS.Timeout);
 
@@ -90,6 +90,7 @@ const updateCoordinates = (coordinates: CoordinatesType) => {
 	});
 
 	yandexMapCoords.value = defaultMarker.value?.coordinates;
+	refreshGeo();
 };
 
 defineExpose({
