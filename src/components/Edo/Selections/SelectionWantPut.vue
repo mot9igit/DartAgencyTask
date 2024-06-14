@@ -14,6 +14,13 @@
 			</div>
 
 			<CustomInput
+				placeholder="Наименование организации"
+				required="true"
+				class="selection__input"
+				:onChange="(e: any) => updateEdoData('name', e.target.value)"
+			/>
+
+			<CustomInput
 				placeholder="ИНН"
 				required="true"
 				class="selection__input"

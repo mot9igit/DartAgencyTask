@@ -32,6 +32,7 @@ export type LegalPersonType = {
 }
 
 export type EdoDataType = {
+    name: string;
     inn: string;
     telephone: string;
     email: string;
