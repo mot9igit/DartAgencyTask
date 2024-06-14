@@ -1,8 +1,9 @@
 <template>
 	<YandexMap
+		ref="yandexMap"
 		:settings="{
 			location: {
-				center: [37.617644, 55.755819],
+				center: yandexMapCoords,
 				zoom: 10,
 			},
 			theme: 'dark',
@@ -55,6 +56,7 @@ const props = defineProps({
 
 const emit = defineEmits(["updateStoreData", "refreshStoreData"]);
 
+const yandexMapCoords: Ref<number[]> = ref([37.617644, 55.755819]);
 const defaultMarker = shallowRef<YMapDefaultMarker | null>(null);
 
 let address: Ref<string> = ref("");
@@ -86,12 +88,13 @@ const updateCoordinates = (coordinates: CoordinatesType) => {
 			  ]
 			: [37.617644, 55.755819],
 	});
+
+	yandexMapCoords.value = defaultMarker.value?.coordinates;
 };
 
 defineExpose({
 	updateCoordinates,
 });
-
 
 const refreshGeo = async () => {
 	const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
