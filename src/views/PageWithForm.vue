@@ -186,9 +186,9 @@ export default defineComponent({
 	methods: {
 		async onSubmit() {
 			// Получение данных
-			const formStoreData: StoreDataType = this.store.state.formStoreData;
-			const formLegalData: LegalDataType = this.store.state.formLegalData;
-			const formLegalPerson: LegalPersonType = this.store.state.formLegalPerson;
+			const formStoreData: StoreDataType[] = this.store.state.formStoreData;
+			const formLegalData: LegalDataType[] = this.store.state.formLegalData;
+			const formLegalPerson: LegalPersonType[] = this.store.state.formLegalPerson;
 
 			const companyToPost: SelectCompanyType = this.company;
 			delete companyToPost["id"];
