@@ -150,12 +150,13 @@ import { companiesInfo } from "../data/CompaniesInfo";
 import { SelectCompanyType } from "../types/SelectCompanyType";
 import AddCompany from "../components/AddCompany.vue";
 import { useStore } from "vuex";
-import { LegalDataType, LegalPersonType, StoreDataType } from "../types/DataFromForm";
+import { LegalDataType, LegalPersonType, StoreDataType, DataToPost } from "../types/DataFromForm";
 import axios, { AxiosResponse } from "axios";
 
 export default defineComponent({
 	setup() {
 		const companies: Ref<any[]> = ref([AddCompany]);
+
 		const company: Ref<SelectCompanyType> = ref({} as SelectCompanyType);
 
 		let copyIndex: Ref<number> = ref(-1);
@@ -189,13 +190,29 @@ export default defineComponent({
 			const formLegalData: LegalDataType = this.store.state.formLegalData;
 			const formLegalPerson: LegalPersonType = this.store.state.formLegalPerson;
 
+			const companyToPost: SelectCompanyType = this.company;
+			delete companyToPost["id"];
+			delete companyToPost["image"];
+
+
+			// Формирование данных ждя отправки
+			const dataToPost: DataToPost[] = formStoreData.reduce((acc: DataToPost[], val: StoreDataType, index: number) => {
+				acc.push({
+					storeData: formStoreData[index],
+					legalData: formLegalData[index],
+					legalPerson: formLegalPerson[index],
+				});
+
+				return acc;
+			}, [] as DataToPost[]);
+
+
 			// Отправка данных
 			const response: AxiosResponse = await axios.post(
 				"https://jsonplaceholder.typicode.com/posts",
 				{
-					stores: formStoreData,
-					legalData: formLegalData,
-					legalPerson: formLegalPerson,
+					data: dataToPost,
+					company: this.company,
 				},
 				{
 					headers: {

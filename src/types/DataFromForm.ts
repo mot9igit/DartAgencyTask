@@ -37,3 +37,9 @@ export type EdoDataType = {
     email: string;
     fio: string;
 } 
+
+export type DataToPost = {
+    storeData: StoreDataType;
+    legalData: LegalDataType;
+    personData: LegalPersonType;
+}
