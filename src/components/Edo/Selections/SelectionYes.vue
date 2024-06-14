@@ -1,5 +1,5 @@
 <template>
-	<form class="selection">
+	<form class="selection" @submit.prevent="onSubmit">
 		<CustomInput
 			placeholder="Ваш идентификатор"
 			required="true"
@@ -35,8 +35,6 @@ export default defineComponent({
 			this.$emit("close");
 		},
 		onSubmit(e: any): void {
-			e.preventDefault();
-
 			// Установка идентификатора ЭДО
 			this.store.commit("setIdentityEdo", this.edoIdentity);
 

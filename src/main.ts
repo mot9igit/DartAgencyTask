@@ -20,6 +20,7 @@ const store = createStore({
 		formStoreData: [] as StoreDataType[],
 		formLegalData: [] as LegalDataType[],
 		formLegalPerson: [] as LegalPersonType[],
+		formManager: [] as LegalPersonType[],
 	},
 	mutations: {
 		setCompanyNumber(state: any, value: number) {
@@ -36,6 +37,9 @@ const store = createStore({
 		},
 		setFormLegalPerson(state: any, value: LegalPersonType[]) {
 			state.formLegalPerson = value;
+		},
+		setFormManager(state: any, value: LegalPersonType[]) {
+			state.formManager = value;
 		},
 	},
 });

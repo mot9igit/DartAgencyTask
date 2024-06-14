@@ -42,4 +42,5 @@ export type DataToPost = {
     storeData: StoreDataType;
     legalData: LegalDataType;
     legalPerson: LegalPersonType;
+    manager: LegalPersonType;
 }

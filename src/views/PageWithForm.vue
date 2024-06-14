@@ -73,6 +73,7 @@
 						:key="index"
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
+						:managerCopyIndex="managerCopyIndex"
 						:storeFormData="storeFormData[index]"
 						:legalFormData="
 							copyIndex !== -1 && copyIndex < index
@@ -84,11 +85,18 @@
 								? legalFormPerson[personCopyIndex]
 								: legalFormPerson[index]
 						"
+						:formManager="
+							managerCopyIndex !== -1 && managerCopyIndex < index
+								? formManager[managerCopyIndex]
+								: formManager[index]
+						"
 						@setCopyIndex="setCopyIndex"
 						@setPersonCopyIndex="setPersonCopyIndex"
+						@setManagerCopyIndex="setManagerCopyIndex"
 						@refreshStoreData="refreshStoreData"
 						@refreshLegalData="refreshLegalData"
 						@refreshLegalPerson="refreshLegalPerson"
+						@refreshManager="refreshManager"
 					/>
 
 					<CustomButton theme="black" class="form__button form__button--add" @click="addCompany"
@@ -136,9 +144,13 @@
 			</div>
 			<div class="footer__content container">
 				<div class="footer__icon-container">
-					<CustomIcon icon="vk" link="https://vk.com" class="footer__icon" />
+					<CustomIcon
+						icon="vk"
+						link="https://vk.com/machinestore_association"
+						class="footer__icon"
+					/>
 				</div>
-				<p class="footer__text footer__text--large">© 2023 ООО МС</p>
+				<p class="footer__text footer__text--large">© 2024 ООО МС</p>
 			</div>
 		</footer>
 	</section>
@@ -162,12 +174,14 @@ export default defineComponent({
 
 		let copyIndex: Ref<number> = ref(-1);
 		let personCopyIndex: Ref<number> = ref(-1);
+		let managerCopyIndex: Ref<number> = ref(-1);
 
 		const store = useStore();
 
 		const storeFormData: Ref<StoreDataType[]> = ref([] as StoreDataType[]);
 		const legalFormData: Ref<LegalDataType[]> = ref([] as LegalDataType[]);
 		const legalFormPerson: Ref<LegalPersonType[]> = ref([] as LegalPersonType[]);
+		const formManager: Ref<LegalPersonType[]> = ref([] as LegalPersonType[]);
 
 		return {
 			companiesInfo,
@@ -175,10 +189,12 @@ export default defineComponent({
 			company,
 			copyIndex,
 			personCopyIndex,
+			managerCopyIndex,
 			store,
 			storeFormData,
 			legalFormData,
 			legalFormPerson,
+			formManager,
 		};
 	},
 	components: {
@@ -190,29 +206,32 @@ export default defineComponent({
 			const formStoreData: StoreDataType[] = this.store.state.formStoreData;
 			const formLegalData: LegalDataType[] = this.store.state.formLegalData;
 			const formLegalPerson: LegalPersonType[] = this.store.state.formLegalPerson;
+			const formManager: LegalPersonType[] = this.store.state.formManager;
 
 			const companyToPost: SelectCompanyType = this.company;
 			delete companyToPost?.id;
 			delete companyToPost?.image;
 
-
 			// Формирование данных ждя отправки
-			const dataToPost: DataToPost[] = formStoreData.reduce((acc: DataToPost[], val: StoreDataType, index: number) => {
-				acc.push({
-					storeData: formStoreData[index],
-					legalData: formLegalData[index],
-					legalPerson: formLegalPerson[index],
-				});
+			const dataToPost: DataToPost[] = formStoreData.reduce(
+				(acc: DataToPost[], val: StoreDataType, index: number) => {
+					acc.push({
+						storeData: formStoreData[index],
+						legalData: formLegalData[index],
+						legalPerson: formLegalPerson[index],
+						manager: formManager[index],
+					});
 
-				return acc;
-			}, [] as DataToPost[]);
-
+					return acc;
+				},
+				[] as DataToPost[]
+			);
 
 			// Отправка данных
 			const response: AxiosResponse = await axios.post(
 				"../../assets/form.php",
 				{
-					data: { 
+					data: {
 						...dataToPost,
 						identity_edo: this.store.state.identityEdo,
 						type_company: companies.find((company) => company.id == this.company.id)?.title,
@@ -248,12 +267,16 @@ export default defineComponent({
 			this.refreshLegalPerson(index);
 			this.personCopyIndex = index;
 		},
+		setManagerCopyIndex(index: number) {
+			this.refreshManager(index);
+			this.managerCopyIndex = index;
+		},
 		refreshStoreData() {
 			this.storeFormData = this.store.state.formStoreData;
 		},
 		refreshLegalData(indexCopy: number = -1) {
 			this.legalFormData = this.store.state.formLegalData;
-			
+
 			if (this.legalFormData.length < this.companies.length) {
 				if (this.copyIndex !== -1) {
 					this.legalFormData.push(this.legalFormData[this.copyIndex]);
@@ -315,10 +338,41 @@ export default defineComponent({
 			this.store.commit("setFormLegalPerson", this.legalFormPerson);
 			// console.log("Person data:", this.legalFormPerson, indexCopy, this.personCopyIndex);
 		},
+		refreshManager(indexCopy: number = -1) {
+			this.formManager = this.store.state.formManager;
+
+			if (this.formManager.length < this.companies.length) {
+				if (this.managerCopyIndex !== -1) {
+					this.formManager.push(this.formManager[this.managerCopyIndex]);
+				} else {
+					this.formManager.push({} as LegalPersonType);
+				}
+			} else {
+				if (indexCopy !== -1) {
+					this.formManager = this.formManager.map((item: LegalPersonType, index: number) => {
+						if (index > indexCopy) {
+							return this.formManager[indexCopy];
+						}
+						return item;
+					});
+				} else {
+					this.formManager = this.formManager.map((item: LegalPersonType, index: number) => {
+						if (index > this.managerCopyIndex && this.managerCopyIndex !== -1) {
+							return {} as LegalPersonType;
+						}
+						return item;
+					});
+				}
+			}
+
+			this.store.commit("setFormManager", this.formManager);
+			// console.log("Manager data:", this.formManager, indexCopy, this.managerCopyIndex);
+		},
 	},
 	mounted() {
 		this.refreshLegalData(-1);
 		this.refreshLegalPerson(-1);
+		this.refreshManager(-1);
 	},
 });
 </script>

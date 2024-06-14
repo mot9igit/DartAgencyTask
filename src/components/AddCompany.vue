@@ -343,6 +343,68 @@
 					</div>
 				</div>
 			</section>
+
+			<div class="form__container form__line-wrapper">
+				<div class="container__info form__line-empty hidden-desktop-s"></div>
+				<div class="container__data">
+					<hr class="form__line" />
+				</div>
+			</div>
+
+			<section class="form__container">
+				<div class="container__info container__info--column">
+					<h6 class="form__title">
+						Данные лица ответственного за&nbsp;обработку заказов с&nbsp;сайта
+					</h6>
+					<p class="form__text">
+						Этот человек будет получать уведомления о&nbsp;заказах на&nbsp;сайте, а&nbsp;также
+						обрабатывать их&nbsp;в&nbsp;личном кабинете
+					</p>
+					<CustomCheckbox
+						v-if="managerCopyIndex === -1 || managerCopyIndex === index"
+						@change="setManagerCopyIndex"
+						:id="'lprDataCopy' + index"
+						label="Копировать данные лица ответственного заобработку заказов с сайта"
+						class="form__checkbox"
+					/>
+				</div>
+				<div class="container__data">
+					<div class="container__input-container">
+						<CustomInput
+							ref="managerPostInput"
+							placeholder="Должность"
+							:value="formManager?.post"
+							:required="true"
+							class="form__input"
+							:onChange="(e: any) => updateManager('post', e.target.value)"
+						/>
+						<CustomInput
+							ref="managerFioInput"
+							placeholder="ФИО"
+							:value="formManager?.fio"
+							class="form__input"
+							:onChange="(e: any) => updateManager('fio', e.target.value)"
+						/>
+						<CustomInput
+							ref="managerTelephoneInput"
+							:id="`managerTelephoneInput${index}`"
+							type="tel"
+							placeholder="Телефон"
+							:value="formManager?.telephone"
+							class="form__input"
+							:onChange="(e: any) => updateManager('telephone', e.target.value)"
+						/>
+						<CustomInput
+							ref="managerEmailInput"
+							placeholder="Email"
+							:value="formManager?.email"
+							:required="true"
+							class="form__input"
+							:onChange="(e: any) => updateManager('email', e.target.value)"
+						/>
+					</div>
+				</div>
+			</section>
 		</details>
 	</section>
 </template>
@@ -441,6 +503,10 @@ export default defineComponent({
 			type: Number,
 			required: false,
 		},
+		managerCopyIndex: {
+            type: Number,
+            required: false,
+        },
 		storeFormData: {
 			type: Object as () => StoreDataType,
 			required: true,
@@ -453,6 +519,10 @@ export default defineComponent({
 			type: Object as () => LegalPersonType,
 			required: true,
 		},
+		formManager: {
+			type: Object as () => LegalPersonType,
+			required: true,
+		}
 	},
 	methods: {
 		checkValue(value: string | undefined): string {
@@ -472,6 +542,13 @@ export default defineComponent({
 				this.$emit("setPersonCopyIndex", -1);
 			}
 		},
+		setManagerCopyIndex(e: InputEvent): void {
+			if ((e.target as HTMLInputElement).checked) {
+				this.$emit("setManagerCopyIndex", this.index);
+			} else {
+				this.$emit("setManagerCopyIndex", -1);
+			}
+		},
 		refreshStoreFormData(): void {
 			this.$emit("refreshStoreData");
 		},
@@ -479,7 +556,10 @@ export default defineComponent({
 			this.$emit("refreshLegalData");
 		},
 		refreshLegalFormPerson(): void {
-			this.$emit("refreshLegalPerson");			
+			this.$emit("refreshLegalPerson");
+		},
+		refreshFormManager(): void {
+			this.$emit("refreshManager");
 		},
 		updateStoreData(parameter: string, value: string): void {
 			const formStoreData: StoreDataType[] = this.store.state.formStoreData;
@@ -508,6 +588,15 @@ export default defineComponent({
 			this.store.commit("setFormLegalPerson", formLegalPerson);
 			this.refreshLegalFormPerson();
 		},
+		updateManager(parameter: string, value: string): void {
+			const formManager: LegalPersonType[] = this.store.state.formManager;
+			if (!formManager[this.index]) {
+				formManager[this.index] = {} as LegalPersonType;
+			}
+			formManager[this.index][parameter] = value;
+			this.store.commit("setFormManager", formManager);
+			this.refreshFormManager();
+		},
 		async setCoordinates(): Promise<void> {
 			const response: AxiosResponse = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
 				params: {
@@ -528,6 +617,9 @@ export default defineComponent({
 			mask: "+{7} (000) 000-00-00",
 		});
 		IMask(document.getElementById("personTelephoneInput" + this.index) as HTMLInputElement, {
+			mask: "+{7} (000) 000-00-00",
+		});
+		IMask(document.getElementById("managerTelephoneInput" + this.index) as HTMLInputElement, {
 			mask: "+{7} (000) 000-00-00",
 		});
 	},
