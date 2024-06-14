@@ -86,31 +86,24 @@ const updateEdoData = (parameter: string, value: string): void => {
 };
 
 const onSubmit = async (): Promise<void> => {
-	const data = {
-		...edoData.value,
-		type_company: companies.find((company) => company.id == store.state.companyNumber).title,
-	};
-	console.log(data);
-	
+	const response: AxiosResponse = await axios.post(
+		"../../../../assets/edo.php",
+		{
+			data: {
+				...edoData.value,
+				type_company: companies.find((company) => company.id == store.state.companyNumber)?.title,
+			},
+		},
+		{
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}
+	);
 
-	// const response: AxiosResponse = await axios.post(
-	// 	"../../../../assets/edo.php",
-	// 	{
-	// 		data: {
-	// 			...edoData.value,
-	// 			type_company: companies.find((company) => company.id == store.state.companyNumber).title,
-	// 		},
-	// 	},
-	// 	{
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 	}
-	// );
+	if (response.status !== 200) return;
 
-	// if (response.status !== 200) return;
-
-	// router.push("/edo/want-put");
+	router.push("/edo/want-put");
 };
 
 onMounted(() => {
