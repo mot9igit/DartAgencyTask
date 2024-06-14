@@ -74,8 +74,16 @@
 						:copyIndex="copyIndex"
 						:personCopyIndex="personCopyIndex"
 						:storeFormData="storeFormData[index]"
-						:legalFormData="copyIndex !== -1 && copyIndex < index ? legalFormData[copyIndex] : legalFormData[index]"
-						:legalFormPerson="personCopyIndex !== -1 && personCopyIndex < index ? legalFormPerson[personCopyIndex] : legalFormPerson[index]"
+						:legalFormData="
+							copyIndex !== -1 && copyIndex < index
+								? legalFormData[copyIndex]
+								: legalFormData[index]
+						"
+						:legalFormPerson="
+							personCopyIndex !== -1 && personCopyIndex < index
+								? legalFormPerson[personCopyIndex]
+								: legalFormPerson[index]
+						"
 						@setCopyIndex="setCopyIndex"
 						@setPersonCopyIndex="setPersonCopyIndex"
 						@refreshStoreData="refreshStoreData"
@@ -631,7 +639,7 @@ export default defineComponent({
 					@include flex-center;
 					gap: 16px;
 
-					background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23656565FF' stroke-width='1' stroke-dasharray='8' stroke-dashoffset='5' stroke-linecap='square'/%3e%3c/svg%3e");
+					background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23333' stroke-width='4' stroke-dasharray='8' stroke-dashoffset='0' stroke-linecap='butt'/%3e%3c/svg%3e");
 					padding: 24px;
 					margin-top: 82px;
 
