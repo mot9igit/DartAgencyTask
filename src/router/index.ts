@@ -24,7 +24,7 @@ const routes: RouteType[] = [
 	},
 	{
 		path: "/company-select",
-		name: "Company select",
+		name: "CompanySelect",
 		component: CompanySelectPage,
 	},
 	{
@@ -34,17 +34,17 @@ const routes: RouteType[] = [
 	},
 	{
 		path: "/edo/yes",
-		name: "Edo yes",
+		name: "EdoYes",
         component: AnswerYes,
 	},
 	{
 		path: "/edo/no",
-		name: "Edo no",
+		name: "EdoNo",
 		component: AnswerNo,
 	},
 	{
 		path: "/edo/want-put",
-		name: "Edo want put",
+		name: "EdoWantPut",
 		component: AnswerWantPut,
 	},
 	{

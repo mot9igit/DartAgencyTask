@@ -9,7 +9,7 @@
 		<ArrowButton direction="left" class="slider__arrow slider__arrow--left" @click="prevCard" />
 
 		<div class="slider__card-container card-container">
-			<button @click="$router.push('/company-select')">
+			<button @click="$router.push({ name: 'CompanySelect' })">
 				<PersonCard
 					card="3"
 					:class="`slider__card slider__card--${getCardStyles('3')}`"
@@ -17,7 +17,7 @@
 					@setCompanyNumber="setCompanyNumber"
 				/>
 			</button>
-			<button @click="$router.push('/company-select')">
+			<button @click="$router.push({ name: 'CompanySelect' })">
 				<PersonCard
 					card="2"
 					:class="`slider__card slider__card--${getCardStyles('2')}`"
@@ -25,7 +25,7 @@
 					@setCompanyNumber="setCompanyNumber"
 				/>
 			</button>
-			<button @click="$router.push('/company-select')">
+			<button @click="$router.push({ name: 'CompanySelect' })">
 				<PersonCard
 					card="1"
 					:class="`slider__card slider__card--${getCardStyles('1')}`"

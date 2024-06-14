@@ -7,13 +7,13 @@
 		</header>
 
 		<div class="home__card-container hidden-desktop-s">
-			<RouterLink to="/company-select">
+			<RouterLink :to="{ name: 'CompanySelect' }">
 				<PersonCard :card="3" @setCompanyNumber="setCompanyNumber" />
 			</RouterLink>
-			<RouterLink to="/company-select">
+			<RouterLink :to="{ name: 'CompanySelect' }">
 				<PersonCard :card="2" @setCompanyNumber="setCompanyNumber" />
 			</RouterLink>
-			<RouterLink to="/company-select">
+			<RouterLink :to="{ name: 'CompanySelect' }">
 				<PersonCard :card="1" @setCompanyNumber="setCompanyNumber" />
 			</RouterLink>
 		</div>
