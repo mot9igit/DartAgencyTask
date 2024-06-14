@@ -152,6 +152,7 @@ import AddCompany from "../components/AddCompany.vue";
 import { useStore } from "vuex";
 import { LegalDataType, LegalPersonType, StoreDataType, DataToPost } from "../types/DataFromForm";
 import axios, { AxiosResponse } from "axios";
+import { companies } from "../data/Companies";
 
 export default defineComponent({
 	setup() {
@@ -211,7 +212,11 @@ export default defineComponent({
 			const response: AxiosResponse = await axios.post(
 				"../../assets/form.php",
 				{
-					data: dataToPost,
+					data: { 
+						...dataToPost,
+						identity_edo: this.store.state.identityEdo,
+						type_company: companies.find((company) => company.id == this.company.id)?.title,
+					},
 					company: this.company,
 				},
 				{

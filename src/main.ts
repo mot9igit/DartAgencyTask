@@ -16,6 +16,7 @@ UI.forEach((component) => {
 const store = createStore({
 	state: {
 		companyNumber: 1,
+		identityEdo: null,
 		formStoreData: [] as StoreDataType[],
 		formLegalData: [] as LegalDataType[],
 		formLegalPerson: [] as LegalPersonType[],
@@ -23,6 +24,9 @@ const store = createStore({
 	mutations: {
 		setCompanyNumber(state: any, value: number) {
 			state.companyNumber = value;
+		},
+		setIdentityEdo(state: any, value: any) {
+			state.identityEdo = value;
 		},
 		setFormStoreData(state: any, value: StoreDataType[]) {
 			state.formStoreData = value;

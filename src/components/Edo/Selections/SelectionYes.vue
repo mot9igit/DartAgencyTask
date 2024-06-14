@@ -1,27 +1,46 @@
 <template>
-	<div class="selection">
-		<CustomInput placeholder="Ваш идентификатор" required="true" class="selection__input" />
+	<form class="selection">
+		<CustomInput
+			placeholder="Ваш идентификатор"
+			required="true"
+			class="selection__input"
+			:onChange="(e: any) => edoIdentity = e.target.value"
+		/>
 		<p class="selection__text modal__text">
 			Если не можете найти идентификатор, пропустите этот шаг
 		</p>
-		<RouterLink to="/form" class="selection__link">
-			<CustomButton class="selection__button modal__button" @click="close">Далее</CustomButton>
-		</RouterLink>
-	</div>
+		<CustomButton class="selection__button modal__button" type="submit">Далее</CustomButton>
+	</form>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Ref, defineComponent, ref } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
 	name: "SelectionYes",
 
 	setup() {
-		return {};
+		const store = useStore();
+
+		const edoIdentity: Ref<string> = ref("");
+
+		return {
+			store,
+			edoIdentity,
+		};
 	},
 	methods: {
 		close(): void {
 			this.$emit("close");
+		},
+		onSubmit(e: any): void {
+			e.preventDefault();
+
+			// Установка идентификатора ЭДО
+			this.store.commit("setIdentityEdo", this.edoIdentity);
+
+			this.$router.push("/form");
 		},
 	},
 });
@@ -40,11 +59,8 @@ export default defineComponent({
 		width: 100%;
 	}
 
-	&__link {
-		margin-top: 40px;
-	}
-
 	&__button {
+		margin-top: 40px;
 		padding-inline: 55px;
 	}
 }
