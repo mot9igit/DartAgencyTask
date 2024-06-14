@@ -164,9 +164,9 @@ export default defineComponent({
 
 		const store = useStore();
 
-		const storeFormData: Ref<StoreDataType> = ref({} as StoreDataType);
-		const legalFormData: Ref<LegalDataType> = ref({} as LegalDataType);
-		const legalFormPerson: Ref<LegalPersonType> = ref({} as LegalPersonType);
+		const storeFormData: Ref<StoreDataType[]> = ref([] as StoreDataType[]);
+		const legalFormData: Ref<LegalDataType[]> = ref([] as LegalDataType[]);
+		const legalFormPerson: Ref<LegalPersonType[]> = ref([] as LegalPersonType[]);
 
 		return {
 			companiesInfo,
