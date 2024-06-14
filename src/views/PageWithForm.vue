@@ -206,7 +206,7 @@ export default defineComponent({
 
 			if (response.status !== 200) return;
 
-			this.$router.push("/edo/yes");
+			// this.$router.push("/edo/yes");
 		},
 		setCompany(company: SelectCompanyType) {
 			this.company = company;
@@ -257,7 +257,7 @@ export default defineComponent({
 			}
 
 			this.store.commit("setFormLegalData", this.legalFormData);
-			console.log("Data: ", this.legalFormData, indexCopy, this.copyIndex);
+			// console.log("Data: ", this.legalFormData, indexCopy, this.copyIndex);
 		},
 		refreshLegalPerson(indexCopy: number = -1) {
 			this.legalFormPerson = this.store.state.formLegalPerson;
@@ -291,7 +291,7 @@ export default defineComponent({
 			}
 
 			this.store.commit("setFormLegalPerson", this.legalFormPerson);
-			console.log("Person data:", this.legalFormPerson, indexCopy, this.personCopyIndex);
+			// console.log("Person data:", this.legalFormPerson, indexCopy, this.personCopyIndex);
 		},
 	},
 	mounted() {

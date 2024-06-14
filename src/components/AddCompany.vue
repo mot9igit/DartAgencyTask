@@ -66,7 +66,6 @@
 						label="Работа в режиме магазина*"
 						class="form__checkbox store-data__checkbox"
 						@onChange="(e: any) => {
-							setCopyIndex(e);
 							updateStoreData('isStoreMode', e.target.checked);
 						}"
 					/>
