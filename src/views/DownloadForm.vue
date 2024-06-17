@@ -8,10 +8,46 @@
 				>{{ customTitlePunctuation }}</CustomTitle
 			>
 
-			<EdoSelect v-if="selection === 0" class="edo__select" :selections="['Да', 'Нет']" @setSelection="setSelection" />
-			<FileField v-if="selection === 1" class="edo__file-field" @onChange="setFile"  />
+			<EdoSelect
+				v-if="selection === 0"
+				class="edo__select"
+				:selections="['Да', 'Нет']"
+				@setSelection="setSelection"
+			/>
+			<FileField
+				v-if="selection === 1 || selection === 3"
+				class="edo__file-field"
+				:showLink="noSelection === 1"
+				@onChange="setFile"
+			/>
+			<EdoSelect
+				v-if="selection === 2"
+				class="edo__select"
+				:selections="['Да', 'Нет']"
+				@setSelection="setNoSelection"
+			/>
 
-			<div class="download-form__button-container">
+			<TextWithHint
+				v-if="selection === 0"
+				:paragraphes="[
+					{
+						title: 'Фид (или продуктовый фид)',
+						text: '— структурированный набор данных о товарах в формате файла CSV или XML.',
+					},
+					{
+						title: '',
+						text: 'Содержит информацию о продукте: его характеристики, отдельные категории, бренд, производителя, цену, описание.',
+					},
+					{
+						title: '',
+						text: 'Работает на Яндекс Маркете, Google Shopping, Авито, Озон и других маркетплейсах.',
+					},
+				]"
+				class="download-form__text-hint visible-tablet-mobile-average"
+				>Что такое фид?</TextWithHint
+			>
+
+			<div class="download-form__button-container hidden-tablet-mobile-average">
 				<TextWithHint
 					v-if="selection === 0"
 					:paragraphes="[
@@ -28,13 +64,22 @@
 							text: 'Работает на Яндекс Маркете, Google Shopping, Авито, Озон и других маркетплейсах.',
 						},
 					]"
+					class="download-form__text-hint hidden-tablet-mobile-average"
 					>Что такое фид?</TextWithHint
 				>
 				<ArrowButton
 					v-if="selection !== 0"
 					direction="left"
 					class="edo__arrow download-form__arrow"
-					@click="() => setSelection(0)"
+					@click="
+						() => {
+							if (selection === 1 && noSelection === 1) {
+								setNoSelection(0);
+								setSelection(2);
+							} else if (selection !== 0) setSelection(selection - 1);
+							else if (noSelection !== 0) setNoSelection(noSelection - 1);
+						}
+					"
 				/>
 
 				<CustomButton v-if="selection === 0" theme="red" class="download-form__button"
@@ -44,6 +89,30 @@
 					>Отправить</CustomButton
 				>
 			</div>
+		</div>
+
+		<div class="download-form__button-container visible-tablet-mobile-average">
+			<ArrowButton
+				v-if="selection !== 0"
+				direction="left"
+				class="edo__arrow download-form__arrow"
+				@click="
+					() => {
+						if (selection === 1 && noSelection === 1) {
+							setNoSelection(0);
+							setSelection(2);
+						} else if (selection !== 0) setSelection(selection - 1);
+						else if (noSelection !== 0) setNoSelection(noSelection - 1);
+					}
+				"
+			/>
+
+			<CustomButton v-if="selection === 0" theme="red" class="download-form__button"
+				>Далее</CustomButton
+			>
+			<CustomButton v-if="selection !== 0" theme="red" type="submit" class="download-form__button"
+				>Отправить</CustomButton
+			>
 		</div>
 	</form>
 
@@ -70,6 +139,7 @@ import axios, { AxiosResponse } from "axios";
 
 const store = useStore();
 const selection: Ref<number> = ref(0);
+const noSelection: Ref<number> = ref(0);
 const isModalShow: Ref<boolean> = ref(false);
 
 const customTitleText: Ref<string> = ref("У вас есть ФИД в формате");
@@ -89,6 +159,13 @@ const closeModal = (): void => {
 const setSelection = (value: number): void => {
 	selection.value = value;
 
+	if (selection.value === 0) {
+		setNoSelection(0);
+
+		customTitleText.value = "У вас есть ФИД в формате";
+		customTitleSpan.value = "xml";
+		customTitlePunctuation.value = "?";
+	}
 	if (selection.value === 1) {
 		customTitleText.value = "Пожалуйста, загрузите его";
 		customTitleSpan.value = "в форму";
@@ -101,33 +178,70 @@ const setSelection = (value: number): void => {
 	}
 };
 
+const setNoSelection = (value: number): void => {
+	noSelection.value = value;
+
+	if (noSelection.value === 1) {
+		setSelection(1);
+
+		customTitleText.value = "В таком случае вам придется подготовить файл excel";
+		customTitleSpan.value = "вручную";
+		customTitlePunctuation.value = "";
+	}
+	if (noSelection.value === 2) {
+		setSelection(0);
+	}
+};
+
 const setFile = (value: File | null): void => {
 	file.value = value;
-}
+};
 
 const onSubmit = async () => {
-	if(file.value == null) return;
+	if (file.value == null) return;
 
 	const formData = new FormData();
-	formData.append('file', file.value);
+	formData.append("file", file.value);
 
-	// const response: AxiosResponse = await axios.post('', {
-	// 	data: formData
-	// }, {
-	// 	headers: {
-	// 		'Content-Type': 'multipart/form-data'
-	// 	}
-	// });
+	const response: AxiosResponse = await axios.post(
+		"",
+		{
+			data: formData,
+		},
+		{
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		}
+	);
 
-	// if (response.status !== 200) return;
+	if (response.status !== 200) return;
 
 	showModal();
-}
+};
 </script>
 
 <style lang="scss">
+@import "../styles/media";
+
 .download-form {
+	width: 100%;
+	height: 100dvh;
+
 	&__content {
+
+		@include tablet-mobile-average {
+			z-index: 100;
+		}
+
+		@include mobile-tablet {
+			position: static;
+			translate: 0;
+
+			padding: 30px 20px;
+			width: 100%;
+		}
+
 		&__title,
 		.download-form__title {
 			width: fit-content;
@@ -136,17 +250,37 @@ const onSubmit = async () => {
 		}
 	}
 
+	&__text-hint {
+		@include tablet-mobile-average {
+			align-self: flex-start;
+			margin-top: 32px;
+		}
+	}
+
 	&__button-container {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: 16px;
 
 		margin-top: 95px;
 		width: 100%;
+
+		@include tablet-mobile-average {
+			position: absolute;
+			bottom: 20px;
+			left: 50%;
+			translate: -50% 0;
+			padding-inline: 20px;
+		}
 	}
 
 	&__button {
 		width: 240px;
+
+		@include tablet-mobile-average {
+			width: 100%;
+		}
 	}
 
 	&__arrow {

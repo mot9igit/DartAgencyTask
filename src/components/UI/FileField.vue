@@ -1,11 +1,12 @@
 <template>
 	<article class="field__container">
+		<a v-if="showLink" href="#" target="_blank" class="field__link">Скачать шаблоны</a>
 		<label for="fileUpload" class="field">
 			<div class="field__img-container">
 				<img src="/img/ico/file-upload.svg" alt="" />
 				<p class="field__text field__text--white">{{ title }}</p>
 			</div>
-			<p class="field__text">Можно перетащить его в эту рамку</p>
+			<p class="field__text field__text--description">Можно перетащить его в эту рамку</p>
 		</label>
 		<input ref="fileInput" type="file" id="fileUpload" class="field__input" @change="onChange" />
 	</article>
@@ -18,6 +19,13 @@ export default defineComponent({
 </script>
 <script setup lang="ts">
 import { Ref, defineComponent, ref } from "vue";
+
+const props = defineProps({
+	showLink: {
+		type: Boolean,
+		default: false
+	}
+})
 
 const emit = defineEmits(["onChange"]);
 const fileInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
@@ -33,6 +41,7 @@ const onChange = (e: any) => {
 
 <style lang="scss" scoped>
 @import "../../styles/mixins";
+@import "../../styles/media";
 
 .field {
 	@include flex-center;
@@ -47,6 +56,16 @@ const onChange = (e: any) => {
 
 	cursor: pointer;
 
+	&__link {
+		position: absolute;
+		left: 50%;
+		top: -20px;
+		translate: -50% -50%;
+
+		color: var(--color-light-dark-gray);
+		text-decoration: underline;
+	}
+
 	&__container {
 		background-color: var(--color-transparent-5-white);
 		border-radius: var(--border-radius);
@@ -54,6 +73,7 @@ const onChange = (e: any) => {
 		padding: 16px;
 		height: 108px;
 		width: 100%;
+		max-width: 600px;
 
 		position: relative;
 	}
@@ -71,6 +91,12 @@ const onChange = (e: any) => {
 			font-size: 14px;
 			line-height: 18px;
 			color: var(--color-white);
+		}
+
+		&--description {
+			@include tablet-mobile-average {
+				@include visually-hidden;
+			}
 		}
 	}
 

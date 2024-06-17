@@ -38,6 +38,7 @@ const props = defineProps({
     text-decoration: underline;
 
     position: relative;
+    z-index: 100;
 
     cursor: pointer;
 
