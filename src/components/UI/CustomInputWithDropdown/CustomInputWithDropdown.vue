@@ -113,8 +113,8 @@ const itemHandleClick = (company: CompanyType) => {
 const setCompanies = async () => {
 	const url: string =
 		props.type === SearchCompanyEnum.INN
-			? "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party"
-			: "http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/bank";
+			? "https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party"
+			: "https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/bank";
 
 	const response: AxiosResponse = await axios.post(
 		url,
