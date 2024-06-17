@@ -43,7 +43,23 @@ const close = (): void => {
 	emit("close");
 };
 
-const onSubmit = async (): Promise<void> => {};
+const onSubmit = async (): Promise<void> => {
+    const response: AxiosResponse = await axios.post('some url', {
+        data: {
+            name: name.value,
+            link: link.value
+        }
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.status !== 200) return;
+
+    // Redirect
+    // ...
+};
 </script>
 
 <style lang="scss" scoped>
