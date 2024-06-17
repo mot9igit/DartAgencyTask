@@ -1,5 +1,5 @@
 <template>
-	<section class="download-form">
+	<form class="download-form" @submit.prevent="onSubmit">
 		<div class="edo__content download-form__content">
 			<CustomTitle
 				class="edo__title download-form__title"
@@ -9,7 +9,7 @@
 			>
 
 			<EdoSelect v-if="selection === 0" class="edo__select" :selections="['Да', 'Нет']" @setSelection="setSelection" />
-			<FileField v-if="selection === 1" class="edo__file-field"  />
+			<FileField v-if="selection === 1" class="edo__file-field" @onChange="setFile"  />
 
 			<div class="download-form__button-container">
 				<TextWithHint
@@ -45,7 +45,7 @@
 				>
 			</div>
 		</div>
-	</section>
+	</form>
 
 	<SuperModal
 		v-if="isModalShow"
@@ -66,6 +66,7 @@ import SuperModal from "../components/SuperModal.vue";
 import Gratitude from "../components/DownloadForm/Gratitude.vue";
 import router from "../router";
 import { useStore } from "vuex";
+import axios, { AxiosResponse } from "axios";
 
 const store = useStore();
 const selection: Ref<number> = ref(0);
@@ -74,6 +75,8 @@ const isModalShow: Ref<boolean> = ref(false);
 const customTitleText: Ref<string> = ref("У вас есть ФИД в формате");
 const customTitleSpan: Ref<string> = ref("xml");
 const customTitlePunctuation: Ref<string> = ref("?");
+
+const file: Ref<File | null> = ref(null);
 
 const showModal = (): void => {
 	isModalShow.value = true;
@@ -97,6 +100,29 @@ const setSelection = (value: number): void => {
 		customTitlePunctuation.value = "вашей компании подготовить такой ФИД?";
 	}
 };
+
+const setFile = (value: File | null): void => {
+	file.value = value;
+}
+
+const onSubmit = async () => {
+	if(file.value == null) return;
+
+	const formData = new FormData();
+	formData.append('file', file.value);
+
+	// const response: AxiosResponse = await axios.post('', {
+	// 	data: formData
+	// }, {
+	// 	headers: {
+	// 		'Content-Type': 'multipart/form-data'
+	// 	}
+	// });
+
+	// if (response.status !== 200) return;
+
+	showModal();
+}
 </script>
 
 <style lang="scss">

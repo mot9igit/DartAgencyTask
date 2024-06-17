@@ -3,11 +3,7 @@
 		<div class="selection__content">
 			<div class="modal__text-container selection__text-container">
 				<p class="selection__text modal__text">
-					Вы можете подключить услугу, выбрав в поле ответ «Хочу установить». С Вами свяжется наш
-					менеджер и объяснит, как происходит процедура подключения.
-				</p>
-				<p class="selection__text modal__text">
-					Если же Вы не намерены в ближайшее время подключать ЭДО, тогда не заполняйте форму дальше.
+					Фид успешно отправлен. Ваши товары в ближайшее время будут выгружены на наш маркетплейс
 				</p>
 			</div>
 
@@ -16,14 +12,13 @@
 				@click="
 					{
 						close();
-						$router.push({ name: 'EdoNo' });
 					}
 				"
-				>Понятно</CustomButton
+				>Отлично</CustomButton
 			>
 		</div>
 
-		<img src="../../../assets/svg/smile.svg" class="selection__image" />
+		<img src="/img/ico/heart.svg" class="selection__image" />
 	</div>
 </template>
 
@@ -60,8 +55,8 @@ export default defineComponent({
 
 	&__image {
 		position: absolute;
-		bottom: -100px;
-		left: -125px;
+		bottom: -75px;
+		right: -70px;
 		z-index: 1;
 	}
 
