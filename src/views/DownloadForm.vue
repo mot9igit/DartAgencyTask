@@ -247,12 +247,20 @@ const onSubmit = async () => {
 
 <style lang="scss">
 @import "../styles/media";
+@import "../styles/mixins";
 
 .download-form {
+	@include flex-center;
+
 	width: 100%;
-	height: 100dvh;
+	min-height: 100dvh;
 
 	&__content {
+		position: relative;
+		left: 0;
+		top: 0;
+		translate: 0;
+
 		@include tablet-mobile-average {
 			z-index: 100;
 		}
