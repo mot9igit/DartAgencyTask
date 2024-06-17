@@ -90,12 +90,12 @@ export default defineComponent({
 				this.selectInput.blur();
 			}
 		},
-		itemHandleClick(nds: DataType) {
+		itemHandleClick(data: DataType) {
 			this.isClicked = false;
-			this.selectInput.value = nds.name;
+			this.selectInput.value = data.name;
 			this.selectInput.blur();
 
-			this.$emit("change", nds);
+			this.$emit("change", data);
 		},
 	},
 

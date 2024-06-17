@@ -9,6 +9,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Test from "../views/Test.vue";
 import NotFound from "../views/NotFound.vue";
 import AnswerYes from "../components/Edo/Answers/AnswerYes.vue";
+import IntegrationForm from "../views/IntegrationForm.vue";
 
 type RouteType = {
 	path: string;
@@ -35,7 +36,7 @@ const routes: RouteType[] = [
 	{
 		path: "/edo/yes",
 		name: "EdoYes",
-        component: AnswerYes,
+		component: AnswerYes,
 	},
 	{
 		path: "/edo/no",
@@ -53,20 +54,25 @@ const routes: RouteType[] = [
 		component: PageWithForm,
 	},
 	{
+		path: "/integration-form",
+		name: "IntegrationForm",
+		component: IntegrationForm,
+	},
+	{
 		path: "/test",
 		name: "Test",
-		component: Test
+		component: Test,
 	},
 	{
 		path: "/:pathMatch(.*)*",
 		name: "NotFound",
-		component: NotFound
-	}
+		component: NotFound,
+	},
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
+	history: createWebHistory(),
+	routes,
+});
 
 export default router;
