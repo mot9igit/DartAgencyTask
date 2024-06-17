@@ -9,7 +9,7 @@
 			>
 
 			<EdoSelect v-if="selection === 0" class="edo__select" :selections="['Да', 'Нет']" @setSelection="setSelection" />
-			<FileField v-if="selection === 1" class="edo__file-field" />
+			<FileField v-if="selection === 1" class="edo__file-field"  />
 
 			<div class="download-form__button-container">
 				<TextWithHint
@@ -34,7 +34,7 @@
 					v-if="selection !== 0"
 					direction="left"
 					class="edo__arrow download-form__arrow"
-					@click="$router.go(-1)"
+					@click="() => setSelection(0)"
 				/>
 
 				<CustomButton v-if="selection === 0" theme="red" class="download-form__button"

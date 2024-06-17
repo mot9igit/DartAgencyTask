@@ -3,11 +3,11 @@
 		<label for="fileUpload" class="field">
 			<div class="field__img-container">
 				<img src="/img/ico/file-upload.svg" alt="" />
-				<p class="field__text field__text--white">Добавить файл</p>
+				<p class="field__text field__text--white">{{ title }}</p>
 			</div>
 			<p class="field__text">Можно перетащить его в эту рамку</p>
 		</label>
-		<input type="file" id="fileUpload" class="hidden" />
+		<input ref="fileInput" type="file" id="fileUpload" class="field__input" @change="onChange" />
 	</article>
 </template>
 
@@ -17,7 +17,18 @@ export default defineComponent({
 });
 </script>
 <script setup lang="ts">
-import { defineComponent } from "vue";
+import { Ref, defineComponent, ref } from "vue";
+
+const emit = defineEmits(["onChange"]);
+const fileInput: Ref<HTMLInputElement> = ref({} as HTMLInputElement);
+
+const title: Ref<string> = ref("Добавить файл");
+
+// Methods
+const onChange = (e: any) => {
+	title.value = e.target.files[0].name;
+	emit("onChange", e.target.files[0]);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +54,8 @@ import { defineComponent } from "vue";
 		padding: 16px;
 		height: 108px;
 		width: 100%;
+
+		position: relative;
 	}
 
 	&__img-container {
@@ -59,6 +72,17 @@ import { defineComponent } from "vue";
 			line-height: 18px;
 			color: var(--color-white);
 		}
+	}
+
+	&__input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		opacity: 0;
+		z-index: 2;
+		cursor: pointer;
 	}
 }
 </style>

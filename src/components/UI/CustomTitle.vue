@@ -82,7 +82,7 @@ export default defineComponent({
 		content: "";
 
 		position: absolute;
-		right: -11.5px;
+		right: -12.5px;
 		bottom: 0;
 
 		border: var(--border);
@@ -92,7 +92,7 @@ export default defineComponent({
 		width: 4.4%;
 		height: 27%;
 
-		transform: skew(-45deg);
+		transform: skew(-47deg);
 
 		@include tablet-mobile-average {
 			right: -11.9px;
