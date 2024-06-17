@@ -55,6 +55,7 @@ export default defineComponent({
 	background-color: var(--color-transparent-5-white);
 
 	min-width: calc(428px + 24px * 2);
+	max-width: 700px;
 	width: 428px;
 	height: 78px;
 	padding-inline: 24px;
