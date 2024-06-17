@@ -98,7 +98,7 @@ export default defineComponent({
 
 		.modal__header {
 			display: flex;
-			align-items: flex-start;
+			align-items: center;
 			justify-content: space-between;
 			gap: 16px;
 

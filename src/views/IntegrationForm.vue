@@ -114,9 +114,17 @@
 					</div>
 
 					<div class="integration-form__container">
-						<FileIcon type="pdf" href="https://mst.tools/integration.pdf" class="integration-form__icon">Скачать инструкцию</FileIcon>
+						<FileIcon
+							type="pdf"
+							href="https://mst.tools/integration.pdf"
+							class="integration-form__icon"
+							>Скачать инструкцию</FileIcon
+						>
 						<div class="integration-form__button-container">
-							<CustomButton theme="black" type="submit" class="form__button form__button--submit"
+							<CustomButton
+								theme="black"
+								class="form__button form__button--submit"
+								@click="showModal"
 								>У нас другая учетная система</CustomButton
 							>
 							<CustomButton theme="red" type="submit" class="form__button form__button--submit"
@@ -149,6 +157,15 @@
 			</div>
 		</footer>
 	</section>
+
+	<SuperModal
+		v-if="isModalShow"
+		id="edoModal"
+		title="Укажите вашу учетную систему"
+		@close="closeModal"
+	>
+		<Account @close="closeModal" />
+	</SuperModal>
 </template>
 
 <script lang="ts" setup>
@@ -158,10 +175,14 @@ import { IntegrationDataType, Person1CDataType } from "../types/DataFromIntegrat
 import IMask from "imask";
 import axios, { AxiosResponse } from "axios";
 import { DataType } from "../components/UI/TextSelect/TextSelect.vue";
+import SuperModal from "../components/SuperModal.vue";
+import Account from "../components/IntegrationForm/Account.vue";
 
 const store = useStore();
 const integrationData: Ref<IntegrationDataType> = ref({} as IntegrationDataType);
 const person1CData: Ref<Person1CDataType> = ref({} as Person1CDataType);
+
+const isModalShow: Ref<boolean> = ref(false);
 
 // Data
 const configNames: DataType[] = [
@@ -195,6 +216,14 @@ const onSubmit = async (): Promise<void> => {
 
 	// Redirect
 	// ...
+};
+
+const closeModal = (): void => {
+	isModalShow.value = false;
+};
+
+const showModal = (): void => {
+	isModalShow.value = true;
 };
 
 const updateIntegrationData = (key: string, value: string): void => {
