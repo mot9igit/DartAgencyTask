@@ -11,9 +11,16 @@
 				</p>
 			</div>
 
-			<RouterLink to="/edo/no" class="selection__link">
-				<CustomButton class="selection__button modal__button" @click="close">Понятно</CustomButton>
-			</RouterLink>
+			<CustomButton
+				class="selection__button modal__button"
+				@click="
+					{
+						close();
+						$router.push({ name: 'EdoNo' });
+					}
+				"
+				>Понятно</CustomButton
+			>
 		</div>
 
 		<img src="../../../assets/svg/smile.svg" class="selection__image" />
@@ -58,11 +65,8 @@ export default defineComponent({
 		z-index: 1;
 	}
 
-	&__link {
-		margin-top: 40px;
-	}
-
 	&__button {
+		margin-top: 40px;
 		padding-inline: 55px;
 	}
 }

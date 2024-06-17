@@ -12,12 +12,12 @@
 					:opportunity="opportunity"
 				/>
 			</div>
-			<RouterLink to="/edo" class="content__link hidden-tablet-mobile-average">
+			<RouterLink :to="{ name: 'Edo' }" class="content__link hidden-tablet-mobile-average">
 				<CustomButton id="selectCompany" class="content__button">Выбрать</CustomButton>
 			</RouterLink>
 		</div>
 
-		<RouterLink to="/edo" class="content__link visible-tablet-mobile-average">
+		<RouterLink :to="{ name: 'Edo' }" class="content__link visible-tablet-mobile-average">
 			<CustomButton id="selectCompanyMobile" class="content__button content__button--mobile">Выбрать</CustomButton>
 		</RouterLink>
 

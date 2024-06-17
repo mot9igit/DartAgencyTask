@@ -38,7 +38,7 @@ export default defineComponent({
 			// Установка идентификатора ЭДО
 			this.store.commit("setIdentityEdo", this.edoIdentity);
 
-			this.$router.push("/form");
+			this.$router.push({ name: "Form" });
 		},
 	},
 });

@@ -248,7 +248,7 @@ export default defineComponent({
 
 			if (response.status !== 200) return;
 
-			this.$router.push("/edo/yes");
+			this.$router.push({ name: "EdoYes" });
 		},
 		setCompany(company: SelectCompanyType) {
 			this.company = company;
