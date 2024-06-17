@@ -235,7 +235,9 @@ const onSubmit = async () => {
 		}
 
 		@include mobile-tablet {
-			position: static;
+			position: relative;
+			top: 0;
+			left: 0;
 			translate: 0;
 
 			padding: 30px 20px;

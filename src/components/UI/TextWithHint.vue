@@ -66,6 +66,9 @@ const props = defineProps({
 
         cursor: default;
 
+        @include mobile-tablet {
+        }
+
         &::before {
             content: '';
 
