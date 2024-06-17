@@ -255,11 +255,19 @@ const onSubmit = async () => {
 	width: 100%;
 	min-height: 100dvh;
 
+	@include tablet {
+		align-items: flex-start;
+	}
+
 	&__content {
 		position: relative;
 		left: 0;
 		top: 0;
 		translate: 0;
+
+		@include tablet {
+			margin-top: 40px;
+		}
 
 		@include tablet-mobile-average {
 			z-index: 100;
@@ -271,7 +279,7 @@ const onSubmit = async () => {
 			left: 0;
 			translate: 0;
 
-			padding: 30px 20px;
+			margin: 30px 20px;
 			width: 100%;
 		}
 
