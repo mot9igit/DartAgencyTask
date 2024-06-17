@@ -104,10 +104,11 @@
 					"
 				/>
 
-				<CustomButton v-if="selection === 0" theme="red" class="download-form__button"
-					>Далее</CustomButton
-				>
-				<CustomButton v-if="selection !== 0" theme="red" type="submit" class="download-form__button"
+				<CustomButton
+					v-if="selection === 2 || noSelection === 2"
+					theme="red"
+					type="submit"
+					class="download-form__button"
 					>Отправить</CustomButton
 				>
 			</div>
@@ -129,9 +130,6 @@
 				"
 			/>
 
-			<CustomButton v-if="selection === 0" theme="red" class="download-form__button"
-				>Далее</CustomButton
-			>
 			<CustomButton v-if="selection !== 0" theme="red" type="submit" class="download-form__button"
 				>Отправить</CustomButton
 			>
@@ -202,18 +200,27 @@ const setSelection = (value: number): void => {
 	}
 };
 
-const setNoSelection = (value: number): void => {
+const setNoSelection = async (value: number): Promise<void> => {
 	noSelection.value = value;
 
 	if (noSelection.value === 1) {
+		const response: AxiosResponse = await axios.post("", {
+			data: {
+				fid: true,
+			},
+		});
+
+		if (response.status !== 200) return;
+
+		// Redirect
+		// ...
+	}
+	if (noSelection.value === 2) {
 		setSelection(1);
 
 		customTitleText.value = "В таком случае вам придется подготовить файл excel";
 		customTitleSpan.value = "вручную";
 		customTitlePunctuation.value = "";
-	}
-	if (noSelection.value === 2) {
-		setSelection(0);
 	}
 };
 
