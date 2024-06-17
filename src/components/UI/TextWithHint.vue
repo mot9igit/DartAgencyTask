@@ -13,9 +13,10 @@
 
 <script lang="ts">
 export default defineComponent({
-    name: "TextWithHint",
-})
+    name: "TextWithHint"
+});
 </script>
+
 <script setup lang="ts">
 import { defineComponent, defineProps } from "vue";
 import { HintTextType } from "../../types/HintText";
@@ -53,7 +54,7 @@ const props = defineProps({
 
         position: absolute;
         left: 0;
-        bottom: -8px;
+        bottom: calc(-8px - 11px);
         translate: 0 100%;
 
         background-color: var(--color-black);
@@ -63,6 +64,23 @@ const props = defineProps({
         width: 300px;
 
         cursor: default;
+
+        &::before {
+            content: '';
+
+            position: absolute;
+            top: 0;
+            left: 20px;
+            translate: 0 -50%;
+
+            background-color: var(--color-black);
+            border-radius: var(--border-radius-very-small);
+
+            width: 33px;
+            height: 22px;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            rotate: 180deg;
+        }
     }
 
     &__hint-text {
