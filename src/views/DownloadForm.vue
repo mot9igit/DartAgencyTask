@@ -1,7 +1,5 @@
 <template>
 	<section class="download-form">
-		<ArrowButton direction="left" class="edo__arrow" @click="$router.go(-1)" />
-
 		<div class="edo__content download-form__content">
 			<CustomTitle
 				class="edo__title download-form__title"
@@ -9,9 +7,13 @@
 				:span="customTitleSpan"
 				>{{ customTitlePunctuation }}</CustomTitle
 			>
-			<EdoSelect class="edo__select" :selections="['Да', 'Нет']" @setSelection="setSelection" />
+
+			<EdoSelect v-if="selection === 0" class="edo__select" :selections="['Да', 'Нет']" @setSelection="setSelection" />
+			<FileField v-if="selection === 1" class="edo__file-field" />
+
 			<div class="download-form__button-container">
 				<TextWithHint
+					v-if="selection === 0"
 					:paragraphes="[
 						{
 							title: 'Фид (или продуктовый фид)',
@@ -28,7 +30,19 @@
 					]"
 					>Что такое фид?</TextWithHint
 				>
-				<CustomButton theme="red" class="download-form__button">Далее</CustomButton>
+				<ArrowButton
+					v-if="selection !== 0"
+					direction="left"
+					class="edo__arrow download-form__arrow"
+					@click="$router.go(-1)"
+				/>
+
+				<CustomButton v-if="selection === 0" theme="red" class="download-form__button"
+					>Далее</CustomButton
+				>
+				<CustomButton v-if="selection !== 0" theme="red" type="submit" class="download-form__button"
+					>Отправить</CustomButton
+				>
 			</div>
 		</div>
 	</section>
@@ -71,7 +85,17 @@ const closeModal = (): void => {
 
 const setSelection = (value: number): void => {
 	selection.value = value;
-	selection.value == 1 && showModal();
+
+	if (selection.value === 1) {
+		customTitleText.value = "Пожалуйста, загрузите его";
+		customTitleSpan.value = "в форму";
+		customTitlePunctuation.value = "";
+	}
+	if (selection.value === 2) {
+		customTitleText.value = "Вы можете попросить";
+		customTitleSpan.value = "IT-специалиста";
+		customTitlePunctuation.value = "вашей компании подготовить такой ФИД?";
+	}
 };
 </script>
 
@@ -80,7 +104,6 @@ const setSelection = (value: number): void => {
 	&__content {
 		&__title,
 		.download-form__title {
-			max-width: 700px;
 			width: fit-content;
 			height: fit-content;
 			padding: 24px;
@@ -97,7 +120,11 @@ const setSelection = (value: number): void => {
 	}
 
 	&__button {
-		padding-inline: 90px;
+		width: 240px;
+	}
+
+	&__arrow {
+		position: static;
 	}
 }
 </style>

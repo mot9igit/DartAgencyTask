@@ -17,6 +17,7 @@ import AddressSelect from "./AddressSelect/AddressSelect.vue";
 import Fog from "./Fog.vue";
 import TextWithHint from "./TextWithHint.vue";
 import FileIcon from "./FileIcon.vue";
+import FileField from "./FileField.vue";
 
 export default [
 	ArrowButton,
@@ -37,5 +38,6 @@ export default [
 	AddressSelect,
 	Fog,
 	TextWithHint,
-	FileIcon
+	FileIcon,
+	FileField,
 ];

@@ -1,6 +1,6 @@
 <template>
 	<h3 class="title">
-		{{ text }}&nbsp;<span class="title__span">{{ span }}</span>
+		{{ text }}&nbsp;<span class="title__span">{{ span }}&nbsp;</span>
 		<slot></slot>
 	</h3>
 </template>
@@ -46,6 +46,7 @@ export default defineComponent({
 	align-items: center;
 
 	color: var(--color-white);
+	text-align: center;
 
 	border: var(--border);
 	border-color: var(--color-transparent-35-white);
@@ -97,11 +98,11 @@ export default defineComponent({
 			right: -11.9px;
 			width: 6.1%;
 			height: 24%;
-			transform: skew(-45deg);
 		}
 	}
 
 	&__span {
+		display: contents;
 		color: var(--color-light-red);
 	}
 }
