@@ -93,8 +93,8 @@
 							if (selection === 1 && noSelection === 1) {
 								setNoSelection(0);
 								setSelection(2);
-							} else if (selection !== 0) setSelection(selection - 1);
-							else if (noSelection !== 0) setNoSelection(noSelection - 1);
+							} else if (selection !== 0) setSelection(0);
+							else if (noSelection !== 0) setNoSelection(0);
 						}
 					"
 				/>
@@ -217,7 +217,7 @@ const setFile = (value: File | null): void => {
 };
 
 const onSubmit = async () => {
-	if (file.value == null) return;
+	if (file.value == null || file.value == "") return;
 
 	const formData = new FormData();
 	formData.append("file", file.value);
