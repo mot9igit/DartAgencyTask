@@ -63,10 +63,6 @@ export default defineComponent({
 
 	position: relative;
 	overflow: hidden;
-
-	@include desktop-s {
-	}
-
 	@include tablet {
 		height: clamp(50px, #{calc(78 * 100 / 768)}vw, 78px);
 		width: clamp(250px, #{calc(428 * 100 / 768)}vw, 428px);
@@ -74,6 +70,8 @@ export default defineComponent({
 	}
 
 	@include tablet-mobile-average {
+		--item-scale: 11px;
+
 		height: 50px;
 		width: 250px;
 		font-size: 18px;
@@ -97,9 +95,7 @@ export default defineComponent({
 		transform: skew(-45deg);
 
 		@include tablet-mobile-average {
-			right: -11.9px;
-			width: 6.1%;
-			height: 24%;
+			right: -8.5px;
 		}
 	}
 
