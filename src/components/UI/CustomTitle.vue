@@ -34,6 +34,8 @@ export default defineComponent({
 .title {
 	--height: 78px;
 
+	--item-scale: 21px;
+
 	font: {
 		size: 30px;
 		weight: 600;
@@ -57,7 +59,7 @@ export default defineComponent({
 	height: 78px;
 	padding-inline: 24px;
 
-	clip-path: polygon(0 0, 100% 0, 100% 72.73%, 95.07% 100%, 0 100%);
+	clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--item-scale)), calc(100% - var(--item-scale)) 100%, 0 100%);
 
 	position: relative;
 	overflow: hidden;
@@ -82,17 +84,17 @@ export default defineComponent({
 		content: "";
 
 		position: absolute;
-		right: -12.5px;
+		right: -14.5px;
 		bottom: 0;
 
 		border: var(--border);
 		// border-color: var(--color-transparent-35-white);
 		background-color: var(--color-transparent-35-white);
 
-		width: 4.4%;
-		height: 27%;
+		width: var(--item-scale);
+		height: var(--item-scale);
 
-		transform: skew(-47deg);
+		transform: skew(-45deg);
 
 		@include tablet-mobile-average {
 			right: -11.9px;
