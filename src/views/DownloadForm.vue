@@ -11,7 +11,23 @@
 			>
 			<EdoSelect class="edo__select" :selections="['Да', 'Нет']" @setSelection="setSelection" />
 			<div class="download-form__button-container">
-				<TextWithHint>Что такое фид?</TextWithHint>
+				<TextWithHint
+					:paragraphes="[
+						{
+							title: 'Фид (или продуктовый фид)',
+							text: '— структурированный набор данных о товарах в формате файла CSV или XML.',
+						},
+						{
+							title: '',
+							text: 'Содержит информацию о продукте: его характеристики, отдельные категории, бренд, производителя, цену, описание.',
+						},
+						{
+							title: '',
+							text: 'Работает на Яндекс Маркете, Google Shopping, Авито, Озон и других маркетплейсах.',
+						},
+					]"
+					>Что такое фид?</TextWithHint
+				>
 				<CustomButton theme="red" class="download-form__button">Далее</CustomButton>
 			</div>
 		</div>
@@ -73,7 +89,7 @@ const setSelection = (value: number): void => {
 
 	&__button-container {
 		display: flex;
-        align-items: center;
+		align-items: center;
 		justify-content: space-between;
 
 		margin-top: 95px;
