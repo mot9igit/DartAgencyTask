@@ -33,9 +33,14 @@
 					name="radio"
 					label="Файл"
 					:checked="true"
-					@onChange="() => fileInputSelection = 'file'"
+					@onChange="() => (fileInputSelection = 'file')"
 				/>
-				<CustomRadio id="downloadFormRadio2" name="radio" label="Ссылка" @onChange="() => fileInputSelection = 'link'" />
+				<CustomRadio
+					id="downloadFormRadio2"
+					name="radio"
+					label="Ссылка"
+					@onChange="() => (fileInputSelection = 'link')"
+				/>
 			</div>
 			<EdoSelect
 				v-if="selection === 2"
@@ -118,8 +123,8 @@
 						if (selection === 1 && noSelection === 1) {
 							setNoSelection(0);
 							setSelection(2);
-						} else if (selection !== 0) setSelection(selection - 1);
-						else if (noSelection !== 0) setNoSelection(noSelection - 1);
+						} else if (selection !== 0) setSelection(0);
+						else if (noSelection !== 0) setNoSelection(0);
 					}
 				"
 			/>
