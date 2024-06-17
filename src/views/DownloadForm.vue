@@ -10,19 +10,36 @@
 
 			<EdoSelect
 				v-if="selection === 0"
-				class="edo__select"
+				class="edo__select download-form__select"
 				:selections="['Да', 'Нет']"
 				@setSelection="setSelection"
 			/>
 			<FileField
-				v-if="selection === 1 || selection === 3"
-				class="edo__file-field"
+				v-if="(selection === 1 || selection === 3) && fileInputSelection === 'file'"
+				class="download-form__file-field"
 				:showLink="noSelection === 1"
 				@onChange="setFile"
 			/>
+			<CustomInput
+				v-if="(selection === 1 || selection === 3) && fileInputSelection === 'link'"
+				class="download-form__input"
+				placeholder="Ссылка"
+				:required="true"
+				:onChange="(e: any) => file = e.target.value"
+			/>
+			<div v-if="selection === 1 || selection === 3" class="download-form__radio-container">
+				<CustomRadio
+					id="downloadFormRadio1"
+					name="radio"
+					label="Файл"
+					:checked="true"
+					@onChange="() => fileInputSelection = 'file'"
+				/>
+				<CustomRadio id="downloadFormRadio2" name="radio" label="Ссылка" @onChange="() => fileInputSelection = 'link'" />
+			</div>
 			<EdoSelect
 				v-if="selection === 2"
-				class="edo__select"
+				class="edo__select download-form__select"
 				:selections="['Да', 'Нет']"
 				@setSelection="setNoSelection"
 			/>
@@ -136,6 +153,7 @@ import Gratitude from "../components/DownloadForm/Gratitude.vue";
 import router from "../router";
 import { useStore } from "vuex";
 import axios, { AxiosResponse } from "axios";
+import CustomInput from "../components/UI/CustomInput.vue";
 
 const store = useStore();
 const selection: Ref<number> = ref(0);
@@ -146,7 +164,8 @@ const customTitleText: Ref<string> = ref("У вас есть ФИД в форм�
 const customTitleSpan: Ref<string> = ref("xml");
 const customTitlePunctuation: Ref<string> = ref("?");
 
-const file: Ref<File | null> = ref(null);
+const file: Ref<File | string | null> = ref(null);
+const fileInputSelection: Ref<string> = ref("file");
 
 const showModal = (): void => {
 	isModalShow.value = true;
@@ -229,7 +248,6 @@ const onSubmit = async () => {
 	height: 100dvh;
 
 	&__content {
-
 		@include tablet-mobile-average {
 			z-index: 100;
 		}
@@ -252,11 +270,27 @@ const onSubmit = async () => {
 		}
 	}
 
+	&__input {
+		width: 100%;
+	}
+
 	&__text-hint {
 		@include tablet-mobile-average {
 			align-self: flex-start;
 			margin-top: 32px;
 		}
+	}
+
+	&__select {
+		@include tablet-mobile-average {
+			width: 100%;
+		}
+	}
+
+	&__radio-container {
+		display: flex;
+		gap: 10px;
+		margin-top: 20px;
 	}
 
 	&__button-container {

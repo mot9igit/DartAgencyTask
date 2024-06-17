@@ -42,8 +42,6 @@ export default defineComponent({
 	border-left: var(--border);
 	border-color: var(--color-white);
 
-	width: 100%;
-
 	&__button {
 		background-color: transparent;
 		text-align: left;

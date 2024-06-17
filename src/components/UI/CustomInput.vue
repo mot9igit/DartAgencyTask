@@ -56,7 +56,7 @@ export default defineComponent({
 			default: "",
 		},
 		onChange: {
-			type: Object as () => () => void,
+			type: Object as () => (e: any) => void,
 			default: () => {},
 		}
 	}

@@ -1,6 +1,6 @@
 <template>
 	<div class="radio__wrapper">
-		<input :id="id" type="radio" :name="name" class="radio" />
+		<input :id="id" type="radio" :name="name" class="radio" :checked="checked" @change="$emit('onChange')" />
 		<label :for="id" class="radio__change"></label>
 		<label :for="id" class="radio__label">{{ label }}</label>
 	</div>
@@ -8,6 +8,7 @@
 
 <script>
 import { defineComponent } from "vue";
+import CustomCheckbox from "./CustomCheckbox.vue";
 
 export default defineComponent({
 	name: "CustomRadio",
@@ -24,6 +25,10 @@ export default defineComponent({
 		label: {
 			type: String,
 			required: false,
+		},
+		checked: {
+			type: Boolean,
+			default: false,
 		},
 	},
 });
@@ -49,12 +54,12 @@ export default defineComponent({
 		}
 	}
 
-    &__wrapper {
-        display: flex;
-        gap: 8px;
+	&__wrapper {
+		display: flex;
+		gap: 8px;
 
 		position: relative;
-    }
+	}
 
 	&__change {
 		display: block;
@@ -65,7 +70,7 @@ export default defineComponent({
 		width: 18px;
 		height: 18px;
 
-        flex-shrink: 0;
+		flex-shrink: 0;
 
 		transition-duration: var(--transition-duration);
 		cursor: pointer;
