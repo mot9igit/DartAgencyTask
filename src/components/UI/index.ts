@@ -15,6 +15,8 @@ import TextSelect from "./TextSelect/TextSelect.vue";
 import MapMarker from "./MapMarker.vue";
 import AddressSelect from "./AddressSelect/AddressSelect.vue";
 import Fog from "./Fog.vue";
+import TextWithHint from "./TextWithHint.vue";
+import FileIcon from "./FileIcon.vue";
 
 export default [
 	ArrowButton,
@@ -34,4 +36,6 @@ export default [
 	MapMarker,
 	AddressSelect,
 	Fog,
+	TextWithHint,
+	FileIcon
 ];

@@ -10,6 +10,7 @@ import Test from "../views/Test.vue";
 import NotFound from "../views/NotFound.vue";
 import AnswerYes from "../components/Edo/Answers/AnswerYes.vue";
 import IntegrationForm from "../views/IntegrationForm.vue";
+import DownloadForm from "../views/DownloadForm.vue";
 
 type RouteType = {
 	path: string;
@@ -57,6 +58,11 @@ const routes: RouteType[] = [
 		path: "/integration-form",
 		name: "IntegrationForm",
 		component: IntegrationForm,
+	},
+	{
+		path: "/download-form",
+		name: "DownloadForm",
+		component: DownloadForm,
 	},
 	{
 		path: "/test",

@@ -9,7 +9,7 @@
 
 		<div class="edo__content">
 			<CustomTitle class="edo__title" text="Есть ли у вас" span="ЭДО">?</CustomTitle>
-			<EdoSelect class="edo__select" @setSelection="setSelection" />
+			<EdoSelect class="edo__select" :selections="['Да', 'Нет', 'Нет, но хочу поставить']" @setSelection="setSelection" />
 		</div>
 	</section>
 
@@ -76,7 +76,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../styles/mixins";
 
 .edo {

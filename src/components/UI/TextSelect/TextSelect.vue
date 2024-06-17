@@ -166,6 +166,8 @@ export default defineComponent({
 	}
 
 	&__items {
+		@include scrollbar-alt;
+
 		display: flex;
 		flex-direction: column;
 
@@ -184,7 +186,10 @@ export default defineComponent({
 		color: var(--color-white);
 
 		padding-block: 11px;
+		max-height: 300px;
 		width: 100%;
+
+		overflow-y: auto;
 
 		z-index: 100;
 	}

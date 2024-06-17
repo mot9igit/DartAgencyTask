@@ -907,6 +907,7 @@ export default defineComponent({
 	&__input-container {
 		display: grid;
 		grid-template: auto / repeat(2, 1fr);
+		place-items: center;
 		row-gap: 25px;
 		column-gap: 24px;
 

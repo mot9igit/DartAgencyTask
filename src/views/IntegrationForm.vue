@@ -35,13 +35,13 @@
 						<div class="container__data">
 							<div class="container__input-container">
 								<TextSelect
-                                    id="configNameInput"
+									id="configNameInput"
 									ref="configNameInput"
 									placeholder="Имя конфигурации"
 									:value="integrationData.config_name"
 									:required="true"
 									class="form__input"
-                                    :data="configNames"
+									:data="configNames"
 									@change="(e: any) => updateIntegrationData('config_name', e.name)"
 								/>
 								<CustomInput
@@ -59,6 +59,12 @@
 									:required="true"
 									class="form__input"
 									:onChange="(e: any) => updateIntegrationData('platform_version', e.target.value)"
+								/>
+								<CustomCheckbox
+									@change="(e: any) => updatePerson1CData('self_installation', e.target.checked)"
+									id="selfInstallation"
+									label="Самостоятельная установка"
+									class="form__checkbox"
 								/>
 							</div>
 						</div>
@@ -107,13 +113,16 @@
 						<hr class="form__line" />
 					</div>
 
-					<div class="integration-form__button-container">
-						<CustomButton theme="black" type="submit" class="form__button form__button--submit"
-							>У нас другая учетная система</CustomButton
-						>
-						<CustomButton theme="red" type="submit" class="form__button form__button--submit"
-							>Отправить</CustomButton
-						>
+					<div class="integration-form__container">
+						<FileIcon type="pdf" href="https://mst.tools/integration.pdf" class="integration-form__icon">Скачать инструкцию</FileIcon>
+						<div class="integration-form__button-container">
+							<CustomButton theme="black" type="submit" class="form__button form__button--submit"
+								>У нас другая учетная система</CustomButton
+							>
+							<CustomButton theme="red" type="submit" class="form__button form__button--submit"
+								>Отправить</CustomButton
+							>
+						</div>
 					</div>
 				</main>
 			</form>
@@ -154,14 +163,16 @@ const store = useStore();
 const integrationData: Ref<IntegrationDataType> = ref({} as IntegrationDataType);
 const person1CData: Ref<Person1CDataType> = ref({} as Person1CDataType);
 
-
 // Data
 const configNames: DataType[] = [
-    { name: "Компания" },
-    { name: "Сотрудник" },
-    { name: "Предприятие" },
-]
-
+	{ name: "1С7.7:Торговля и склад" },
+	{ name: "1С8:Управление торговлей" },
+	{ name: "1С8:Управление небольшой фирмой" },
+	{ name: "1С8:Розница" },
+	{ name: "1С8:Бухгалтерия" },
+	{ name: "1С8:Комплексная автоматизация" },
+	{ name: "1С8:ERP Управление предприятием 2" },
+];
 
 // Methods
 const onSubmit = async (): Promise<void> => {
@@ -227,20 +238,26 @@ onMounted(() => {
 		}
 
 		@include tablet {
-            top: 75px;
-            right: 0;
+			top: 75px;
+			right: 0;
 			width: clamp(260px, #{calc(400 * 100 / 768)}vw, 400px);
 		}
 
-        @include tablet-mobile-average {
-            top: 50px;
-            right: -50px;
-        }
+		@include tablet-mobile-average {
+			top: 50px;
+			right: -50px;
+		}
 	}
 }
 
 .integration-form {
 	padding-top: 120px;
+
+	&__container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
 
 	&__button-container {
 		display: flex;

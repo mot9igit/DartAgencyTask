@@ -1,13 +1,11 @@
 <template>
 	<div class="select">
-		<button class="select__button" @click="() => setSelection(1)">
-			<CustomTextBlock class="select__text-block">Да</CustomTextBlock>
-		</button>
-		<button class="select__button" @click="() => setSelection(2)">
-			<CustomTextBlock class="select__text-block">Нет</CustomTextBlock>
-		</button>
-		<button class="select__button" @click="() => setSelection(3)">
-			<CustomTextBlock class="select__text-block">Нет, но я хочу оставить</CustomTextBlock>
+		<button
+			v-for="(selection, index) in selections"
+			class="select__button"
+			@click="() => setSelection(index + 1)"
+		>
+			<CustomTextBlock class="select__text-block">{{ selection }}</CustomTextBlock>
 		</button>
 	</div>
 </template>
@@ -18,6 +16,12 @@ import { defineComponent } from "vue";
 export default defineComponent({
 	setup() {
 		return {};
+	},
+	props: {
+		selections: {
+			type: Array as () => string[],
+			required: true,
+		},
 	},
 	methods: {
 		setSelection(value: number) {
